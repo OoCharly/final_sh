@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:25:11 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/06 17:05:32 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/06 17:42:45 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			ft_insertglob(t_list *begin)
 					tmp_tab = t;
 					t = ft_insertdeletetab(t, g_tab, i);
 					i += ft_strtablen(g_tab);
-					ft_strtabfree(g_tab);
+					ft_free(g_tab);
 					ft_free(tmp_tab);
 				}
 			begin->data = t;
