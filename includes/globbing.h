@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/06 13:17:21 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:20:49 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 void	ft_glob(DIR *dir, char *path, char *glob);
 char	*ft_launch_glob(char *str);
+int		ft_insertglob(t_list *begin);
 
 /*
 ** match.c
