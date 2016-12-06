@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:25:11 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/06 13:25:13 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:25:42 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			ft_insertglob(t_list *begin)
 				else 
 				{
 					g_tab = ft_strsplit(tmp, ' ');
-					//ft_freegiveone((void **)&tmp); IL faudra la free mais pas la !
+					ft_freegiveone((void **)&tmp);
 					tmp_tab = t;
 					t = ft_insertdeletetab(t, g_tab, i);
 					i += ft_strtablen(g_tab);
