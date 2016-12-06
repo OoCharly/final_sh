@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:20:26 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 09:03:33 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/06 12:55:50 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@ char		*ft_path_handle(char **argv, t_config *config)
 	if (!ft_strcmp(argv[0], "pwd") || !ft_strcmp(argv[0], "echo")
 		|| !ft_strcmp(argv[0], "env") || !ft_strcmp(argv[0], "printenv"))
 		return (argv[0]);
-	if ((path = ft_return_binpath(config, argv[0])))
-		;
-	else
-		path = argv[0];
+	if (ft_strcmp(config->last_hash, ft_strtabfindstart(config->env, "PATH=")))
+		ft_pathtohash(config);
+	if (ft_return_binpath(config, argv[0], &path))
+	{
+		path = NULL;
+		ft_pathtohash(config);
+		ft_return_binpath(config, argv[0], &path);
+		path = (path) ? path : argv[0];
+	}
 	if (!ft_access_exec(path, argv, config))
 		return (NULL);
 	return (path);
@@ -30,7 +35,10 @@ char		*ft_path_handle(char **argv, t_config *config)
 
 void		ft_execve(char *path, char **argv, char **env)
 {
-	if (-1 == execve(path, argv, env))
+	static char	*rearg[3] = {"./21sh", NULL, NULL}; 
+		
+	if ((-1 == execve(path, argv, env)) && (rearg[1] = path) &&
+			(-1 == execve(SHNAME, rearg, env)))
 		ft_error(SHNAME, "exec", "execve error", CR_ERROR);
 }
 

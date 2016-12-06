@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 12:53:14 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 12:55:09 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_config
 	char		dot_sequence;
 	int			last_exit;
 	bool		syntax_color_off;
+	char		*last_hash;
 }				t_config;
 /*
 **builtin.c && environ.c
