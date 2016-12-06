@@ -1,0 +1,7 @@
+*.o
+*.a
+*.swp
+tmp*
+21sh
+test*
+*.bck
