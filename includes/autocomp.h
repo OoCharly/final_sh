@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:47:29 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/23 17:02:33 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:10:09 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,9 @@ void	ft_comp_select_current(size_t current, t_stream *stream, char mode);
 void	ft_autocomp_append(t_stream *stream);
 void	ft_autocomp_delete(t_stream *stream);
 void	ft_autocomp_underline(t_stream *stream, char mode);
+/*
+** rep.c
+*/
+int		ft_rep(t_stream *stream, char *begin);
 
 #endif
