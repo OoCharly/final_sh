@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:22:22 by tboos            ###   ########.fr       */
+/*   Updated: 2016/11/23 17:07:12 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@
 /*
 ** POLYMORPHIC CHAINLIST
 */
-# define OP 1
-# define PIPE 13
-# define HEREDOC 3
-# define SSHELL 4
-# define PROS 100
-# define SENT 101
-# define JOB 102
+# define OP			1
+# define PIPE		13
+# define HEREDOC	3
+# define SSHELL		4
+# define PROS		100
+# define SENT		101
+# define JOB		102
 
 /*
 ** MOST USED DEFFERENTIATION
 */
-# define BDATA ((char*)begin->data)
-# define SNDATA ((char*)src->next->data)
-# define BNDATA ((char**)begin->next->data)[0]
-# define BOTHER_FD ((t_pipe*)begin->next->data)->others_fd
-# define RDEFAULT (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+# define BDATA		((char*)begin->data)
+# define SNDATA		((char*)src->next->data)
+# define BNDATA		((char**)begin->next->data)[0]
+# define BOTHER_FD	((t_pipe*)begin->next->data)->others_fd
+# define RDEFAULT	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
 typedef struct	s_pipe
 {

@@ -6,21 +6,22 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 12:38:27 by tboos            ###   ########.fr       */
+/*   Updated: 2016/11/23 17:07:20 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCAN_INPUT_H
 # define SCAN_INPUT_H
 
-# define SFD stream->fd
 # define TUP "\x1b[A"
 # define TDO "\x1b[B"
 # define TLE "\x1b[D"
 # define TND "\x1b[C"
 # define TDL "\x1b[K"
 # define TCD "\x1b[J"
-# define REPROMPT -10
+
+# define SFD		stream->fd
+# define REPROMPT	-10
 
 typedef struct	s_comp
 {
@@ -161,7 +162,7 @@ void			ft_secure_prompt(t_stream *stream);
 /*
 **checknewline.c
 */
-int				ft_checknewline(t_stream *stream, size_t p);
+void			ft_checknewline(t_stream *stream);
 /*
 **syntax_color.c
 */

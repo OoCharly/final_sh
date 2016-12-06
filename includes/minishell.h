@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:23:28 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 15:24:10 by tboos            ###   ########.fr       */
+/*   Updated: 2016/11/23 17:05:08 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # include "core.h"
 # include "scan_input.h"
 # include "autocomp.h"
-# include "globbing.h"
 # include "run_command.h"
 # include "error.h"
+
 # ifdef LINUX
 #  include "keys_linux.h"
 # else
