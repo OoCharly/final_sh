@@ -6,7 +6,7 @@
 /*   By: rbaran <rbaran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 14:14:44 by rbaran            #+#    #+#             */
-/*   Updated: 2016/11/11 14:15:51 by rbaran           ###   ########.fr       */
+/*   Updated: 2016/12/05 17:15:51 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void		ft_env(char **argv, t_config *config)
 	int		param;
 	char	*path;
 	int		index;
+	static char	*env[2] = {"env", NULL};
 
 	if (!argv[1])
 	{
@@ -70,16 +71,15 @@ void		ft_env(char **argv, t_config *config)
 	param = 0;
 	index = ft_parseparams(argv, &param, config);
 	if (param & ENV_H)
-	{
-		ft_printhelp();
-		return ;
-	}
+		return (ft_printhelp());
 	if (param & ENV_I)
 	{
 		ft_strtabfree(config->env);
 		config->env = NULL;
 	}
 	ft_createenv(argv, config, &index);
+	if (!argv[index])
+		ft_launch_process("env", env, config);
 	if ((path = ft_path_handle(argv + index, config)))
 		ft_launch_process(path, argv + index, config);
 }
