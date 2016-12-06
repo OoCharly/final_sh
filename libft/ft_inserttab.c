@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:56:14 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/06 13:56:17 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:17:22 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ char    **ft_insertdeletetab(char **big, char **small, size_t index)
         index = i;
         i = 0;
         tmp = (big[i]) ? index : index - 1;
-        while (small[i])
+		while (small[i])
                 new[index++] = small[i++];
-		while (big[tmp])
-				new[index++] = big[++tmp];
+		ft_freegiveone((void **)&big[tmp]);
+		while (big[++tmp])
+				new[index++] = big[tmp];
 	//	new[total_len] = NULL;
         return (new);
 }

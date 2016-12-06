@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/06 13:24:46 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:03:38 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,27 @@ static t_list	**ft_save_list(t_list **begin, char clear)
 
 static void		ft_check_file(char *file, char *glob, char *buf, int end)
 {
+	DIR		*dir;
+
 	if (!ft_strcmp(file, ".") && !ft_strncmp(glob, "**/", 3))
 	{
 		if (glob[3])
-			ft_glob(opendir((!*buf) ? "." : buf), buf,
+			ft_glob((dir = opendir((!*buf) ? "." : buf)), buf,
 					(glob + ft_strlenc(glob, '/') + 1));
 		else
-			ft_glob(opendir((!*buf) ? "." : buf), buf, (glob + 1));
+			ft_glob((dir = opendir((!*buf) ? "." : buf)), buf, (glob + 1));
+		closedir(dir);
 	}
 	if (ft_match(glob, file) && ((ft_strcmp(file, ".") && ft_strcmp(file, "..")
 					&& (*(file) != '.' || ft_match(".*", glob))) || (ft_match(".", glob) &&
 					!ft_strcmp(file, ".")) || (ft_match("..", glob) && !ft_strcmp(file, ".."))))
 	{
 		if (ft_strcat(buf, file) && ft_strncmp(glob, "**/", 3))
-			ft_glob(opendir(buf), buf, (glob + ft_strlenc(glob, '/')));
+			ft_glob((dir = opendir(buf)), buf, (glob + ft_strlenc(glob, '/')));
 		else
-			ft_glob(opendir(buf), ft_strcat(buf, "/"), glob);
+			ft_glob((dir = opendir(buf)), ft_strcat(buf, "/"), glob);
+		if (dir)
+			closedir(dir);
 		ft_bzero(&buf[end], (255 - end));
 	}
 }
@@ -111,6 +116,7 @@ char	*ft_launch_glob(char *str)
 	if ((*str == '/' && !(stream = opendir("/"))) || !(stream = opendir(".")))
 		return (NULL);
 	ft_glob(stream, NULL, (char*)str);
+	closedir(stream);
 	if (begin)
 	{
 		tot = ft_strnew(ft_size_list(begin));
