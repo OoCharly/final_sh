@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:54:52 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 12:54:54 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/06 12:23:48 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static t_list	*ft_fork_process(t_list *begin, t_config *config, int *r_pipe)
 	char	*path;
 
 	new = NULL;
-	if (!begin->data_size && ((!begin->data || !((char*)begin->data)[0])
+	if (!begin->data_size && ((!begin->data || !((char**)begin->data)[0])
 		|| ft_is_no_fork_builtin(begin->data, config)
 		|| !(path = ft_path_handle(begin->data, config))))
 		return (NULL);
