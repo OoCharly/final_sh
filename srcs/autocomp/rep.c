@@ -22,9 +22,10 @@ static void	ft_rep_glob(t_stream *stream, char *b)
 			ft_bzero(stream->buf, 256);
 		}
 		ft_append(stream);
+		ft_freegiveone((void**)&tmp);
 	}
+	ft_freegiveone((void **)&COMP_BEGIN);
 	ft_bzero(stream->buf, 256);
-	ft_freegiveone((void**)&tmp);
 }
 
 int		ft_rep(t_stream *stream, char *b)
