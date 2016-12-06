@@ -25,6 +25,8 @@ builtins/env.c \
 builtins/environ.c \
 builtins/jobs.c \
 builtins/jobs_utils.c \
+builtins/history.c \
+builtins/history_param.c \
 core/cmp.c \
 core/errors.c \
 core/free.c \
@@ -81,17 +83,17 @@ endif
 all: lib $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(FLAGS) $(HEAD) $^ -L libft -l ft -o $@ $(TERMCAPS)
+		gcc $(FLAGS) $(HEAD) $^ -L libft -l ft -o $@ $(TERMCAPS)
 
 %.o: %.c libft/libft.a
-	gcc $(FLAGS) $(HEAD) -c $< -o $@
+		gcc $(FLAGS) $(HEAD) -c $< -o $@
 
 lib:
-	make -C libft
+		make -C libft
 
 clean:
-	rm -f $(OBJ)
-	make -C libft clean
+		rm -f $(OBJ)
+			make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)

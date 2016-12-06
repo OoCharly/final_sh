@@ -6,11 +6,16 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:51:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 08:52:04 by tboos            ###   ########.fr       */
+/*   Updated: 2016/11/24 15:27:16 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**Function called in parameter of ft_freelist. For any type in begin->data,
+**calls the appropriate function of free.
+*/
 
 void			ft_list_free_av(void *data, size_t data_size)
 {
@@ -20,7 +25,8 @@ void			ft_list_free_av(void *data, size_t data_size)
 		ft_strtabfree((char **)data);
 	else if (data_size == OP || data_size == HEREDOC)
 		ft_freegiveone(&data);
-	else if (data_size == PIPE)
+	else if (data_size == PIPE && data && ((t_pipe*)data)->others_fd && 
+		((t_pipe*)data)->others_fd[0])
 	{
 		ft_strtabfree(((t_pipe*)data)->others_fd);
 		ft_freegiveone(&data);
@@ -34,6 +40,10 @@ t_list			*ft_freelist(t_list **begin)
 	ft_lstdel(begin, ft_list_free_av);
 	return (NULL);
 }
+
+/*
+**In begin, frees the n first elements and their contents.
+*/
 
 t_list			*ft_partial_freelist(t_list *begin, size_t n)
 {

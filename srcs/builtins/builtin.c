@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/15 14:23:15 by rbaran           ###   ########.fr       */
+/*   Updated: 2016/11/28 18:10:06 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static int	ft_node_jobs(char **argv, t_config *config)
 	return (1);
 }
 
+/*
+**Returns 1 if argument is a builtin, in this case launch the appropriate
+**function, otherwise return 0.
+*/
+
 int			ft_is_no_fork_builtin(char **argv, t_config *config)
 {
 	if (!ft_strcmp(argv[0], "exit"))
@@ -47,6 +52,8 @@ int			ft_is_no_fork_builtin(char **argv, t_config *config)
 		ft_readysetenv(argv, config);
 	else if (!ft_strcmp(argv[0], "cd"))
 		ft_cd(argv, config);
+	else if (!ft_strcmp(argv[0], "history"))
+		ft_history(argv, config);
 	else
 		return (0);
 	return (1);

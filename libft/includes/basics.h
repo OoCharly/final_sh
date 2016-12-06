@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:28:14 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 13:38:30 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:57:14 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_free(void *kill);
 int		ft_freegiveone(void **kill);
 void	ft_strdel(char **as);
 void	ft_strtabfree(char **mtab);
+void	ft_strtabfree_content(char **mtab);
 
 /*
 ** SIZING

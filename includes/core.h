@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 12:55:09 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:50:03 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,14 @@ void			ft_print_list(t_list *elem);
 int				ft_signal(int mode);
 void			ft_signal_handle(int i);
 void			ft_sigwinch(int mode);
-
+/*
+**history.c
+*/
+void			ft_history(char **argv, t_config *config);
+/*
+**history_parm.c
+*/
+void			ft_readfile(t_config *config);
 void	debug_print_list(t_list **lst);
 
 #endif

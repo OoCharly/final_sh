@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:02 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 08:52:14 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/05 17:06:21 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	ft_free_config(t_config *config)
 		if (config->hloc)
 			ft_purge_history(config);
 		else
-			ft_strtabfree(config->history);
+		{
+			if (config->history[0])
+				ft_strtabfree(config->history);
+		}
 		if (config->hloc)
 			free(config->hloc);
 		ft_freelist(&config->chimera);
