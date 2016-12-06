@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:32:24 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 12:26:55 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/06 14:09:25 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int			ft_pathtohash(t_config *config)
 		ft_lstdel(&(config->bin), &ft_freebin);
 	if ((path = ft_strtabfindstart(config->env, "PATH=")))
 	{
+		ft_free(config->last_hash);
 		config->last_hash = ft_strdup(path);
 		if (!(ft_create_list_bin(path, config)))
 			return (0);
