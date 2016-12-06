@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/11/25 21:18:57 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/06 13:24:46 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			ft_size_list(t_list *begin)
 ** result into a string.
 */
 
-char	*ft_launch_glob(const char *str)
+char	*ft_launch_glob(char *str)
 {
 	DIR		*stream;
 	t_list	*begin;

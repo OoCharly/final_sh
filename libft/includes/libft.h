@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/04 18:24:51 by tboos             #+#    #+#             */
-/*   Updated: 2016/03/18 18:15:25 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/06 13:35:58 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ void	ft_putstrtab(char **s, char c);
 void	ft_putstrtab_fd(char **s, char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-
+/*
+** Tab Manipulation
+*/
+char	**ft_insertdeletetab(char **big, char **small, size_t index);
 #endif

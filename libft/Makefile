@@ -15,7 +15,7 @@ NAME = libft.a
 FLAGS = -Wall -Wextra -Werror
 SRC = ft_atoi.c ft_exit.c ft_itoa.c ft_putchar.c ft_putchar_fd.c ft_putcstr.c \
 	ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c \
-	ft_putstr_fd.c ft_status.c ft_usage.c ft_putstrtab.c \
+	ft_putstr_fd.c ft_status.c ft_usage.c ft_putstrtab.c ft_inserttab.c\
 	gnl/get_next_line.c
 LIST = ft_list_at.c ft_list_find.c ft_list_last.c ft_list_merge.c \
 	ft_list_push_back.c ft_list_push_front.c ft_list_remove_if.c \

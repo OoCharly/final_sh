@@ -6,7 +6,7 @@
 /*   By: tboos <to-uss@noos.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/16 22:34:01 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:35:04 by tboos            ###   ########.fr       */
+/*   Updated: 2016/11/29 16:23:36 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		ft_sorted_list_insert(t_list **begin_list, t_list *new,
 	{
 		rabbit = *begin_list;
 		turtle = 0;
-		while (rabbit && (*cmp)(new->data, rabbit->data) > 0)
+		while (rabbit && (*cmp)(new->data, rabbit->data) >= 0)
 		{
 			turtle = rabbit;
 			rabbit = rabbit->next;
