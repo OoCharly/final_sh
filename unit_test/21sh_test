@@ -1,0 +1,36 @@
+foo
+/bin/ls
+/bin/ls -laF
+/bin/ls -l -a -F
+echo "It works"
+echo It works
+cd ~
+/bin/pwd
+cd /
+/bin/pwd
+cd ~/Documents
+/bin/pwd
+env
+setenv FOO=bar
+echo $FOO
+/usr/bin/env
+unsetenv FOO
+env
+/usr/bin/env
+unsetenv PATH
+setenv PATH=/usr/bin:/bin
+ls
+unsetenv PATH
+ls
+/bin/ls
+
+ 
+						   
+setenv PATH=/usr/bin:/bin
+			       ls
+		 ls					-l			
+ls | cat -e
+ls -r | sort | cat -e
+base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'
+cat -e << EOF
+exit

@@ -1,0 +1,5 @@
+make fclean
+cat makegen/makehead > Makefile
+echo 'SRC = \' >> Makefile
+find srcs/**/*.c | sed 's/srcs\///g' | sed 's/$/ \\/g' >> Makefile
+cat makegen/maketail >> Makefile

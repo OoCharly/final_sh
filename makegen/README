@@ -1,0 +1,7 @@
+Lancer :
+zsh makegen/makefile_gen
+ou (quand les > >> seront fonctionnels)
+./21sh makegen/makefile_gen
+depuis la racine du répertoire.
+Les sous dossiers dans srcs sont libres, les headers doivent être rangés à la racine du dossier include.
+Le Makefine appelle celui de la libft et défini LINUX si le système n'est pas MACOS.
