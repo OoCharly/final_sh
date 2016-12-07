@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:32:24 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 14:09:25 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/07 11:56:48 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_bin(char *path, t_dirent tdir, t_bin **pbin)
 		return (-1);
 	bin.path_name = fpath;
 	if (!(*pbin = ft_memmove(ft_memalloc(sizeof(t_bin)), &bin, sizeof(t_bin))))
-		free(bin.name);;
+		free(bin.name);
 	return ((pbin) ? 0 : -1);
 }
 
