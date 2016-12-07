@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 15:36:59 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/07 11:51:57 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 	f = config->env;
 	if (((i = ft_strtabifindstart(f, n)) >= 0
 		&& (memo = f[i])
-		&& ((val && val[0] && !(f[i] = ft_strchrjoin(n, '=', val)))
+		&& ((val && !(f[i] = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
 		|| (!val && !(f[i] = ft_strjoin(n, "="))))
 		&& (f[i] = memo)))
 		ft_error(SHNAME, "error while setenv for", n, CR_ERROR);

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:28:14 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 15:57:14 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/07 11:47:29 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	**ft_strncmptabdel(char **dest, char *needle);
 char	**ft_strstrtabdel(char **dest, char *needle);
 char	**ft_strtabdiv(char **mtab, char *needle);
 char	*ft_strtabchrjoin(char **mtab, char c);
+char	*ft_strfjoin(char *s1, char *s2, int opt);
 
 /*
 ** COPY && CAT
