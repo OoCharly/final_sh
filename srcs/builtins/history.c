@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/05 19:33:39 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/08 10:03:21 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void ft_manage_param(char **argv, int i, t_config *config)
 			ft_decr_history(&(config->hindex));
 		}
 		else if (argv[i][j] == 'r')
-			ft_readfile(config);
+			ft_load_history(config);
 		else if (ft_error("fc", "event not found", argv[i], CR_ERROR))
 			return ;
 	//	else if (*argv == 'w')
