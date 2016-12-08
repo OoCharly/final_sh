@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:16 by tboos             #+#    #+#             */
-/*   Updated: 2016/09/22 15:50:29 by rbaran           ###   ########.fr       */
+/*   Updated: 2016/12/08 10:07:08 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	ft_incr_history(int *hindex)
 	else
 		*hindex = 0;
 }
+
+/*
+**Appends current command to config->history.
+*/
 
 void	ft_push_history(t_stream *stream, t_config *config)
 {

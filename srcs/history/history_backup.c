@@ -6,11 +6,16 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 09:00:22 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/08 10:21:13 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**Appends commands registered in history.bck file in config->history. For any 
+**new command a pipe is wrote ahead.
+*/
 
 static int	ft_safeputstr(int fd, char *str)
 {
@@ -23,6 +28,11 @@ static int	ft_safeputstr(int fd, char *str)
 	ft_freegiveone((void **)&str);
 	return (1);
 }
+
+/*
+**Opens hystory file. Makes a loop wich begin at config->hindex, and for any 
+**command calls ft_safeputstr.
+*/
 
 void		ft_purge_history(t_config *config)
 {
@@ -73,6 +83,10 @@ static void	ft_fill_history(t_config *config, char *tmp)
 		ft_freegiveone((void**)&tmp);
 	}
 }
+
+/*
+**Opens history.bck and fills config->history with file contents.
+*/
 
 void		ft_load_history(t_config *config)
 {
