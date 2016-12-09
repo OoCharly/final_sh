@@ -6,52 +6,57 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/08 10:21:13 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/09 19:36:13 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**Appends commands registered in history.bck file in config->history. For any 
+**Adds commands registered in history.bck file in config->history. For any
 **new command a pipe is wrote ahead.
 */
 
-static int	ft_safeputstr(int fd, char *str)
+static int	ft_safeputstr(int fd, char *str, int mode)
 {
 	if (str && (0 > write(fd, "|", 1) || 0 > write(fd, str, ft_strlen(str))))
 	{
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
-		ft_freegiveone((void **)&str);
+		if (mode)
+			ft_freegiveone((void **)&str);
 		return (0);
 	}
-	ft_freegiveone((void **)&str);
+	if (mode)
+		ft_freegiveone((void **)&str);
 	return (1);
 }
 
 /*
-**Opens hystory file. Makes a loop wich begin at config->hindex, and for any 
-**command calls ft_safeputstr.
+**Opens hystory file. Makes a loop wich begin at config->hindex, and for any
+**command calls ft_safeputstir.
 */
 
-void		ft_purge_history(t_config *config)
+void		ft_purge_history(t_config *config, char **hist, int index, int mode)
 {
 	int		i;
 	int		fd;
 
-	if ((fd = open(config->hloc, O_CREAT | O_WRONLY
+	if (mode && (fd = open(config->hloc, O_CREAT | O_WRONLY
 			| O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
+		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
+	else if (!mode && (fd = open(config->hloc, O_CREAT | O_WRONLY
+			| O_APPEND, S_IRUSR | S_IWUSR)) < 0)
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
 	else
 	{
-		i = config->hindex;
+		i = index;
 		while (1)
 		{
 			ft_incr_history(&i);
-			if (!ft_safeputstr(fd, config->history[i])
-				|| i == config->hindex)
+			if (!ft_safeputstr(fd, hist[i], mode)
+				|| i == index)
 				break ;
-			if (config->history[i])
+			if (hist[i])
 				write(fd, "\n", 1);
 		}
 		write(fd, "\0", 1);
@@ -85,7 +90,7 @@ static void	ft_fill_history(t_config *config, char *tmp)
 }
 
 /*
-**Opens history.bck and fills config->history with file contents.
+**Opens config->hloc file and fills config->history with file contents.
 */
 
 void		ft_load_history(t_config *config)

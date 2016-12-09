@@ -6,53 +6,17 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/08 10:03:21 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/09 19:29:35 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_padding(char orientation, char *str, size_t size, char elem)
-{
-	size_t	i;
-	char	*new;
-
-	if ((size_t)ft_strlen(str) != size)
-	{
-		i = (orientation == 'L') ? 0 : (size_t)ft_strlen(str);
-		new = ft_strnew((int)size);
-		if (orientation == 'R')
-			new = ft_strcpy(new, str);
-		while ((size_t)ft_strlen(str) != size)
-		{
-			new[i] = elem;
-			i++;
-			size--;
-		}
-		if (orientation == 'L')
-			new = ft_strcat(new, str);
-		return (new);
-	}
-	return (str);
-}
-
-static int ft_check_num(char *argv)
-{
-	int i;
-
-	i = -1;
-	while (argv[++i])
-		if (!ft_isdigit(argv[i]))
-			return (0);
-	return (1);
-}
-
-static int ft_printhist(char **history, int n)
+static int	ft_printhist(char **history, int n)
 {
 	int		i;
 	char	*len;
 	char	*index;
-	char	*pad;
 
 	i = -1;
 	len = ft_itoa(HISTORY_SIZE);
@@ -61,64 +25,96 @@ static int ft_printhist(char **history, int n)
 	while (history[++i] && i < n)
 	{
 		index = ft_itoa(i + 1);
-		pad = ft_padding('R', index , ft_strlen(len) + 1, ' ');
-		ft_putstr(pad);
+		ft_putstrpad(index, ft_strlen(len) + 1, 'L');
 		ft_putendl(history[i]);
 		ft_strdel(&index);
-		ft_strdel(&pad);
 	}
 	ft_strdel(&len);
 	return (1);
 }
 
-static void ft_manage_param(char **argv, int i, t_config *config)
-{
-	int j;
-	int idx;
-	int len;
+/*
+**If the new path of config->hloc is biggest than the first, then the new has
+**to be realloced.
+*/
 
-	j = 0;
-	while (argv[i][++j] && !ft_check_num(argv[i]))
+static void	ft_realloc_tmphloc(t_config *config, char *file, int l_h, int l_f)
+{
+	char *hloc;
+	char c;
+
+	hloc = ft_return_hloc(NULL, 0);
+	c = hloc[l_h - l_f];
+	hloc[l_h - l_f] = 0;
+	config->hloc = ft_strslashjoin(hloc, file);
+	hloc[l_h - l_f] = c;
+}
+
+/*
+**Checks if an argv is something else than an argument which begin by '-'. If
+**an argument does not begin by '-', then this argument is a name of file and
+**ft_get_afterarg changes the path of config->hloc for the path of argv[i].
+*/
+
+static int	ft_get_afterarg(t_config *config, char **argv, int i)
+{
+	int		len_arg;
+	int		len_file;
+	int		len;
+	char	*file;
+
+	len = ft_strlen(config->hloc);
+	while (argv[i] && argv[i][0] == '-')
+		i++;
+	if (argv[i] && (file = ft_strrchr(config->hloc, '/'))
+		&& (len_arg = ft_strlen(argv[i]))
+		&& (len_file = ft_strlen(file)))
 	{
-		if (argv[i][j] == 'c' && config->history[0] && !(config->hindex = 0))
-			ft_strtabfree_content(config->history);
-		else if (argv[i][j] == 'd' && argv[i + 1] && ft_check_num(argv[i + 1])
-			&& ((idx = ft_atoi(argv[i + 1]) - 1) >= 0) && idx < HISTORY_SIZE)
+		if (len_arg <= len_file)
 		{
-			len = (HISTORY_SIZE - idx) * sizeof(void *);
-			ft_memmove(config->history + idx, config->history + idx + 1, len);
-			ft_decr_history(&(config->hindex));
+			ft_bzero(config->hloc + (len - len_file) + 1, len_file);
+			ft_memmove(config->hloc + (len - len_file) + 1, argv[i], len_arg);
 		}
-		else if (argv[i][j] == 'r')
-			ft_load_history(config);
-		else if (ft_error("fc", "event not found", argv[i], CR_ERROR))
-			return ;
-	//	else if (*argv == 'w')
-	//		ft_write_histfile(config);
+		else if (ft_freegiveone((void **)&(config->hloc)))
+			ft_realloc_tmphloc(config, argv[i], len, len_file);
 	}
+	return (1);
+}
+
+/*
+**Records the first path of config->hloc, like registered in function
+**ft_history_loc_init. At the end of the programe, mode eguals to one and static
+**variable mem is freed. Otherwise when mode is eguals to zero, the inital value
+**of mem is returned.
+*/
+
+char		*ft_return_hloc(char *hloc, int mode)
+{
+	static char *mem;
+
+	if (mode)
+		mem = ft_strdup(hloc);
+	if (mode == -1)
+		ft_freegiveone((void **)&hloc);
+	return (mem);
 }
 
 /*
 **If there are no arguments after history or if this argument is a number,
-**launch ft_printhist function. Otherwise apply corresponding function to
+**launch ft_printhist function. Otherwise applies corresponding function to
 **the argument if this one exists.
 */
 
-void ft_history(char **argv, t_config *config)
+void		ft_history(char **argv, t_config *config)
 {
 	int i;
 	int n;
 
 	i = 0;
-	printf("_hindex1_%d_\n", config->hindex);
-	if ((!argv[1] || ft_check_num(argv[1]))
+	if ((!argv[1] || ft_strisdigit(argv[1]))
 		&& (n = (!argv[1]) ? HISTORY_SIZE : ft_atoi(argv[1])))
 		ft_printhist(config->history, n);
-	while (argv[++i] && !ft_check_num(argv[i]))
-	{
-		if (argv[i][0] == '-')
-			ft_manage_param(argv, i,config);
-		else if (ft_error("fc", "event not found", argv[i], CR_ERROR))
-			return ;
-	}
+	while (argv[++i] && !ft_strisdigit(argv[i]))
+		if (argv[i][0] == '-' && ft_get_afterarg(config, argv, i))
+			ft_manage_param(argv, i, config);
 }
