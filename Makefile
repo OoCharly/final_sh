@@ -26,6 +26,7 @@ builtins/environ.c \
 builtins/jobs.c \
 builtins/jobs_utils.c \
 builtins/history.c \
+builtins/history_params.c \
 core/cmp.c \
 core/errors.c \
 core/free.c \

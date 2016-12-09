@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/08 10:31:24 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/09 19:01:50 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,6 @@
 # define SIGINT_COMMAND		4
 # define RUNNING_SSHELL		5
 # define RUNNING_SON		6
-
-/*
-**Env builtin defines (params)
-*/
-# define ENV_I		0x01
-# define ENV_H		0x02
-# define ENV_HELP	"--help"
-# define ENV_UNSET	"--unset"
-# define ENV_IGNORE	"--ignore-environment"
-
-/*
-**Echo builtin defines (params)
-*/
-# define ECHO_N		0x01
-
-/*
-**jobs builtin defines
-*/
-# define JOBS_FG	0
-# define JOBS_BG	1
 
 /*
 ** ft_signal modes
@@ -78,7 +58,9 @@ typedef struct	s_config
 	t_termios	termios_backup;
 	int			term_state;
 	char		*history[HISTORY_SIZE + 1];
+	char		*hist_newcmd[HISTORY_SIZE + 1];
 	int			hindex;
+	int			ncmd_index;
 	char		*hloc;
 	int			heredoc;
 	t_list		*jobs;
@@ -91,26 +73,6 @@ typedef struct	s_config
 	bool		syntax_color_off;
 	char		*last_hash;
 }				t_config;
-/*
-**builtin.c && environ.c
-*/
-int				ft_is_no_fork_builtin(char **argv, t_config *config);
-int				ft_default_env(t_config *config);
-int				ft_builtin(char **argv, t_config *config);
-void			ft_update_pwd(t_config *config);
-void			ft_cd(char **argv, t_config *config);
-void			ft_env(char **argv, t_config *config);
-void			ft_setenv(char *name, char *value, t_config *config);
-void			ft_readysetenv(char **argv, t_config *config);
-void			ft_unsetenv(char **argv, t_config *config);
-void			ft_echo(char **argv);
-/*
-**jobs.c && jobs_utils.c
-*/
-int				ft_cmp_jobs(t_list *s, char *description, int i);
-void			ft_print_jobs(t_list *sentence, char *description);
-void			ft_jobs(char **argv, t_config *config);
-void			ft_fgbg(char **argv, t_config *config, int mode);
 /*
 **error.c
 */
@@ -152,9 +114,5 @@ void			ft_print_list(t_list *elem);
 int				ft_signal(int mode);
 void			ft_signal_handle(int i);
 void			ft_sigwinch(int mode);
-/*
-**history.c
-*/
-void			ft_history(char **argv, t_config *config);
 
 #endif
