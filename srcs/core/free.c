@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:02 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/07 12:04:53 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/10 19:24:04 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_free_config(t_config *config)
 		if (config->bin)
 			ft_lstdel(&(config->bin), &ft_freebin);
 		if (config->hloc)
-			ft_purge_history(config);
+			ft_purge_history(config, config->history, config->hindex, 1);
 		else
 		{
 			if (config->history[0])

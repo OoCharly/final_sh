@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:27:08 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/01 18:21:17 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/10 19:17:12 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_del(t_stream *stream)
 		stream->tput = "cd";
 		ft_tputs(stream);
 		ft_flush(stream);
-		ft_push_history(stream, stream->config);
+		ft_push_history(stream, stream->config, 1);
 	}
 }
 
@@ -61,6 +61,6 @@ void	ft_sup(t_stream *stream)
 		stream->tput = "cd";
 		ft_tputs(stream);
 		ft_flush(stream);
-		ft_push_history(stream, stream->config);
+		ft_push_history(stream, stream->config, 1);
 	}
 }
