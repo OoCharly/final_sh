@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:28:14 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/07 11:47:29 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/09 18:53:37 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		ft_strequ(char const *s1, char const *s2);
 int		ft_strnequ(char const *s1, char const *s2, size_t n);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
+int		ft_strisdigit(char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isspace(char c);

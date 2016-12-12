@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 13:44:24 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:16:40 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			ft_append(t_stream *stream)
 	}
 	else if (!(stream->command = ft_strdup(stream->buf)))
 		stream->state = -2;
-	ft_push_history(stream, stream->config);
+	ft_push_history(stream, stream->config, 1);
 	ft_flush(stream);
 	while (len--)
 		ft_mvright(stream);
