@@ -58,7 +58,8 @@ void		ft_run_command(t_config *config)
 	if ((config->chimera = ft_lexer(config->command)))
 	{
 		if (!ft_quote(config->chimera, config)
-			|| !ft_insertglob(config->chimera) 
+			|| !ft_insertbraces(config->chimera)
+			|| !ft_insertglob(config->chimera)
 			|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else

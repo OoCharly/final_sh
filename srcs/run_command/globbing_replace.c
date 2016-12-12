@@ -67,3 +67,34 @@ int			ft_insertglob(t_list *begin)
 	}
 	return (1);
 }
+
+int		ft_insertbraces(t_list *begin)
+{
+	int		i;
+	char	**new_tab;
+	char	**t;
+	char	**tmp_tab;
+
+	while (begin)
+	{
+		if (!begin->data_size)
+		{
+			t = ((char **)begin->data);
+			i = 0;
+			while (t[i])
+				if (!(new_tab = ft_launchbraces(t[i])))
+					i++;
+				else
+				{
+					tmp_tab = t;
+					t = ft_insertdeletetab(t, new_tab, i);
+					i += ft_strtablen(new_tab);
+					ft_free(new_tab);
+					ft_free(tmp_tab);
+				}
+			begin->data = t;
+		}
+		begin = begin->next;
+	}
+	return (1);
+}
