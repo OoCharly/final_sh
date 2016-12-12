@@ -6,11 +6,15 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:25:11 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/06 17:42:45 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/12 16:22:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**Checks if there are one of the following globbing pathern in arg : *[]?
+*/
 
 int			ft_checkglob(char *arg)
 {
@@ -24,46 +28,12 @@ int			ft_checkglob(char *arg)
 	{
 		while ((ret = ft_strchr(tmp, *glob)))
 		{
-			if ((ft_strcmp(ret, tmp) && *(ret - 1) != '\\') 
-			|| (!ft_strcmp(ret, tmp)))
+			if ((ft_strcmp(ret, tmp) && *(ret - 1) != '\\')
+					|| (!ft_strcmp(ret, tmp)))
 				return (1);
 			tmp = ret + 1;
 		}
 		glob++;
 	}
 	return (0);
-}
-
-int			ft_insertglob(t_list *begin)
-{
-	int		i;
-	char	**t;
-	char	*tmp;
-	char	**g_tab;
-	char	**tmp_tab;
-
-	while (begin)
-	{
-		if (!begin->data_size)
-		{
-			t = ((char **)begin->data);
-			i = 0;
-			while (t[i])
-				if (!ft_checkglob(t[i]) || !(tmp = ft_launch_glob(t[i])))
-					i++;
-				else 
-				{
-					g_tab = ft_strsplit(tmp, ' ');
-					ft_freegiveone((void **)&tmp);
-					tmp_tab = t;
-					t = ft_insertdeletetab(t, g_tab, i);
-					i += ft_strtablen(g_tab);
-					ft_free(g_tab);
-					ft_free(tmp_tab);
-				}
-			begin->data = t;
-		}
-		begin = begin->next;
-	}
-	return (1);
 }
