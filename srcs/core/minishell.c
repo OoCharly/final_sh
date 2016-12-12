@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:14:27 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/12 12:30:50 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,18 @@ void		ft_print_list(t_list *elem)
 	}
 }
 
-/*
-** To print list before parsing :
-** ft_lstiter(config->chimera, ft_print_list);
-*/
-
 void		ft_run_command(t_config *config)
 {
 	config->shell_state = RUNNING_COMMAND;
 	if ((config->chimera = ft_lexer(config->command)))
 	{
 		if (!ft_quote(config->chimera, config)
+<<<<<<< HEAD
 			|| !ft_insertbraces(config->chimera)
 			|| !ft_insertglob(config->chimera)
+=======
+			|| !ft_insert_loop(config->chimera, config)
+>>>>>>> db2799bb5dec6a7759a8f82c7ab4f7ba7c033f59
 			|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
@@ -80,6 +79,7 @@ void		ft_minishell(t_config *config)
 	int		fd;
 
 	fd = 1;
+//	ft_bzero(config->hist_newcmd, sizeof(void*) * HISTORY_SIZE);
 	if ((ft_signal(SIGNAL_SET
 		&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
 		|| (!isatty(1) && !(fd = 0) && !isatty(0)

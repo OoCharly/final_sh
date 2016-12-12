@@ -6,11 +6,15 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:25:11 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/06 17:42:45 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/12 16:22:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**Checks if there are one of the following globbing pathern in arg : *[]?
+*/
 
 int			ft_checkglob(char *arg)
 {
@@ -24,8 +28,8 @@ int			ft_checkglob(char *arg)
 	{
 		while ((ret = ft_strchr(tmp, *glob)))
 		{
-			if ((ft_strcmp(ret, tmp) && *(ret - 1) != '\\') 
-			|| (!ft_strcmp(ret, tmp)))
+			if ((ft_strcmp(ret, tmp) && *(ret - 1) != '\\')
+					|| (!ft_strcmp(ret, tmp)))
 				return (1);
 			tmp = ret + 1;
 		}
@@ -33,6 +37,7 @@ int			ft_checkglob(char *arg)
 	}
 	return (0);
 }
+<<<<<<< HEAD
 
 int			ft_insertglob(t_list *begin)
 {
@@ -98,3 +103,5 @@ int		ft_insertbraces(t_list *begin)
 	}
 	return (1);
 }
+=======
+>>>>>>> db2799bb5dec6a7759a8f82c7ab4f7ba7c033f59

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:02 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/10 19:24:04 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/12 16:40:53 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ void	ft_free_config(t_config *config)
 		if (config->hloc)
 			ft_purge_history(config, config->history, config->hindex, 1);
 		else
-		{
 			if (config->history[0])
 				ft_strtabfree(config->history);
-		}
 		if (config->hloc)
 			free(config->hloc);
 		ft_freelist(&config->chimera);
 		ft_freelist(&config->chimera_tail);
 		ft_freegiveone((void**)&config->command);
 		ft_freegiveone((void**)&config->fg_sentence);
+		ft_return_hloc(NULL, -1);
 		get_next_line(-1, NULL);
 	}
 }
