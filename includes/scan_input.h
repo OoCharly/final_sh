@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/09 09:48:05 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 16:37:18 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct	s_comp
 {
+	int			mode;
 	size_t		command_pos;
 	size_t		in_col;
 	size_t		nb_col;
@@ -34,6 +35,7 @@ typedef struct	s_comp
 	t_list		*begin_list;
 	char		*begin;
 	char		buf[256];
+	char		**kill;
 }				t_comp;
 
 typedef struct	s_stream

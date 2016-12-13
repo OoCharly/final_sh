@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rep.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
+/*   Updated: 2016/12/13 15:58:25 by jmunoz           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	ft_rep_glob(t_stream *stream, char *b)
+static void		ft_rep_glob(t_stream *stream, char *b)
 {
 	char	*ret;
 	size_t	size;
@@ -28,9 +40,10 @@ static void	ft_rep_glob(t_stream *stream, char *b)
 	ft_bzero(stream->buf, 256);
 }
 
-int		ft_rep(t_stream *stream, char *b)
+int				ft_rep(t_stream *stream, char *b)
 {
-	if (COMP_BEGIN && !(ft_strchr(COMP_BEGIN, '"')) && (ft_strchr(COMP_BEGIN, '*')
+	if (COMP_BEGIN && !(ft_strchr(COMP_BEGIN, '"'))
+				&& (ft_strchr(COMP_BEGIN, '*')
 				|| ft_strchr(COMP_BEGIN, ']') || ft_strchr(COMP_BEGIN, '[') ||
 				ft_strchr(COMP_BEGIN, '?')))
 	{

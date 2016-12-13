@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:47:29 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 13:10:09 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/13 16:37:22 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define COMP_POS_COMMAND	stream->comp.command_pos
 # define COMP_DISPLAYABLE	stream->comp.displayable
 # define COMP_BUF			stream->comp.buf
+# define COMP_MODE			stream->comp.mode
+# define COMP_KILL			stream->comp.kill
 
 /*
 ** auto_utils.c
@@ -48,7 +50,8 @@ void	ft_autocomp(t_stream *stream);
 /*
 ** buildlist.c
 */
-void	build_list(char *str, int mode, t_stream *stream);
+//void	build_list(char *str, int mode, t_stream *stream);
+void	build_list(char *str, t_stream *stream);
 /*
 ** support.c
 */

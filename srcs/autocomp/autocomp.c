@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:29 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:12:01 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/13 16:40:07 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int		get_mode(int len, char *str, t_stream *stream)
 static void		ft_state_zero(t_stream *stream)
 {
 	size_t		len;
-	int			mode;
 	char		*b;
 
 	len = 0;
@@ -58,8 +57,8 @@ static void		ft_state_zero(t_stream *stream)
 		COMP_BEGIN = ft_strsub(b, 0, len);
 		if (ft_rep(stream, b))
 			return ;
-		mode = get_mode(len, stream->command, stream);
-		build_list(COMP_BEGIN, mode, stream);
+		COMP_MODE = get_mode(len, stream->command, stream);
+		build_list(COMP_BEGIN, stream);
 		if (COMP_PAD > COMP_ROW)
 			return ;
 		if (COMP_BEGIN_LIST)
