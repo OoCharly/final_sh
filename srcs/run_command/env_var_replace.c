@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:02:24 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/07 13:44:43 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/07 14:25:58 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static char	*ft_varsearch(char *cmd, size_t *i, t_config *config, char *m)
 	char	*e;
 
 	*i += 1;
-	if (cmd[(*i)++] == '$')
+	if (cmd[(*i)] == '$')
 		e = ft_itoa(getpid());
-	else if (cmd[(*i)] == '?')
+	else if (cmd[(*i)++] == '?')
 		e = ft_itoa(config->last_exit);
 	else
 	{

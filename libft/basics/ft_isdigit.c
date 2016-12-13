@@ -6,11 +6,22 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/04 18:24:51 by tboos             #+#    #+#             */
-/*   Updated: 2016/02/22 20:27:18 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/12 16:45:02 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int ft_strisdigit(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+		if (!ft_isdigit(str[i]))
+			return (0);
+	return (1);
+}
 
 int		ft_isdigit(int c)
 {

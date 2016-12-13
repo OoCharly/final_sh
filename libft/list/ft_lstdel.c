@@ -14,6 +14,12 @@
 #include "list.h"
 #include "dclist.h"
 
+void	ft_list_free(void *data, size_t data_size)
+{
+	(void)data_size;
+	(void)data;
+}
+
 void	ft_list_free_data(void *data, size_t data_size)
 {
 	data_size = 0;

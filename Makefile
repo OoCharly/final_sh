@@ -26,7 +26,7 @@ builtins/environ.c \
 builtins/jobs.c \
 builtins/jobs_utils.c \
 builtins/history.c \
-builtins/history_param.c \
+builtins/history_params.c \
 core/cmp.c \
 core/errors.c \
 core/free.c \
@@ -51,7 +51,9 @@ run_command/env_var_replace.c \
 run_command/exec.c \
 run_command/files.c \
 run_command/globbing_replace.c \
+run_command/history_replace.c \
 run_command/heredoc.c \
+run_command/insert.c \
 run_command/lexer.c \
 run_command/lexer_av.c \
 run_command/lexer_match_op.c \
@@ -62,6 +64,7 @@ run_command/parser_sequence.c \
 run_command/pipehandle.c \
 run_command/quote_replace.c \
 run_command/wait.c \
+run_command/braces.c \
 scan_input/arrowlr.c \
 scan_input/arrowud.c \
 scan_input/checknewline.c \

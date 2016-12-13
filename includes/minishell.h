@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:23:28 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 13:17:10 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/09 19:06:21 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "autocomp.h"
 # include "globbing.h"
 # include "run_command.h"
+# include "builtins.h"
 # include "error.h"
 
 # ifdef LINUX

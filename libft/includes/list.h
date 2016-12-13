@@ -47,5 +47,7 @@ int					ft_lstdel_err(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 size_t				ft_list_strlen(t_list *begin);
+char				**ft_list_strtab(t_list *begin);
+void				ft_list_free(void *data, size_t data_size);
 
 #endif

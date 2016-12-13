@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/07 11:51:57 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/07 15:03:15 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	ft_setenv(char *n, char *val, t_config *config)
 		ft_error(SHNAME, "error while setenv for", n, CR_ERROR);
 	else if (i >= 0 && !ft_strcmp(n, "PWD"))
 		ft_setenv("OLDPWD", memo + 4, config);
-	else if (i < 0 && ((val && val[0] && !(memo = ft_strchrjoin(n, '=', val)))
+	else if (i < 0
+		&& ((val && !(memo = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
 		|| (!val && !(memo = ft_strjoin(n, "=")))))
 		ft_error(SHNAME, "malloc error during setenv for", n, CR_ERROR);
 	else if (i < 0 && !(config->env = ft_strtabadd(config->env, memo))
