@@ -38,7 +38,9 @@ core/minishell.c \
 core/qerror.c \
 core/signal.c \
 globbing/globbing.c \
+globbing/globbing_support.c \
 globbing/match.c \
+globbing/braces.c \
 history/history.c \
 history/history_backup.c \
 history/history_search_down.c \
@@ -50,7 +52,6 @@ run_command/build_sentence.c \
 run_command/env_var_replace.c \
 run_command/exec.c \
 run_command/files.c \
-run_command/globbing_replace.c \
 run_command/history_replace.c \
 run_command/heredoc.c \
 run_command/insert.c \
@@ -64,7 +65,6 @@ run_command/parser_sequence.c \
 run_command/pipehandle.c \
 run_command/quote_replace.c \
 run_command/wait.c \
-run_command/braces.c \
 scan_input/arrowlr.c \
 scan_input/arrowud.c \
 scan_input/checknewline.c \

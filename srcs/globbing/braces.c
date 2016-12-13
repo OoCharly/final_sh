@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:39:35 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 15:50:41 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/13 17:57:39 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		ft_catlist(t_list **arg, char *str)
 	t_list *list;
 
 	if (!*arg)
-		*arg = ft_lstnew(ft_strnew(SIZE), 0);
+		*arg = ft_lstnew(ft_strnew(BRACES_SIZE), 0);
 	list = *arg;
 	while (list)
 	{
@@ -35,7 +35,7 @@ static void		ft_catlist(t_list **arg, char *str)
 ** Free the first and second list.
 */
 
-static t_list		*ft_distriblist(t_list *list1, t_list *list2)
+static t_list	*ft_distriblist(t_list *list1, t_list *list2)
 {
 	t_list	*list3;
 	t_list	*l;
@@ -52,10 +52,11 @@ static t_list		*ft_distriblist(t_list *list1, t_list *list2)
 		l = list2;
 		while (l)
 		{
-			ft_list_push_back(&list3, ft_lstnew(ft_strjoin(list1->data, l->data), 0));
+			ft_list_push_back(&list3,
+					ft_lstnew(ft_strjoin(list1->data, l->data), 0));
 			l = l->next;
 		}
-		list1 =list1->next;
+		list1 = list1->next;
 	}
 	ft_lstdel(&kill1, &ft_list_free_data);
 	ft_lstdel(&kill2, &ft_list_free_data);
@@ -63,40 +64,14 @@ static t_list		*ft_distriblist(t_list *list1, t_list *list2)
 }
 
 /*
- ** If the brace is closed later, return the index of closing brace.
- ** If not, return 0.
- */
-
-int				ft_isbraces(char *str)
-{
-	int		open;
-	int		close;
-	int		i;
-
-	open = 0;
-	close = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if ((!i && str[i] == '{') || (i && str[i] == '{' && str[i - 1] != '\\'))
-			open++;
-		if ((!i && str[i] == '}') || (i && str[i] == '}' && str[i - 1] != '\\'))
-			close++;
-		if (open == close)
-			return (i);
-	}
-	return (0);
-}
-
-/*
 ** cf ft_braces.
 */
 
-void	ft_braces2(t_brace *b, char *str)
+void			ft_braces2(t_brace *b, char *str)
 {
 	b->arg2 = ft_braces(ft_strncpy(b->sub, str + 1, b->size - 1), 0);
 	b->arg1 = (b->arg1) ? ft_distriblist(b->arg1, b->arg2) : b->arg2;
-	ft_bzero(b->sub, SIZE);
+	ft_bzero(b->sub, BRACES_SIZE);
 }
 
 /*
@@ -104,7 +79,7 @@ void	ft_braces2(t_brace *b, char *str)
 ** case. Merge argument lists. Concatenate parts of an argument.
 */
 
-t_list		*ft_braces(char *str, char out)
+t_list			*ft_braces(char *str, char out)
 {
 	t_brace		b;
 
@@ -133,7 +108,12 @@ t_list		*ft_braces(char *str, char out)
 	return (b.all);
 }
 
-char	*ft_launchbraces(char *str)
+/*
+** Launch a first occurence of ft_braces with out = 1 (the it will take 0 value)
+** Put list result into a char string. Free list and list data.
+*/
+
+char			*ft_launchbraces(char *str)
 {
 	t_list	*list;
 	t_list	*tmp;
@@ -147,10 +127,10 @@ char	*ft_launchbraces(char *str)
 			return (tot);
 		while (list)
 		{
-		ft_strcat(ft_strcat(tot, list->data), " ");
-		tmp  = list;
-		list = list->next;
-		ft_lstdelone(&tmp, ft_list_free_data);
+			ft_strcat(ft_strcat(tot, list->data), " ");
+			tmp = list;
+			list = list->next;
+			ft_lstdelone(&tmp, ft_list_free_data);
 		}
 	}
 	return (tot);
