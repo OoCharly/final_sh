@@ -6,15 +6,15 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/13 11:17:49 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 18:01:37 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**Changes begin->data for a new char **, in this one an new char * was insert
-**wich contents the result of globbing or of the history index search (!).
+** Changes begin->data for a new char **, in this one an new char * was insert
+** wich contents the result of globbing or of the history index search (!).
 */
 
 static void	ft_insert(t_config *config, char ***t, int *i, int mode)
@@ -23,7 +23,6 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 	char	**g_tab;
 	char	**kill;
 
-	
 	if (!mode)
 		tmp = ft_launchbraces((*t)[*i]);
 	else if (mode == 1)
@@ -40,7 +39,7 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 		ft_free(g_tab);
 		ft_free(kill);
 	}
-	else 
+	else
 		(*i)++;
 }
 
@@ -49,7 +48,7 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 ** every piece of argument.
 */
 
-void	ft_try(t_config *config, char ***t, int mode)
+void		ft_try(t_config *config, char ***t, int mode)
 {
 	int i;
 
