@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:44:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 13:35:23 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/13 14:52:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void			ft_secure_prompt(t_stream *stream)
 	ft_prompt(stream->config);
 	if (!((stream->config->prompt_len) % stream->col))
 		ft_repeat_termcaps(1, "do", stream);
+	if (stream->search)
+		ft_sprompt(stream);
 }
 
 /*

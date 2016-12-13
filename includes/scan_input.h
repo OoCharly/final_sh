@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 16:37:18 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/13 16:43:51 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void			ft_sappend(t_stream *stream);
 void			ft_sdel(t_stream *stream);
 void			ft_sprompt(t_stream *stream);
 void			ft_searchinhistory(t_stream *stream);
+void			ft_modifycommand(t_stream *stream);
 void			ft_flushsearch(t_stream *stream);
 /*
  * **winsize.c

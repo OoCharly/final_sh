@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:07:27 by rbaran            #+#    #+#             */
-/*   Updated: 2016/11/14 13:26:16 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/13 11:51:50 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ void		ft_searchengine(t_stream *stream)
 		ft_sprompt(stream);
 	}
 	else
-		ft_searchengineend(stream);
+	{
+		ft_searchinhistory(stream);
+		ft_modifycommand(stream);
+	}
 }

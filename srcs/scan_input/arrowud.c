@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:16 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 10:24:04 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/13 11:55:14 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_ctrlup(t_stream *stream)
 	size_t		col;
 
 	if (stream->search)
-		ft_searchengine(stream);
+		ft_searchengineend(stream);
 	col = stream->col;
 	while (col--)
 		ft_left(stream);
@@ -49,7 +49,7 @@ void	ft_ctrldown(t_stream *stream)
 	size_t		col;
 
 	if (stream->search)
-		ft_searchengine(stream);
+		ft_searchengineend(stream);
 	col = stream->col;
 	while (col--)
 		ft_right(stream);
