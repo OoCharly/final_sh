@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/13 18:21:05 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 19:48:25 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 	char	**kill;
 
 	if (!mode)
-		tmp = ft_launchbraces((*t)[*i]);
+		tmp = ft_create_strhistidx(config, (*t)[*i]);
 	else if (mode == 1)
-		tmp = ft_ret_indexhist(config, (*t)[*i]);
+		tmp = ft_launchbraces((*t)[*i]);
 	else
 		tmp = ft_launch_glob((*t)[*i]);
 	if (tmp)
@@ -48,7 +48,7 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 ** every piece of argument.
 */
 
-void		ft_try(t_config *config, char ***t, int mode)
+void		ft_check_insert(t_config *config, char ***t, int mode)
 {
 	int i;
 
@@ -83,10 +83,8 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		{
 			t = ((char **)begin->data);
 			while (j < 3)
-			{
-				ft_try(config, &t, j++);
-				begin->data = t;
-			}
+				ft_check_insert(config, &t, j++);
+			begin->data = t;
 		}
 		begin = begin->next;
 	}
