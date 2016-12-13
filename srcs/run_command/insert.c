@@ -23,17 +23,48 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 	char	**g_tab;
 	char	**kill;
 
+	
 	if (!mode)
-		tmp = ft_launch_glob((*t)[*i]);
-	else
+		tmp = ft_launchbraces((*t)[*i]);
+	else if (mode == 1)
 		tmp = ft_ret_indexhist(config, (*t)[*i]);
-	g_tab = ft_strsplit(tmp, ' ');
-	ft_freegiveone((void **)&tmp);
-	kill = *t;
-	*t = ft_insertdeletetab(*t, g_tab, *i);
-	*i += ft_strtablen(g_tab);
-	ft_free(g_tab);
-	ft_free(kill);
+	else
+		tmp = ft_launch_glob((*t)[*i]);
+	if (tmp)
+	{
+		g_tab = ft_strsplit(tmp, ' ');
+		ft_freegiveone((void **)&tmp);
+		kill = *t;
+		*t = ft_insertdeletetab(*t, g_tab, *i);
+		*i += ft_strtablen(g_tab);
+		ft_free(g_tab);
+		ft_free(kill);
+	}
+	else 
+		(*i)++;
+}
+
+/*
+** For each mode (braces, bang, glob) check if there is things to replace for
+** every piece of argument.
+*/
+
+void	ft_try(t_config *config, char ***t, int mode)
+{
+	int i;
+
+	i = 0;
+	while ((*t)[i])
+	{
+		if (!mode)
+			ft_insert(config, t, &i, mode);
+		else if (mode == 1 && ft_checkhist((*t)[i]))
+			ft_insert(config, t, &i, mode);
+		else if (mode == 2 && ft_checkglob((*t)[i]))
+			ft_insert(config, t, &i, mode);
+		else
+			i++;
+	}
 }
 
 /*
@@ -44,24 +75,19 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 
 int			ft_insert_loop(t_list *begin, t_config *config)
 {
-	int		i;
 	char	**t;
+	int		j;
 
 	while (begin)
 	{
-		if (!begin->data_size && !(i = 0))
+		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
-			while (t[i])
+			while (j < 3)
 			{
-				if (ft_checkglob(t[i]))
-					ft_insert(config, &t, &i, 0);
-				else if (ft_checkhist(t[i]))
-					ft_insert(config, &t, &i, 1);
-				else
-					i++;
+				ft_try(config, &t, j++);
+				begin->data = t;
 			}
-			begin->data = t;
 		}
 		begin = begin->next;
 	}

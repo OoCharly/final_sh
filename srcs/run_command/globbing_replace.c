@@ -71,7 +71,7 @@ int			ft_insertglob(t_list *begin)
 	}
 	return (1);
 }
-
+/*
 int		ft_insertbraces(t_list *begin)
 {
 	int		i;
@@ -101,4 +101,4 @@ int		ft_insertbraces(t_list *begin)
 		begin = begin->next;
 	}
 	return (1);
-}
+}*/

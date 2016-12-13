@@ -38,6 +38,7 @@ int		ft_insertglob(t_list *begin);
 */
 void	ft_glob(DIR *dir, char *path, char *glob);
 char	*ft_launch_glob(char *str);
+size_t	ft_size_list(t_list *begin);
 
 /*
 ** match.c
@@ -49,7 +50,7 @@ int		ft_match(char *glob, char *comp);
 ** braces.h
 */
 
-char	**ft_launchbraces(char	*str);
+char	*ft_launchbraces(char	*str);
 t_list	*ft_braces(char	*str, char out);
 int		ft_isbraces(char *str);
 

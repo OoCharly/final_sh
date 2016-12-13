@@ -121,18 +121,25 @@ t_list		*ft_braces(char *str, char out)
 	return (b.all);
 }
 
-char	**ft_launchbraces(char *str)
+char	*ft_launchbraces(char *str)
 {
 	t_list	*list;
-	char	**t;
+	t_list	*tmp;
+	char	*tot;
 
 	list = NULL;
-	t = NULL;
-	if (str)
+	tot = NULL;
+	if (str && (list = ft_braces(str, 1)))
 	{
-		list = ft_braces(str, 1);
-		t = ft_list_strtab(list);
-		ft_lstdel(&list, ft_list_free);
+		if (!(tot = ft_strnew(ft_size_list(list))))
+			return (tot);
+		while (list)
+		{
+		ft_strcat(ft_strcat(tot, list->data), " ");
+		tmp  = list;
+		list = list->next;
+		ft_lstdelone(&tmp, ft_list_free_data);
+		}
 	}
-	return (t);
+	return (tot);
 }
