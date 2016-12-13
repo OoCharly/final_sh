@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 11:29:10 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 11:30:45 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_run_command(t_config *config)
 	{
 		if (!ft_quote(config->chimera, config)
 			|| !ft_insertbraces(config->chimera)
-			|| !ft_insertglob(config->chimera)
+			|| !ft_insert_loop(config->chimera, config)
 			|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
