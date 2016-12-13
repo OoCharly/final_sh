@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:25:11 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/12 16:22:27 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 10:46:16 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int			ft_checkglob(char *arg)
 	}
 	return (0);
 }
-<<<<<<< HEAD
 
 int			ft_insertglob(t_list *begin)
 {
@@ -103,5 +102,3 @@ int		ft_insertbraces(t_list *begin)
 	}
 	return (1);
 }
-=======
->>>>>>> db2799bb5dec6a7759a8f82c7ab4f7ba7c033f59

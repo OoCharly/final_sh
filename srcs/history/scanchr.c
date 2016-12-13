@@ -6,13 +6,13 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:20:30 by rbaran            #+#    #+#             */
-/*   Updated: 2016/11/14 08:57:45 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/13 11:53:13 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_modifycommand(t_stream *stream)
+void		ft_modifycommand(t_stream *stream)
 {
 	ft_gohome(stream);
 	ft_freegiveone((void **)&(stream->command));
