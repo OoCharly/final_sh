@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -10,10 +12,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+>>>>>>> db2799bb5dec6a7759a8f82c7ab4f7ba7c033f59
 #ifndef GLOBBING_H
 # define GLOBBING_H
-
 # include "minishell.h"
+
+# define SIZE 1000
+
+typedef		struct	s_brace
+{
+	t_list	*all;
+	t_list	*arg1;
+	t_list	*arg2;
+	char	sub[SIZE];
+	int		size;
+	char	jump;
+}					t_brace;
+
+/*
+** globbing_replace.c
+*/
+
+int		ft_insertbraces(t_list *begin);
+int		ft_insertglob(t_list *begin);
 
 /*
 ** globbing.c
@@ -25,5 +46,14 @@ char	*ft_launch_glob(char *str);
 ** match.c
 */
 int		ft_match(char *glob, char *comp);
+
+
+/*
+** braces.h
+*/
+
+char	**ft_launchbraces(char	*str);
+t_list	*ft_braces(char	*str, char out);
+int		ft_isbraces(char *str);
 
 #endif

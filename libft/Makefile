@@ -21,7 +21,8 @@ LIST = ft_list_at.c ft_list_find.c ft_list_last.c ft_list_merge.c \
 	ft_list_push_back.c ft_list_push_front.c ft_list_remove_if.c \
 	ft_list_reverse.c ft_list_size.c ft_list_sort.c ft_lstdel.c \
 	ft_lstdelone.c ft_lstiter.c ft_lstiter_if.c ft_lstmap.c ft_lstnew.c \
-	ft_sorted_list_insert.c ft_sorted_list_merge.c ft_list_str.c
+	ft_sorted_list_insert.c ft_sorted_list_merge.c ft_list_str.c \
+	ft_list_strtab.c
 LISTS = $(foreach L, $(LIST), list/$(L))
 BASIC = ft_bzero.c ft_freegiveone.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_isdigit.c ft_isprint.c ft_memalloc.c ft_memccpy.c ft_memchr.c \

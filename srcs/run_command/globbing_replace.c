@@ -37,3 +37,71 @@ int			ft_checkglob(char *arg)
 	}
 	return (0);
 }
+<<<<<<< HEAD
+
+int			ft_insertglob(t_list *begin)
+{
+	int		i;
+	char	**t;
+	char	*tmp;
+	char	**g_tab;
+	char	**tmp_tab;
+
+	while (begin)
+	{
+		if (!begin->data_size)
+		{
+			t = ((char **)begin->data);
+			i = 0;
+			while (t[i])
+				if (!ft_checkglob(t[i]) || !(tmp = ft_launch_glob(t[i])))
+					i++;
+				else 
+				{
+					g_tab = ft_strsplit(tmp, ' ');
+					ft_freegiveone((void **)&tmp);
+					tmp_tab = t;
+					t = ft_insertdeletetab(t, g_tab, i);
+					i += ft_strtablen(g_tab);
+					ft_free(g_tab);
+					ft_free(tmp_tab);
+				}
+			begin->data = t;
+		}
+		begin = begin->next;
+	}
+	return (1);
+}
+
+int		ft_insertbraces(t_list *begin)
+{
+	int		i;
+	char	**new_tab;
+	char	**t;
+	char	**tmp_tab;
+
+	while (begin)
+	{
+		if (!begin->data_size)
+		{
+			t = ((char **)begin->data);
+			i = 0;
+			while (t[i])
+				if (!(new_tab = ft_launchbraces(t[i])))
+					i++;
+				else
+				{
+					tmp_tab = t;
+					t = ft_insertdeletetab(t, new_tab, i);
+					i += ft_strtablen(new_tab);
+					ft_free(new_tab);
+					ft_free(tmp_tab);
+				}
+			begin->data = t;
+		}
+		begin = begin->next;
+	}
+	return (1);
+}
+=======
+>>>>>>> db2799bb5dec6a7759a8f82c7ab4f7ba7c033f59

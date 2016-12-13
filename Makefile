@@ -64,6 +64,7 @@ run_command/parser_sequence.c \
 run_command/pipehandle.c \
 run_command/quote_replace.c \
 run_command/wait.c \
+run_command/braces.c \
 scan_input/arrowlr.c \
 scan_input/arrowud.c \
 scan_input/checknewline.c \
