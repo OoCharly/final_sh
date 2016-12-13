@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 16:57:09 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/13 17:13:35 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,6 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 	else if (dir)
 		while ((file = readdir(dir)))
 			ft_check_file(file->d_name, glob, buf, end);
-}
-
-size_t			ft_size_list(t_list *begin)
-{
-	int i;
-
-	i = 0;
-	while (begin)
-	{
-		i += ft_strlen(begin->data) + 1;
-		begin = begin->next;
-	}
-	return (i);
 }
 
 /*

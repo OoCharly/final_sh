@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/12 16:15:13 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 17:41:57 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,5 @@ int				ft_checkhist(char *str);
 /*
 **history_replace.c
 */
-int				ft_checkglob(char *arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/13 12:16:30 by rbaran           ###   ########.fr       */
+/*   Updated: 2016/12/13 17:41:55 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ typedef		struct	s_brace
 }					t_brace;
 
 /*
-** globbing_replace.c
+** globbing_support.c
 */
 
-int		ft_insertbraces(t_list *begin);
-int		ft_insertglob(t_list *begin);
+size_t	ft_size_list(t_list *begin);
+int		ft_checkglob(char *arg);
 
 /*
 ** globbing.c
 */
 void	ft_glob(DIR *dir, char *path, char *glob);
 char	*ft_launch_glob(char *str);
-size_t	ft_size_list(t_list *begin);
 
 /*
 ** match.c
