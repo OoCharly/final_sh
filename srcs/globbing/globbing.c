@@ -85,7 +85,7 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 }
 
 
-int			ft_size_list(t_list *begin)
+size_t			ft_size_list(t_list *begin)
 {
 	int i;
 
