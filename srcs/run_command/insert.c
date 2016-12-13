@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/12 16:01:25 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 11:17:49 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 	char	**kill;
 
 	if (!mode)
-		tmp = ft_launch_glob(*t[*i]);
+		tmp = ft_launch_glob((*t)[*i]);
 	else
-		tmp = ft_ret_indexhist(config, *t[*i]);
+		tmp = ft_ret_indexhist(config, (*t)[*i]);
 	g_tab = ft_strsplit(tmp, ' ');
 	ft_freegiveone((void **)&tmp);
 	kill = *t;

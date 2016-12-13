@@ -10,7 +10,7 @@ char	**ft_list_strtab(t_list	*begin)
 	if (begin)
 	{
 		size = ft_list_size(begin);
-		if (!(tab = (char**)ft_memalloc(sizeof(void*) * size + 1)))
+		if (!(tab = (char**)ft_memalloc(sizeof(void*) * (size + 1))))
 			return (NULL);
 		i = -1;
 		while (++i < (int)size && begin)
