@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/12 12:30:50 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 11:29:10 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void		ft_minishell(t_config *config)
 	int		fd;
 
 	fd = 1;
-//	ft_bzero(config->hist_newcmd, sizeof(void*) * HISTORY_SIZE);
 	if ((ft_signal(SIGNAL_SET
 		&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
 		|| (!isatty(1) && !(fd = 0) && !isatty(0)
