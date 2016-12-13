@@ -23,22 +23,31 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 	char	**g_tab;
 	char	**kill;
 
+	
 	if (!mode)
 		tmp = ft_launchbraces((*t)[*i]);
 	else if (mode == 1)
 		tmp = ft_ret_indexhist(config, (*t)[*i]);
 	else
 		tmp = ft_launch_glob((*t)[*i]);
-	g_tab = ft_strsplit(tmp, ' ');
-	ft_freegiveone((void **)&tmp);
-	kill = *t;
-	*t = ft_insertdeletetab(*t, g_tab, *i);
-	*i += ft_strtablen(g_tab);
-	ft_free(g_tab);
-	ft_free(kill);
+	if (tmp)
+	{
+		g_tab = ft_strsplit(tmp, ' ');
+		ft_freegiveone((void **)&tmp);
+		kill = *t;
+		*t = ft_insertdeletetab(*t, g_tab, *i);
+		*i += ft_strtablen(g_tab);
+		ft_free(g_tab);
+		ft_free(kill);
+	}
+	else 
+		(*i)++;
 }
 
-
+/*
+** For each mode (braces, bang, glob) check if there is things to replace for
+** every piece of argument.
+*/
 
 void	ft_try(t_config *config, char ***t, int mode)
 {
@@ -57,7 +66,6 @@ void	ft_try(t_config *config, char ***t, int mode)
 			i++;
 	}
 }
-
 
 /*
 **Runs throught config->chimera, on any begin->data wich is not an operator
@@ -79,9 +87,6 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 			{
 				ft_try(config, &t, j++);
 				begin->data = t;
-				printf("j = %d\n", j);
-				printf("tableau\n");
-				ft_putstrtab(t, '\n');
 			}
 		}
 		begin = begin->next;
