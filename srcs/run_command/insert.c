@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/13 19:48:25 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 20:08:04 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 }
 
 /*
-**Runs throught config->chimera, on any begin->data wich is not an operator
-**checks if there are a globing pathern or an '!'. If one of these pathern
-**is found launch the corresponding function.
+** Runs throught config->chimera, on any begin->data wich is not an operator
+** checks if there are a globing pathern or an '!'. If one of these pathern
+** is found launch the corresponding function.
 */
 
 int			ft_insert_loop(t_list *begin, t_config *config)
