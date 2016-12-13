@@ -6,14 +6,14 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/06 18:03:38 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/13 16:57:09 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- ** Save once and  return list with valid files pathnames.
+** Save once and  return list with valid files pathnames.
 */
 
 static t_list	**ft_save_list(t_list **begin, char clear)
@@ -28,10 +28,10 @@ static t_list	**ft_save_list(t_list **begin, char clear)
 }
 
 /*
- ** For one directory, check if each file fill the glob, append it to the saved
- ** path if ok. Discard "." and ".." and hidden files if not explicitely
- ** mentionned in glob. Call ft_glob with next path section in glob.
- */
+** For one directory, check if each file fill the glob, append it to the saved
+** path if ok. Discard "." and ".." and hidden files if not explicitely
+** mentionned in glob. Call ft_glob with next path section in glob.
+*/
 
 static void		ft_check_file(char *file, char *glob, char *buf, int end)
 {
@@ -47,8 +47,8 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 		closedir(dir);
 	}
 	if (ft_match(glob, file) && ((ft_strcmp(file, ".") && ft_strcmp(file, "..")
-					&& (*(file) != '.' || ft_match(".*", glob))) || (ft_match(".", glob) &&
-					!ft_strcmp(file, ".")) || (ft_match("..", glob) && !ft_strcmp(file, ".."))))
+	&& (*(file) != '.' || ft_match(".*", glob))) || (ft_match(".", glob) &&
+	!ft_strcmp(file, ".")) || (ft_match("..", glob) && !ft_strcmp(file, ".."))))
 	{
 		if (ft_strcat(buf, file) && ft_strncmp(glob, "**/", 3))
 			ft_glob((dir = opendir(buf)), buf, (glob + ft_strlenc(glob, '/')));
@@ -61,10 +61,10 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 }
 
 /*
- ** Recursive function. If glob comes at a end, add the pathname to the list.
- ** if *glob is /, append it to the pathname and restart function. If it comes to
- ** a valid path section in glob, check the files that might be valid.
- */
+** Recursive function. If glob comes at a end, add the pathname to the list.
+** if *glob is /, append it to the pathname and restart function. If it comes to
+** a valid path section in glob, check the files that might be valid.
+*/
 
 void			ft_glob(DIR *dir, char *path, char *glob)
 {
@@ -84,7 +84,6 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 			ft_check_file(file->d_name, glob, buf, end);
 }
 
-
 size_t			ft_size_list(t_list *begin)
 {
 	int i;
@@ -103,7 +102,7 @@ size_t			ft_size_list(t_list *begin)
 ** result into a string.
 */
 
-char	*ft_launch_glob(char *str)
+char			*ft_launch_glob(char *str)
 {
 	DIR		*stream;
 	t_list	*begin;
@@ -113,14 +112,11 @@ char	*ft_launch_glob(char *str)
 	begin = NULL;
 	tot = NULL;
 	ft_save_list(&begin, 0);
-	if ((*str == '/' && !(stream = opendir("/"))) || !(stream = opendir(".")))
+	if (!(stream = (*str == '/') ? opendir("/") : opendir(".")))
 		return (NULL);
 	ft_glob(stream, NULL, (char*)str);
 	closedir(stream);
-	if (begin)
-	{
-		tot = ft_strnew(ft_size_list(begin));
-		//test = &begin;
+	if (begin && (tot = ft_strnew(ft_size_list(begin))))
 		while (begin)
 		{
 			ft_strcat(ft_strcat(tot, begin->data), " ");
@@ -128,8 +124,6 @@ char	*ft_launch_glob(char *str)
 			begin = begin->next;
 			ft_lstdelone(&tmp, &ft_list_free_data);
 		}
-	}
 	ft_save_list(NULL, 1);
 	return (tot);
 }
-
