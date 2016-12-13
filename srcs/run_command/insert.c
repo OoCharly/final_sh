@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/13 20:08:04 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/13 20:16:37 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 	i = 0;
 	while ((*t)[i])
 	{
-		if (!mode)
+		if (!mode && ft_checkhist((*t)[i]))
 			ft_insert(config, t, &i, mode);
-		else if (mode == 1 && ft_checkhist((*t)[i]))
+		else if (mode == 1)
 			ft_insert(config, t, &i, mode);
 		else if (mode == 2 && ft_checkglob((*t)[i]))
 			ft_insert(config, t, &i, mode);
