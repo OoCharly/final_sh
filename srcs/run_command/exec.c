@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:20:26 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 12:55:50 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/14 13:43:01 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char		*ft_path_handle(char **argv, t_config *config)
 
 void		ft_execve(char *path, char **argv, char **env)
 {
-	static char	*rearg[3] = {"./21sh", NULL, NULL}; 
-		
+	static char	*rearg[3] = {"./21sh", NULL, NULL};
+
 	if ((-1 == execve(path, argv, env)) && (rearg[1] = path) &&
 			(-1 == execve(SHNAME, rearg, env)))
 		ft_error(SHNAME, "exec", "execve error", CR_ERROR);
