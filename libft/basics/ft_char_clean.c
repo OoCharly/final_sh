@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:24:44 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/14 17:28:45 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/14 19:24:28 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,14 @@ void	ft_tabchar_clean(char **str, char c)
 	{
 		ft_char_clean(*str, c);
 		str++;
+	}
+}
+
+void	ft_tabstr_clean(char **str, char *tok)
+{
+	while (*tok)
+	{
+		ft_tabchar_clean(str, *tok);
+		tok++;
 	}
 }
