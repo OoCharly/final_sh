@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list_strtab.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/14 14:27:21 by maxpetit          #+#    #+#             */
+/*   Updated: 2016/12/14 14:29:14 by maxpetit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/libft.h"
 
-char	**ft_list_strtab(t_list	*begin)
+char	**ft_list_strtab(t_list *begin)
 {
 	char	**tab;
 	size_t	size;
@@ -21,36 +33,3 @@ char	**ft_list_strtab(t_list	*begin)
 	}
 	return (tab);
 }
-
-/*
-int		main(int ac, char **av)
-{
-	char	test[] = "jordan";
-	char	test1[] = "romain";
-	char	test2[] = "theo";
-	char	*test3;
-	t_list	*begin;
-	t_list	*tmp;
-	char	**tab;
-
-	test3 = NULL;
-	tab = NULL;
-	ft_list_push_back(&begin, ft_lstnew(test3, 1));
-	ft_list_push_back(&begin, ft_lstnew(test1, 1));
-	ft_list_push_back(&begin, ft_lstnew(test2, 1));
-	ft_putendl("Impression de la liste");
-	tmp = begin;
-	while (begin)
-	{
-		ft_putendl(begin->data);
-		begin = begin->next;
-	}
-	if (!(tab = ft_list_strtab(NULL)))
-		ft_putendl("Echec du transfert de la liste en tableau");
-	else
-	{
-		ft_putendl("Impression du tableau");
-		ft_putstrtab(tab, '\n');
-	}
-	return (0);
-}*/
