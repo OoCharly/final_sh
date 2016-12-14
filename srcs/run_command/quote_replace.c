@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:21:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:15:37 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/14 17:15:57 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@ static t_list	*ft_quote_replace(char **t, t_list *next)
 	{
 		j = -1;
 		while (t[i][++j])
-		{
 			if (t[i][j] == '\'' || t[i][j] == '\"')
 				j = ft_dodge_quote(t[i], j);
-			else if (t[i][j] == '\\')
-				ft_memmove(t[i] + j, t[i] + j + 1, ft_strlen(t[i] + j));
-		}
 		j = -1;
 		while (t[i][++j])
-			if (t[i][j] == '\'' || t[i][j] == '\"')
+			if (t[i][j] == '\\')
+				j++;
+			else if (t[i][j] == '\'' || t[i][j] == '\"')
 			{
 				ft_memmove(t[i] + j, t[i] + j + 1, ft_strlen(t[i] + j));
-				--j;
+				j--;
 			}
 	}
 	return (next);
