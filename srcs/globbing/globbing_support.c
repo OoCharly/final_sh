@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:01:07 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 17:47:59 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/14 13:44:31 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** If not, return 0.
 */
 
-int				ft_isbraces(char *str)
+int			ft_isbraces(char *str)
 {
 	int		open;
 	int		close;
