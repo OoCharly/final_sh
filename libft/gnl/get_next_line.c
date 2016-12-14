@@ -6,11 +6,11 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:30:52 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:28:04 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/14 15:46:10 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 static int			ft_free_line(t_line **begin, t_line *next)
 {
