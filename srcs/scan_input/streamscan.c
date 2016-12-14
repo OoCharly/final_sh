@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/12 16:40:08 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/14 13:37:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	ft_termios_handle(t_config *config, int mode)
 }
 
 /*
-**When keys CTRL + D are touched, puts cursor on the first column after the 
+**When keys CTRL + D are touched, puts cursor on the first column after the
 **prompt and exits the programe.
 */
 
