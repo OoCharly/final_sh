@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 12:49:08 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 14:48:47 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,55 @@ static void	ft_gotonextline(t_stream *stream)
 	stream->tput = "le";
 	ft_tputs(stream);
 	ft_tputs(stream);
+}
+
+int		ft_cleancmd(char *str)
+{
+	char	tok;
+
+	while (*str)
+	{
+		if (*str == '"' || *str == '\'')
+		{
+			tok = *str;
+			ft_memmove(str, str + 1, ft_strlen(str));
+			while (*str && *str != tok)
+			{
+				if (*str == '\\')
+					ft_memmove(str, str + 1, ft_strlen(str));
+				str++;
+			}
+			ft_memmove(str, str + 1, ft_strlen(str));
+		}
+		if (*str == '\\')
+			ft_memmove(str, str + 1, ft_strlen(str));
+		str++;
+	}
+	return (1);
+}
+
+static int	ft_clean_chimera(t_list *lst)
+{
+	t_list	*cp;
+	char	**str;
+
+	cp = lst;
+	while (cp)
+	{
+		if (cp->data_size)
+			ft_cleancmd((char*)(cp->data));
+		else
+		{
+			str = (char**)(cp->data);
+			while (*str)
+			{
+				ft_cleancmd(*str);
+				str++;
+			}
+		}
+		cp = cp->next;
+	}
+	return (1);
 }
 
 void		ft_print_list(t_list *elem)
@@ -53,9 +102,9 @@ void		ft_run_command(t_config *config)
 	if ((config->chimera = ft_lexer(config->command)))
 	{
 		if (!ft_quote(config->chimera, config)
-			|| !ft_insert_loop(config->chimera, config)
-			|| !ft_clean_chimera(config->chimera);
-			|| !ft_herringbone(config->chimera, config))
+				|| !ft_insert_loop(config->chimera, config)
+				|| !ft_clean_chimera(config->chimera)
+				|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
 		{
@@ -66,9 +115,9 @@ void		ft_run_command(t_config *config)
 }
 
 /*
-**If an interuption signal is caught, frees config structure and exits.
-**Memorizes adress of stream in a static variable.
-*/
+ **If an interuption signal is caught, frees config structure and exits.
+ **Memorizes adress of stream in a static variable.
+ */
 
 void		ft_minishell(t_config *config)
 {
@@ -76,10 +125,10 @@ void		ft_minishell(t_config *config)
 
 	fd = 1;
 	if ((ft_signal(SIGNAL_SET
-		&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
-		|| (!isatty(1) && !(fd = 0) && !isatty(0)
-		&& ft_error(SHNAME, "unable write and read from the same fd",
-		"I quit", 1 | SERROR)))
+					&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
+			|| (!isatty(1) && !(fd = 0) && !isatty(0)
+				&& ft_error(SHNAME, "unable write and read from the same fd",
+					"I quit", 1 | SERROR)))
 		ft_shell_exit(config);
 	config->shell_state = SCANNING_COMMAND;
 	while (1)
