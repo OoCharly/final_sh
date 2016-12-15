@@ -6,16 +6,16 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/15 18:14:13 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:37:14 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- ** Changes begin->data for a new char **, in this one an new char * was insert
- ** wich contents the result of globbing or of the history index search (!).
- */
+** Changes begin->data for a new char **, in this one an new char * was insert
+** wich contents the result of globbing or of the history index search (!).
+*/
 
 static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 {
@@ -47,9 +47,9 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 }
 
 /*
- ** For each mode (braces, bang, glob) check if there is things to replace for
- ** every piece of argument.
- */
+** For each mode (braces, bang, glob) check if there is things to replace for
+** every piece of argument.
+*/
 
 void		ft_check_insert(t_config *config, char ***t, int mode)
 {
@@ -60,11 +60,11 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 	{
 		if (!mode && ft_checkhist((*t)[i]))
 			ft_insert(config, t, &i, mode);
-		else if (mode == 1)
+		else if (mode == 1 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(config, t, &i, mode);
 		else if (mode == 2)
 		{
-			if (ft_checkglob((*t)[i]))
+			if (ft_checkchars((*t)[i], "*[]?"))
 				ft_insert(config, t, &i, mode);
 			else
 			{
@@ -78,10 +78,10 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 }
 
 /*
- ** Runs throught config->chimera, on any begin->data wich is not an operator
- ** checks if there are a globing pathern or an '!'. If one of these pathern
- ** is found launch the corresponding function.
- */
+** Runs throught config->chimera, on any begin->data wich is not an operator
+** checks if there are a globing pathern or an '!'. If one of these pathern
+** is found launch the corresponding function.
+*/
 
 int			ft_insert_loop(t_list *begin, t_config *config)
 {
