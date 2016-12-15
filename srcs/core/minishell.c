@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 18:42:01 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:58:36 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ static void	ft_gotonextline(t_stream *stream)
 	ft_tputs(stream);
 	ft_tputs(stream);
 }
-// ls "'"'"'"'"
+
+/*
+** Strip a string from " ' '\' with the correct rules
+*/
 int		ft_cleancmd(char *str)
 {
 	char	tok;
