@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 17:33:48 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:28:30 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static void	ft_gotonextline(t_stream *stream)
 	ft_tputs(stream);
 	ft_tputs(stream);
 }
-
+// ls "'"'"'"'"
 int		ft_cleancmd(char *str)
 {
 	char	tok;
+	char	*mem;
 
+	mem = str;
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
@@ -32,7 +34,7 @@ int		ft_cleancmd(char *str)
 			ft_memmove(str, str + 1, ft_strlen(str));
 			while (*str && *str != tok)
 			{
-				if (*str == '\\')
+				if (*str == '\\' && tok == '"' && *(str + 1) == tok)
 					ft_memmove(str, str + 1, ft_strlen(str));
 				str++;
 			}
@@ -42,30 +44,6 @@ int		ft_cleancmd(char *str)
 			ft_memmove(str, str + 1, ft_strlen(str));
 		else
 			str++;
-	}
-	return (1);
-}
-
-static int	ft_clean_chimera(t_list *lst)
-{
-	t_list	*cp;
-	char	**str;
-
-	cp = lst;
-	while (cp)
-	{
-		if (cp->data_size)
-			ft_cleancmd((char*)(cp->data));
-		else
-		{
-			str = (char**)(cp->data);
-			while (*str)
-			{
-				ft_cleancmd(*str);
-				str++;
-			}
-		}
-		cp = cp->next;
 	}
 	return (1);
 }
@@ -104,7 +82,6 @@ void		ft_run_command(t_config *config)
 	{
 		if (!ft_quote(config->chimera, config)
 				|| !ft_insert_loop(config->chimera, config)
-				|| !ft_clean_chimera(config->chimera)
 				|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else

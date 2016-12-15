@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/09 19:01:50 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:04:06 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void			ft_free_all_jobs(t_list **job);
 void			ft_run_command(t_config *config);
 void			ft_minishell(t_config *config);
 void			ft_print_list(t_list *elem);
+int				ft_cleancmd(char *str);
 /*
 **signal.c
 */
