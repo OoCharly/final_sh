@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:20:38 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 15:48:07 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 10:31:08 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,23 @@ static int		brackets(char **glob, char c)
 ** [a-z] => one char in the range.
 */
 
-int				ft_match(char *glob, char *comp)
+int				ft_match(char *glob, char *comp, int jump)
 {
-	if (*comp && *glob == '*')
-		return (ft_match(glob + 1, comp) || ft_match(glob, comp + 1));
-	if ((!*comp || *comp == '/') && *glob == '*')
-		return (ft_match(glob + 1, comp));
+	if (jump && jump < 3)
+		jump--;
+	if (*glob == '\\')
+	{
+		printf("on entre ici\n");
+		return (ft_match(glob + 1, comp, 2));
+	}
+	if (*comp && *glob == '*' && !jump)
+		return (ft_match(glob + 1, comp, jump) || ft_match(glob, comp + 1, jump));
+	if ((!*comp || *comp == '/') && *glob == '*' && !jump)
+		return (ft_match(glob + 1, comp, jump));
 	if ((!*comp || *comp == '/') && (!*glob || *glob == '/'))
 		return (1);
-	if ((*comp == *glob || *glob == '?' || (*glob == '[' &&
+	if ((*comp == *glob || (*glob == '?' &&!jump) || (*glob == '[' && !jump &&
 	brackets(&glob, *comp))) && *comp && *comp != '/' && *glob && *glob != '/')
-		return (ft_match(glob + 1, comp + 1));
+		return (ft_match(glob + 1, comp + 1, jump));
 	return (0);
 }

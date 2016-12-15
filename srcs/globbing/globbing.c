@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 17:13:35 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 10:27:27 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 			ft_glob((dir = opendir((!*buf) ? "." : buf)), buf, (glob + 1));
 		closedir(dir);
 	}
-	if (ft_match(glob, file) && ((ft_strcmp(file, ".") && ft_strcmp(file, "..")
-	&& (*(file) != '.' || ft_match(".*", glob))) || (ft_match(".", glob) &&
-	!ft_strcmp(file, ".")) || (ft_match("..", glob) && !ft_strcmp(file, ".."))))
+	if (ft_match(glob, file, 0) && ((ft_strcmp(file, ".") && ft_strcmp(file, "..")
+	&& (*(file) != '.' || ft_match(".*", glob,0))) || (ft_match(".", glob, 0) &&
+	!ft_strcmp(file, ".")) || (ft_match("..", glob, 0) && !ft_strcmp(file, ".."))))
 	{
 		if (ft_strcat(buf, file) && ft_strncmp(glob, "**/", 3))
 			ft_glob((dir = opendir(buf)), buf, (glob + ft_strlenc(glob, '/')));
