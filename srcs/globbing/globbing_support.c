@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:01:07 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/15 18:01:03 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 18:10:00 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				ft_isbraces(char *str)
 **Checks if there are one of the following globbing pathern in arg : *[]?
 */
 
-int				ft_checkchars(char *tmp, char	*chars)
+int				ft_checkchars(char *tmp, char *chars)
 {
 	char	*arg;
 	char	flag;
@@ -54,8 +54,9 @@ int				ft_checkchars(char *tmp, char	*chars)
 		while (*arg)
 		{
 			if (*arg == '\\')
-					arg++;
-			else if ((*arg == '\'' && flag != '\"') || (*arg == '\"' && flag != '\''))
+				arg++;
+			else if ((*arg == '\'' && flag != '\"')
+			|| (*arg == '\"' && flag != '\''))
 				flag = (flag) ? 0 : *arg;
 			else if (*arg == *chars && !flag)
 				return (1);
