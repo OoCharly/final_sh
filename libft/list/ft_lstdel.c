@@ -6,19 +6,13 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/04 18:24:51 by tboos             #+#    #+#             */
-/*   Updated: 2016/02/22 20:31:22 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/14 14:25:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "list.h"
 #include "dclist.h"
-
-void	ft_list_free(void *data, size_t data_size)
-{
-	(void)data_size;
-	(void)data;
-}
 
 void	ft_list_free_data(void *data, size_t data_size)
 {

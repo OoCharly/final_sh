@@ -6,17 +6,17 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:20:38 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/15 10:31:08 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 16:41:55 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/globbing.h"
 
 /*
-** Check if there is a couple of brackets.
-** Verify the validity of the brackets possibility to c.
-** Leave the string on the last bracket.
-*/
+ ** Check if there is a couple of brackets.
+ ** Verify the validity of the brackets possibility to c.
+ ** Leave the string on the last bracket.
+ */
 
 static int		brackets(char **glob, char c)
 {
@@ -29,7 +29,7 @@ static int		brackets(char **glob, char c)
 	while (**glob != ']' && !match)
 	{
 		if (*(*glob + 1) && *(*glob + 2) && *(*glob + 1) == '-' &&
-		*(*glob + 2) != ']')
+				*(*glob + 2) != ']')
 		{
 			min = (int)**glob - 1;
 			while (++min <= (int)*(*glob + 2) && !match)
@@ -47,30 +47,54 @@ static int		brackets(char **glob, char c)
 }
 
 /*
-** Check the validity of a glob string to a string.
-** * => any number of any char including none.
-** ? => any char.
-** [abc] => one of the embedded char.
-** [a-z] => one char in the range.
-*/
+ ** Check the validity of a glob string to a string.
+ ** * => any number of any char including none.
+ ** ? => any char.
+ ** [abc] => one of the embedded char.
+ ** [a-z] => one char in the range.
+ */
 
-int				ft_match(char *glob, char *comp, int jump)
+int				ft_match(char *glob, char *comp, char j)
 {
-	if (jump && jump < 3)
-		jump--;
+	if ((*glob == '"' && j != '\'') || (*glob == '\'' && j != '"'))
+		return (ft_match(glob + 1, comp, (j) ? 0 : *glob));
 	if (*glob == '\\')
 	{
-		printf("on entre ici\n");
-		return (ft_match(glob + 1, comp, 2));
+		if (*(glob + 1) == j)
+			return ((*(glob + 1) == *comp) ? ft_match(glob + 2, comp + 1, j) : 0);
+		else 
+			return ((*glob == *comp) ? ft_match(glob + 1, comp + 1, j) : 0);
 	}
-	if (*comp && *glob == '*' && !jump)
-		return (ft_match(glob + 1, comp, jump) || ft_match(glob, comp + 1, jump));
-	if ((!*comp || *comp == '/') && *glob == '*' && !jump)
-		return (ft_match(glob + 1, comp, jump));
+	if (*comp && *glob == '*' && !j)
+		return (ft_match(glob + 1, comp, j) || ft_match(glob, comp + 1, j));
+	if ((!*comp || *comp == '/') && *glob == '*' && !j)
+		return (ft_match(glob + 1, comp, j));
 	if ((!*comp || *comp == '/') && (!*glob || *glob == '/'))
 		return (1);
-	if ((*comp == *glob || (*glob == '?' &&!jump) || (*glob == '[' && !jump &&
-	brackets(&glob, *comp))) && *comp && *comp != '/' && *glob && *glob != '/')
-		return (ft_match(glob + 1, comp + 1, jump));
+	if ((*comp == *glob || (*glob == '?' &&!j) || (*glob == '[' && !j &&
+					brackets(&glob, *comp))) && *comp && *comp != '/' && *glob && *glob != '/')
+		return (ft_match(glob + 1, comp + 1, j));
 	return (0);
 }
+
+/*
+   int		ft_match(char *str, char *comp, char flag)
+   {
+   if (*str == '"' && flag != '\'' || *str == '\'' && flag != '"')
+   return (ft_match(str + 1, comp, (flag) ? 0 : *str));
+   if (*str == '\\')
+   if (str + 1 == flag)
+   return ((*(str + 1) == *comp) ? ft_match(str + 2, comp + 1, flag) : 0);
+   else 
+   return ((*str == *comp) ? ft_match(str + 1, comp + 1) : 0);
+   if (*glob == '\\' && !j)
+   return (ft_match(glob + 1, comp, 2));
+   if (*glob == '\'' && !j)
+   return (ft_match(glob + 1, comp, 3));
+   if (*glob == '\"' && !j)
+   return (ft_match(glob + 1, comp, 6));
+   if (*glob == '\'' && j == 3)
+   return (ft_match(glob + 1,comp, 0));
+   if (*glob == '\"' && j == 6)
+   return (ft_match(glob + 1,comp, 0));
+   */

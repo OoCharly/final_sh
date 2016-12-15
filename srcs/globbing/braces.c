@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:39:35 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 18:00:11 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 16:58:25 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** For each list element, concatenate the current character of the string.
 */
 
-static void		ft_catlist(t_list **arg, char *str)
+static void		ft_catlist(t_list **arg, char *str, size_t size)
 {
 	t_list *list;
 
@@ -25,7 +25,7 @@ static void		ft_catlist(t_list **arg, char *str)
 	list = *arg;
 	while (list)
 	{
-		list->data = ft_strncat(list->data, str, 1);
+		list->data = ft_strncat(list->data, str, size);
 		list = list->next;
 	}
 }
@@ -86,22 +86,25 @@ t_list			*ft_braces(char *str, char out)
 	ft_bzero(&b, sizeof(t_brace));
 	while (*str)
 	{
-		if (*str == '\\' && !b.jump)
-			b.jump = 2;
+		if (*str == '\\')
+			ft_catlist(&(b.arg1), str++, 2);
+		else if ((*str == '\'' || *str == '\"') && (b.jump = ft_dodge_quote(str, 0)))
+		{
+			ft_catlist(&(b.arg1), str, b.jump);
+			str += b.jump;
+		}
 		else if (*str == ',' && !out)
 		{
 			ft_list_merge(&(b.all), b.arg1);
 			b.arg1 = NULL;
 		}
-		else if (*str == '{' && !b.jump && (b.size = ft_isbraces(str)))
+		else if (*str == '{' && (b.size = ft_isbraces(str)))
 		{
 			ft_braces2(&b, str);
 			str += b.size;
 		}
 		else
-			ft_catlist(&(b.arg1), str);
-		if (b.jump > 0)
-			b.jump--;
+			ft_catlist(&(b.arg1), str, 1);
 		str++;
 	}
 	ft_list_merge(&(b.all), b.arg1);
@@ -127,7 +130,8 @@ char			*ft_launchbraces(char *str)
 			return (tot);
 		while (list)
 		{
-			ft_strcat(ft_strcat(tot, list->data), " ");
+			//ft_strcat(ft_strcat(tot, list->data), "\n");
+			tot[ft_strlen(ft_strcat(tot, list->data))] = -1;
 			tmp = list;
 			list = list->next;
 			ft_lstdelone(&tmp, ft_list_free_data);

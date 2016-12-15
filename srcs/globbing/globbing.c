@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/15 10:27:27 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 10:56:17 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ char			*ft_launch_glob(char *str)
 	if (begin && (tot = ft_strnew(ft_size_list(begin))))
 		while (begin)
 		{
-			ft_strcat(ft_strcat(tot, begin->data), " ");
+			//ft_strcat(ft_strcat(tot, begin->data), "\n");
+			tot[ft_strlen(ft_strcat(tot, begin->data))] = -1;
 			tmp = begin;
 			begin = begin->next;
 			ft_lstdelone(&tmp, &ft_list_free_data);

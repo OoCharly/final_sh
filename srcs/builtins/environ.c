@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/07 15:03:15 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/14 14:14:52 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 		free(f);
 	if (config->shell_state != RUNNING_SON && n && !ft_strcmp("PATH", n))
 		ft_pathtohash(config);
-	if (i >= 0)
-		ft_freegiveone((void**)&(memo));
+	(i >= 0) ? ft_freegiveone((void**)&(memo)) : 1;
 }
 
 void	ft_readysetenv(char **argv, t_config *config)

@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/13 20:16:37 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 12:39:02 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 		tmp = ft_launch_glob((*t)[*i]);
 	if (tmp)
 	{
-		g_tab = ft_strsplit(tmp, ' ');
+		g_tab = ft_strsplit(tmp, -1);
 		ft_freegiveone((void **)&tmp);
 		kill = *t;
 		*t = ft_insertdeletetab(*t, g_tab, *i);
@@ -57,10 +57,18 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 	{
 		if (!mode && ft_checkhist((*t)[i]))
 			ft_insert(config, t, &i, mode);
-		else if (mode == 1)
+		else if (mode == 1 && ft_checkchars((*t)[i], "{}"))
+		{
 			ft_insert(config, t, &i, mode);
-		else if (mode == 2 && ft_checkglob((*t)[i]))
+			printf("AFTER BRACES\n");
+			ft_putstrtab(*t, '\n');
+		}
+		else if (mode == 2 && ft_checkchars((*t)[i], "*[]?"))
+		{
 			ft_insert(config, t, &i, mode);
+			printf("AFTER GLOB\n");
+			ft_putstrtab(*t, '\n');
+		}
 		else
 			i++;
 	}
@@ -82,6 +90,8 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
+			printf("AT THE BEGINNING\n");
+			ft_putstrtab(t, '\n');
 			while (j < 3)
 				ft_check_insert(config, &t, j++);
 			begin->data = t;
