@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/14 18:11:44 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 12:34:02 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 		tmp = ft_launch_glob((*t)[*i]);
 	if (tmp)
 	{
-		ft_putendl(tmp);
 		g_tab = ft_strsplit(tmp, -1);
 		ft_freegiveone((void **)&tmp);
 		kill = *t;
@@ -83,7 +82,6 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
-			ft_putstrtab(t, '-');
 			while (j < 3)
 				ft_check_insert(config, &t, j++);
 			begin->data = t;
