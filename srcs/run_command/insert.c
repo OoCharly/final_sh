@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/15 12:39:02 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 18:18:44 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,8 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 		else if (mode == 1 && ft_checkchars((*t)[i], "{}"))
 		{
 			ft_insert(config, t, &i, mode);
-			printf("AFTER BRACES\n");
-			ft_putstrtab(*t, '\n');
-		}
-		else if (mode == 2 && ft_checkchars((*t)[i], "*[]?"))
-		{
+		else if (mode == 2 && ft_checkglob((*t)[i]))
 			ft_insert(config, t, &i, mode);
-			printf("AFTER GLOB\n");
-			ft_putstrtab(*t, '\n');
-		}
 		else
 			i++;
 	}
@@ -90,8 +83,6 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
-			printf("AT THE BEGINNING\n");
-			ft_putstrtab(t, '\n');
 			while (j < 3)
 				ft_check_insert(config, &t, j++);
 			begin->data = t;
