@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 15:00:33 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 17:33:48 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		ft_cleancmd(char *str)
 {
 	char	tok;
 
-	ft_putendl(str);
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
