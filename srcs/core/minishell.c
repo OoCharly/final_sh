@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 14:48:47 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 15:00:33 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		ft_cleancmd(char *str)
 {
 	char	tok;
 
+	ft_putendl(str);
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
@@ -38,9 +39,10 @@ int		ft_cleancmd(char *str)
 			}
 			ft_memmove(str, str + 1, ft_strlen(str));
 		}
-		if (*str == '\\')
+		else if (*str == '\\')
 			ft_memmove(str, str + 1, ft_strlen(str));
-		str++;
+		else
+			str++;
 	}
 	return (1);
 }
