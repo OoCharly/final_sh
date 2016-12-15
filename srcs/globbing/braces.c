@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:39:35 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/15 16:58:25 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 17:49:33 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_list			*ft_braces(char *str, char out)
 		else if ((*str == '\'' || *str == '\"') && (b.jump = ft_dodge_quote(str, 0)))
 		{
 			ft_catlist(&(b.arg1), str, b.jump);
-			str += b.jump;
+			str += b.jump - 1;
 		}
 		else if (*str == ',' && !out)
 		{
