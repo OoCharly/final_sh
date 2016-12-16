@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/16 14:48:32 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/16 16:26:54 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ static void	ft_insert(char ***t, int *i, int mode)
 
 /*
 ** For each mode (braces, bang, glob) check if there is things to replace for
-** every piece of argument.
+** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-static void		ft_check_insert(char ***t, int mode)
+int		ft_check_insert(char ***t, int mode)
 {
 	int i;
+	int j;
 
+	j = 0;
 	i = 0;
 	while ((*t)[i])
 	{
@@ -70,11 +72,16 @@ static void		ft_check_insert(char ***t, int mode)
 			{
 				ft_cleancmd((*t)[i]);
 				i++;
+				j++;
 			}
 		}
-		else 
+		else
+		{
 			i++;
+			j++;
+		}
 	}
+	return ( (i == j) ? 0 : 1);
 }
 
 /*
