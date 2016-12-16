@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/16 10:43:09 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/16 11:31:18 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_count_line_file(t_config *config)
 	file = (config->hlocbis) ? config->hlocbis : config->hloc;
 	if (((fd = open(file, O_RDONLY)) < 0)
 		&& ft_error(SHNAME, NULL, "open error", CR_ERROR))
-		return (-2);
+		return (-1);
 	while (get_next_line(fd, &line))
 		i++;
 	close(fd);
@@ -41,9 +41,13 @@ static void	ft_delete_history_index(t_config *config, int idx)
 
 static void	ft_load_history_during_run(t_config *config)
 {
-	if ((ft_count_line_file(config) + config->hindex) > HISTORY_SIZE
-		&& ft_error(SHNAME, NULL, "full history", CR_ERROR))
-		return;
+	int ret;
+
+	if ((((ret = ft_count_line_file(config)) == -1)
+		|| ret + config->hindex > HISTORY_SIZE)
+		&& ft_error(SHNAME, NULL, "full history", CR_ERROR)
+		&& ft_freegiveone((void **)&(config->hlocbis)))
+		return ;
 	ft_load_history(config);
 	ft_freegiveone((void **)&(config->hlocbis));
 }
