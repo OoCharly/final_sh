@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:01:07 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/14 13:44:31 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:10:00 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** If not, return 0.
 */
 
-int			ft_isbraces(char *str)
+int				ft_isbraces(char *str)
 {
 	int		open;
 	int		close;
@@ -42,24 +42,27 @@ int			ft_isbraces(char *str)
 **Checks if there are one of the following globbing pathern in arg : *[]?
 */
 
-int			ft_checkglob(char *arg)
+int				ft_checkchars(char *tmp, char *chars)
 {
-	char	*glob;
-	char	*ret;
-	char	*tmp;
+	char	*arg;
+	char	flag;
 
-	tmp = arg;
-	glob = "*[]?\0";
-	while (*glob)
+	while (*chars)
 	{
-		while ((ret = ft_strchr(tmp, *glob)))
+		flag = 0;
+		arg = tmp;
+		while (*arg)
 		{
-			if ((ft_strcmp(ret, tmp) && *(ret - 1) != '\\')
-					|| (!ft_strcmp(ret, tmp)))
+			if (*arg == '\\')
+				arg++;
+			else if ((*arg == '\'' && flag != '\"')
+			|| (*arg == '\"' && flag != '\''))
+				flag = (flag) ? 0 : *arg;
+			else if (*arg == *chars && !flag)
 				return (1);
-			tmp = ret + 1;
+			arg++;
 		}
-		glob++;
+		chars++;
 	}
 	return (0);
 }
@@ -69,7 +72,7 @@ int			ft_checkglob(char *arg)
 ** one space between each string.
 */
 
-size_t		ft_size_list(t_list *begin)
+size_t			ft_size_list(t_list *begin)
 {
 	int i;
 

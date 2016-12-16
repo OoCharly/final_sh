@@ -5,3 +5,5 @@ tmp*
 21sh
 test*
 *.bck
+*.gch
+a.out

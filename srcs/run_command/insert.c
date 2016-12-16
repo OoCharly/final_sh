@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/13 20:16:37 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 18:37:14 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 		tmp = ft_launch_glob((*t)[*i]);
 	if (tmp)
 	{
-		g_tab = ft_strsplit(tmp, ' ');
+		g_tab = ft_strsplit(tmp, -1);
 		ft_freegiveone((void **)&tmp);
 		kill = *t;
 		*t = ft_insertdeletetab(*t, g_tab, *i);
@@ -40,7 +40,10 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 		ft_free(kill);
 	}
 	else
+	{
+		ft_cleancmd((*t)[*i]);
 		(*i)++;
+	}
 }
 
 /*
@@ -57,11 +60,19 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 	{
 		if (!mode && ft_checkhist((*t)[i]))
 			ft_insert(config, t, &i, mode);
-		else if (mode == 1)
+		else if (mode == 1 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(config, t, &i, mode);
-		else if (mode == 2 && ft_checkglob((*t)[i]))
-			ft_insert(config, t, &i, mode);
-		else
+		else if (mode == 2)
+		{
+			if (ft_checkchars((*t)[i], "*[]?"))
+				ft_insert(config, t, &i, mode);
+			else
+			{
+				ft_cleancmd((*t)[i]);
+				i++;
+			}
+		}
+		else 
 			i++;
 	}
 }

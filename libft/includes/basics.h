@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:28:14 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/14 17:27:28 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 14:25:36 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*ft_strtabchrjoin(char **mtab, char c);
 char	*ft_strfjoin(char *s1, char *s2, int opt);
 void	ft_char_clean(char *str, char c);
 void	ft_chartab_clean(char **str, char c);
+void	ft_charstr_clean(char *str, char *tok);
+void	ft_tabstr_clean(char **str, char *tok);
 
 /*
 ** COPY && CAT

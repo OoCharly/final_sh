@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2016/12/13 17:58:01 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/15 17:20:13 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef		struct	s_brace
 */
 
 size_t	ft_size_list(t_list *begin);
-int		ft_checkglob(char *arg);
+int		ft_checkchars(char *arg, char *chars);
 
 /*
 ** globbing.c
@@ -44,7 +44,7 @@ char	*ft_launch_glob(char *str);
 ** match.c
 */
 
-int		ft_match(char *glob, char *comp);
+int		ft_match(char *glob, char *comp, char jump);
 
 
 /*

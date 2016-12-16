@@ -6,12 +6,12 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:21:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/14 17:15:57 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/15 12:31:40 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static t_list	*ft_quote_replace(char **t, t_list *next)
 {
 	int			i;
@@ -36,7 +36,7 @@ static t_list	*ft_quote_replace(char **t, t_list *next)
 	}
 	return (next);
 }
-
+*/
 static t_list	*ft_quote_handle(t_list *next, t_config *config)
 {
 	char		**t;
@@ -63,7 +63,7 @@ static t_list	*ft_quote_handle(t_list *next, t_config *config)
 				++j;
 		}
 	}
-	return (ft_quote_replace(t, next));
+	return (next);
 }
 
 int				ft_quote(t_list *begin, t_config *config)
