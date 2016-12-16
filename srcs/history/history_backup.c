@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/09 19:36:13 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/15 14:23:28 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void		ft_purge_history(t_config *config, char **hist, int index, int mode)
 			if (hist[i])
 				write(fd, "\n", 1);
 		}
-		write(fd, "\0", 1);
 		close(fd);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/09 19:29:35 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/15 16:47:47 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,6 @@ static int	ft_printhist(char **history, int n)
 }
 
 /*
-**If the new path of config->hloc is biggest than the first, then the new has
-**to be realloced.
-*/
-
-static void	ft_realloc_tmphloc(t_config *config, char *file, int l_h, int l_f)
-{
-	char *hloc;
-	char c;
-
-	hloc = ft_return_hloc(NULL, 0);
-	c = hloc[l_h - l_f];
-	hloc[l_h - l_f] = 0;
-	config->hloc = ft_strslashjoin(hloc, file);
-	hloc[l_h - l_f] = c;
-}
-
-/*
 **Checks if an argv is something else than an argument which begin by '-'. If
 **an argument does not begin by '-', then this argument is a name of file and
 **ft_get_afterarg changes the path of config->hloc for the path of argv[i].
@@ -58,45 +41,22 @@ static void	ft_realloc_tmphloc(t_config *config, char *file, int l_h, int l_f)
 
 static int	ft_get_afterarg(t_config *config, char **argv, int i)
 {
-	int		len_arg;
-	int		len_file;
-	int		len;
+	int		j;
+	char	c;
 	char	*file;
 
-	len = ft_strlen(config->hloc);
 	while (argv[i] && argv[i][0] == '-')
 		i++;
-	if (argv[i] && (file = ft_strrchr(config->hloc, '/'))
-		&& (len_arg = ft_strlen(argv[i]))
-		&& (len_file = ft_strlen(file)))
+	if (argv[i] && !ft_strisdigit(argv[i]))
 	{
-		if (len_arg <= len_file)
-		{
-			ft_bzero(config->hloc + (len - len_file) + 1, len_file);
-			ft_memmove(config->hloc + (len - len_file) + 1, argv[i], len_arg);
-		}
-		else if (ft_freegiveone((void **)&(config->hloc)))
-			ft_realloc_tmphloc(config, argv[i], len, len_file);
+		file = ft_strrchr(config->hloc, '/');
+		j = file - config->hloc;
+		c = config->hloc[j];
+		config->hloc[j] = 0;
+		config->hlocbis = ft_strslashjoin(config->hloc, argv[i]);
+		config->hloc[j] = c;
 	}
 	return (1);
-}
-
-/*
-**Records the first path of config->hloc, like registered in function
-**ft_history_loc_init. At the end of the programe, mode eguals to one and static
-**variable mem is freed. Otherwise when mode is eguals to zero, the inital value
-**of mem is returned.
-*/
-
-char		*ft_return_hloc(char *hloc, int mode)
-{
-	static char *mem;
-
-	if (mode)
-		mem = ft_strdup(hloc);
-	if (mode == -1)
-		ft_freegiveone((void **)&hloc);
-	return (mem);
 }
 
 /*
