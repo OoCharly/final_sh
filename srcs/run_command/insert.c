@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/15 18:37:14 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/16 14:48:32 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 ** wich contents the result of globbing or of the history index search (!).
 */
 
-static void	ft_insert(t_config *config, char ***t, int *i, int mode)
+static void	ft_insert(char ***t, int *i, int mode)
 {
 	char	*tmp;
 	char	**g_tab;
 	char	**kill;
 
 	if (!mode)
-		tmp = ft_create_strhistidx(config, (*t)[*i]);
+		tmp = ft_create_strhistidx((*t)[*i]);
 	else if (mode == 1)
 		tmp = ft_launchbraces((*t)[*i]);
 	else
@@ -51,7 +51,7 @@ static void	ft_insert(t_config *config, char ***t, int *i, int mode)
 ** every piece of argument.
 */
 
-void		ft_check_insert(t_config *config, char ***t, int mode)
+static void		ft_check_insert(char ***t, int mode)
 {
 	int i;
 
@@ -59,13 +59,13 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 	while ((*t)[i])
 	{
 		if (!mode && ft_checkhist((*t)[i]))
-			ft_insert(config, t, &i, mode);
+			ft_insert(t, &i, mode);
 		else if (mode == 1 && ft_checkchars((*t)[i], "{}"))
-			ft_insert(config, t, &i, mode);
+			ft_insert(t, &i, mode);
 		else if (mode == 2)
 		{
 			if (ft_checkchars((*t)[i], "*[]?"))
-				ft_insert(config, t, &i, mode);
+				ft_insert(t, &i, mode);
 			else
 			{
 				ft_cleancmd((*t)[i]);
@@ -83,7 +83,7 @@ void		ft_check_insert(t_config *config, char ***t, int mode)
 ** is found launch the corresponding function.
 */
 
-int			ft_insert_loop(t_list *begin, t_config *config)
+int			ft_insert_loop(t_list *begin)
 {
 	char	**t;
 	int		j;
@@ -94,7 +94,7 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		{
 			t = ((char **)begin->data);
 			while (j < 3)
-				ft_check_insert(config, &t, j++);
+				ft_check_insert(&t, j++);
 			begin->data = t;
 		}
 		begin = begin->next;

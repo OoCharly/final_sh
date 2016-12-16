@@ -37,6 +37,7 @@ core/main.c \
 core/minishell.c \
 core/qerror.c \
 core/signal.c \
+core/save.c \
 globbing/globbing.c \
 globbing/globbing_support.c \
 globbing/match.c \

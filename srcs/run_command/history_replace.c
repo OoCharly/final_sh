@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/15 16:43:45 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/16 14:45:40 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ static int	ft_ret_idx(char *str, int i, char **su)
 **if only '!' precedated by '\' are found return -1.
 */
 
-static char	*ft_loop_hist(t_config *config, char *str, char **pre, char **su)
+static char	*ft_loop_hist(char *str, char **pre, char **su)
 {
 	int	i;
 	int	j;
+	t_config *config;
 
 	i = -1;
+	config = ft_save_config(NULL);
 	while (str[++i])
 		if (str[i] == '!' && (i == 0 || str[i - 1] != '\\'))
 		{
@@ -87,7 +89,7 @@ static char	*ft_loop_hist(t_config *config, char *str, char **pre, char **su)
 	return (NULL);
 }
 
-char		*ft_create_strhistidx(t_config *config, char *str)
+char		*ft_create_strhistidx(char *str)
 {
 	int		i;
 	char	*pre;
@@ -97,7 +99,7 @@ char		*ft_create_strhistidx(t_config *config, char *str)
 
 	pre = NULL;
 	su = NULL;
-	idx_hist = ft_loop_hist(config, str, &pre, &su);
+	idx_hist = ft_loop_hist(str, &pre, &su);
 	if (idx_hist)
 	{
 		i = ft_strlen(pre) + ft_strlen(idx_hist) + ft_strlen(su);

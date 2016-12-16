@@ -6,20 +6,11 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:44:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 14:52:04 by rbaran           ###   ########.fr       */
+/*   Updated: 2016/12/16 14:21:13 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_stream		*ft_save_stream(t_stream *stream)
-{
-	static t_stream	*saved = NULL;
-
-	if (stream)
-		saved = stream;
-	return (saved);
-}
 
 void			ft_secure_prompt(t_stream *stream)
 {

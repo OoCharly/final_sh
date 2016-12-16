@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/17 18:39:45 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/16 14:31:24 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int			main(int ac, char **av, char **env)
 		return (1);
 	ft_load_history(&config);
 	ft_save_stream(&stream);
+	ft_save_config(&config);
 	stream.config = &config;
 	ft_tricase(ac, av, &config);
 	return (0);
