@@ -59,6 +59,7 @@ void	ft_putstrtab(char **s, char c);
 void	ft_putstrtab_fd(char **s, char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+void	ft_putstrlist(t_list *list, char c);
 /*
 ** Tab Manipulation
 */

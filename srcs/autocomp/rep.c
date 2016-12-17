@@ -35,7 +35,6 @@ static void		ft_addtoline(t_stream *stream, char *add, char *b)
 		ft_append(stream);
 		ft_freegiveone((void**)&tmp);
 	}
-	//ft_freegiveone((void **)&COMP_BEGIN);
 	ft_bzero(stream->buf, 256);
 }
 
@@ -53,7 +52,10 @@ int				ft_rep(t_stream *stream, char *b)
 	while (j < 3)
 		ret += ft_check_insert(&arg, j++);
 	if (!ret)
+	{
+		free(arg);
 		return (0);
+	}
 	add = ft_strtabchrjoin(arg, ' ');
 	ft_addtoline(stream, add, b);
 	ft_strtabfree_content(arg);
