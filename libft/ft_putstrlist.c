@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   auto_utils.c                                       :+:      :+:    :+:   */
+/*   ft_putstrtab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 13:14:57 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/16 17:14:50 by jmunoz           ###   ########.fr       */
+/*   Created: 2016/03/28 16:32:40 by tboos             #+#    #+#             */
+/*   Updated: 2016/03/28 16:32:51 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		ft_is_separator(char c)
+void	ft_putstrlist(t_list *begin, char c)
 {
-	if (c == ';')
-		return (1);
-	if (c == '&')
-		return (1);
-	if (c == '|')
-		return (1);
-	if (ft_isspace(c))
-		return (1);
-	return (0);
-}
-
-/*
-** Define COMP_BEGIN with strsub. It represent the needle to look for.
-*/
-
-char	*get_begin(int i, char *str, size_t *len)
-{
-	while (i >= 0 && !ft_is_separator(str[i]))
+	while (begin)
 	{
-		i -= 1;
-		*len += 1;
+		ft_putstr(begin->data);
+		if (begin->next)
+			ft_putchar(c);
+		begin = begin->next;
 	}
-	return (str + i + 1);
+	ft_putchar('\n');
 }

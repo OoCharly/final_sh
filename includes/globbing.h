@@ -14,7 +14,7 @@
 # define GLOBBING_H
 # include "minishell.h"
 
-# define BRACES_SIZE 1000
+# define BRACES_SIZE 3000
 
 typedef		struct	s_brace
 {
@@ -54,6 +54,5 @@ int		ft_match(char *glob, char *comp, char jump);
 char	*ft_launchbraces(char	*str);
 void	ft_braces2(t_brace *b, char *str);
 t_list	*ft_braces(char	*str, char out);
-int		ft_isbraces(char *str);
 
 #endif

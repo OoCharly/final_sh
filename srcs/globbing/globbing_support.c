@@ -13,54 +13,31 @@
 #include "minishell.h"
 
 /*
-** If the brace is closed later, return the index of closing brace.
-** If not, return 0.
-*/
-
-int				ft_isbraces(char *str)
-{
-	int		open;
-	int		close;
-	int		i;
-
-	open = 0;
-	close = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if ((!i && str[i] == '{') || (i && str[i] == '{' && str[i - 1] != '\\'))
-			open++;
-		if ((!i && str[i] == '}') || (i && str[i] == '}' && str[i - 1] != '\\'))
-			close++;
-		if (open == close)
-			return (i);
-	}
-	return (0);
-}
-
-/*
 **Checks if there are one of the following globbing pathern in arg : *[]?
+**Return pos of pattern + 1. If not return 0;
 */
 
 int				ft_checkchars(char *tmp, char *chars)
 {
 	char	*arg;
 	char	flag;
-
+	int		i;
+	
 	while (*chars)
 	{
 		flag = 0;
 		arg = tmp;
-		while (*arg)
+		i = 0;
+		while (arg[i])
 		{
-			if (*arg == '\\')
-				arg++;
-			else if ((*arg == '\'' && flag != '\"')
-			|| (*arg == '\"' && flag != '\''))
-				flag = (flag) ? 0 : *arg;
-			else if (*arg == *chars && !flag)
-				return (1);
-			arg++;
+			if (arg[i] == '\\')
+				i++;
+			else if ((arg[i] == '\'' && flag != '\"')
+			|| (arg[i] == '\"' && flag != '\''))
+				flag = (flag) ? 0 : arg[i];
+			else if (arg[i] == *chars && !flag)
+				return (i + 1);
+			i++;
 		}
 		chars++;
 	}

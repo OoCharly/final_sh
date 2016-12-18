@@ -21,7 +21,7 @@ static void		ft_catlist(t_list **arg, char *str, size_t size)
 	t_list *list;
 
 	if (!*arg)
-		*arg = ft_lstnew(ft_strnew(BRACES_SIZE), 0);
+		*arg = ft_lstnew(ft_strnew(BRACES_SIZE), 1);
 	list = *arg;
 	while (list)
 	{
@@ -35,28 +35,29 @@ static void		ft_catlist(t_list **arg, char *str, size_t size)
 ** Free the first and second list.
 */
 
-static t_list	*ft_distriblist(t_list *list1, t_list *list2)
+static t_list	*ft_distriblist(t_list *l1, t_list *list2)
 {
 	t_list	*list3;
 	t_list	*l;
 	t_list	*kill1;
 	t_list	*kill2;
+	char	*new;
 
-	kill1 = list1;
+	kill1 = l1;
 	kill2 = list2;
 	list3 = NULL;
-	if (!list1)
+	if (!l1)
 		return (list2);
-	while (list1)
+	while (l1)
 	{
 		l = list2;
 		while (l)
 		{
-			ft_list_push_back(&list3,
-					ft_lstnew(ft_strjoin(list1->data, l->data), 0));
+			new = ft_strcat(ft_strcpy(ft_strnew(BRACES_SIZE),l1->data),l->data);
+			ft_list_push_back(&list3, ft_lstnew(new, 1));
 			l = l->next;
 		}
-		list1 = list1->next;
+		l1 = l1->next;
 	}
 	ft_lstdel(&kill1, &ft_list_free_data);
 	ft_lstdel(&kill2, &ft_list_free_data);
@@ -98,7 +99,7 @@ t_list			*ft_braces(char *str, char out)
 			ft_list_merge(&(b.all), b.arg1);
 			b.arg1 = NULL;
 		}
-		else if (*str == '{' && (b.size = ft_isbraces(str)))
+		else if (*str == '{' && (b.size = ft_checkchars(str, "}") - 1))
 		{
 			ft_braces2(&b, str);
 			str += b.size;

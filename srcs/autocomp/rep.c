@@ -6,49 +6,58 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/13 15:58:25 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/16 17:20:41 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		ft_rep_glob(t_stream *stream, char *b)
+static void		ft_addtoline(t_stream *stream, char *add, char *b)
 {
-	char	*ret;
 	size_t	size;
 	size_t	pos;
 	char	*tmp;
 
-	if ((ret = ft_launch_glob(COMP_BEGIN)))
+	if (add)
 	{
-		tmp = ret;
+		tmp = add;
 		pos = stream->pos;
 		ft_gomatch(stream, b - stream->command);
 		ft_memmove(b, stream->command + pos,
 			strlen(stream->command + pos) + 1);
 		ft_bzero(stream->buf, 256);
-		while ((size = ft_strlen(ft_strncpy(stream->buf, ret, 255))) == 255)
+		while ((size = ft_strlen(ft_strncpy(stream->buf, add, 255))) == 255)
 		{
 			ft_append(stream);
-			ret = ret + size;
+			add = add + size;
 			ft_bzero(stream->buf, 256);
 		}
 		ft_append(stream);
 		ft_freegiveone((void**)&tmp);
 	}
-	ft_freegiveone((void **)&COMP_BEGIN);
 	ft_bzero(stream->buf, 256);
 }
 
 int				ft_rep(t_stream *stream, char *b)
 {
-	if (COMP_BEGIN && !(ft_strchr(COMP_BEGIN, '"'))
-				&& (ft_strchr(COMP_BEGIN, '*')
-				|| ft_strchr(COMP_BEGIN, ']') || ft_strchr(COMP_BEGIN, '[') ||
-				ft_strchr(COMP_BEGIN, '?')))
+	char	**arg;
+	int		j;
+	int		ret;
+	char	*add;
+
+	j = 0;
+	ret = 0;
+	arg = NULL;
+	arg = ft_strtabadd(arg, COMP_BEGIN);
+	while (j < 3)
+		ret += ft_check_insert(&arg, j++);
+	if (!ret)
 	{
-		ft_rep_glob(stream, b);
-		return (1);
+		free(arg);
+		return (0);
 	}
-	return (0);
+	add = ft_strtabchrjoin(arg, ' ');
+	ft_addtoline(stream, add, b);
+	ft_strtabfree_content(arg);
+	return (1);
 }
