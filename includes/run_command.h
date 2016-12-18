@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 19:28:57 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/16 15:30:13 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ int				ft_herringbone(t_list *begin, t_config *config);
 /*
 **insert.c
 */
-int				ft_insert_loop(t_list *begin, t_config *config);
+int				ft_insert_loop(t_list *begin);
 /*
 **history_replace.c
 */
-char			*ft_create_strhistidx(t_config *config, char *str);
+char			*ft_create_strhistidx(char *str);
 int				ft_checkhist(char *str);
 
 #endif
