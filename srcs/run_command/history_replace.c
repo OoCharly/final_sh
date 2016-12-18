@@ -6,11 +6,24 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/16 14:45:40 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/18 16:42:37 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_ret_intervalquote(char *str, int *begin, int *end, int i)
+{
+	char	*ret;
+
+	if ((ret = ft_strchr(str + i, '\'')))
+	{
+		*begin = ret - str;
+		*end = ft_dodge_quote(str, *begin);
+		return (1);
+	}
+	return (0);
+}
 
 /*
 **Checks if there is the character '!' in str without a '\' ahead.
@@ -18,12 +31,24 @@
 
 int			ft_checkhist(char *str)
 {
-	char *ret;
+	static int	i;
+	int			begin;
+	int			end;
+	char		*ret;
 
-	if ((ret = ft_strchr(str, '!')))
-		if ((ft_strcmp(ret, str) && *(ret - 1) != '\\')
-			|| (!ft_strcmp(ret, str)))
+	begin = 0;
+	end = 0;
+	ft_ret_intervalquote(str, &begin, &end, i);
+	if ((ret = ft_strchr(str + i, '!')))
+	{
+		i = ret - str;
+		if ((end == 0 || (i < begin))
+			&& ((ft_strcmp(ret, str + i) && *(ret - 1) != '\\')
+			|| (!ft_strcmp(ret, str + i))))
 			return (1);
+		i = end;
+		return (ft_checkhist(str));
+	}
 	return (0);
 }
 
@@ -60,20 +85,18 @@ static int	ft_ret_idx(char *str, int i, char **su)
 
 static char	*ft_loop_hist(char *str, char **pre, char **su)
 {
-	int	i;
-	int	j;
-	t_config *config;
+	int			i;
+	int			j;
+	t_config	*config;
 
 	i = -1;
-	config = ft_save_config(NULL);
-	while (str[++i])
+	while ((config = ft_save_config(NULL)) && str[++i])
 		if (str[i] == '!' && (i == 0 || str[i - 1] != '\\'))
 		{
 			if (!(*pre = ft_strnew(i + 2))
 				&& ft_error(SHNAME, NULL, "malloc error", CR_ERROR))
 				return (NULL);
-			ft_strncpy(*pre, str, i);
-			if (str[i + 1] && str[i + 1] == '!')
+			if (ft_strncpy(*pre, str, i) && str[i + 1] && str[i + 1] == '!')
 			{
 				if (str[i + 2])
 					*su = str + i + 2;

@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/16 11:31:18 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/18 16:27:13 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ static int	ft_count_line_file(t_config *config)
 	if (((fd = open(file, O_RDONLY)) < 0)
 		&& ft_error(SHNAME, NULL, "open error", CR_ERROR))
 		return (-1);
-	while (get_next_line(fd, &line))
-		i++;
+	while (get_next_line(fd, &line) && ++i)
+		ft_freegiveone((void **)&(line));
+	ft_freegiveone((void **)&(line));
 	close(fd);
 	return (i);
 }
