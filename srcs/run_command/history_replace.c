@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/18 16:42:37 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 10:47:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,21 @@ int			ft_checkhist(char *str)
 
 	begin = 0;
 	end = 0;
-	ft_ret_intervalquote(str, &begin, &end, i);
-	if ((ret = ft_strchr(str + i, '!')))
+	if (str[i])
 	{
-		i = ret - str;
-		if ((end == 0 || (i < begin))
-			&& ((ft_strcmp(ret, str + i) && *(ret - 1) != '\\')
-			|| (!ft_strcmp(ret, str + i))))
-			return (1);
-		i = end;
-		return (ft_checkhist(str));
+		ft_ret_intervalquote(str, &begin, &end, i);
+		if ((ret = ft_strchr(str + i, '!')))
+		{
+			i = ret - str;
+			if ((end == 0 || (i < begin))
+				&& ((ft_strcmp(ret, str + i) && *(ret - 1) != '\\')
+				|| (!ft_strcmp(ret, str + i))) && !(i = 0))
+				return (1);
+			i = end;
+			return (ft_checkhist(str));
+		}
 	}
+	i = 0;
 	return (0);
 }
 
