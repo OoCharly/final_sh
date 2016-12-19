@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:17:20 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 09:17:50 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/19 15:00:36 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 	char		*tmp;
 
 	tmp = ft_streamscan(config, ft_save_stream(NULL), 0);
-	while (stream->state != REPROMPT
+	while (stream->state != REPROMPT && stream->state != STR_EOF
 		&& (!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0])))
 	{
 		kill = (char**)begin->next->data;

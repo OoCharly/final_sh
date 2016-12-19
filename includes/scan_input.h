@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/16 14:44:03 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 14:58:09 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define TDL "\x1b[K"
 # define TCD "\x1b[J"
 # define REPROMPT -10
+# define STR_EOF -11
 
 typedef struct	s_comp
 {
