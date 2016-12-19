@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 14:58:09 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:30:42 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define TCD "\x1b[J"
 # define REPROMPT -10
 # define STR_EOF -11
+# define PROMPT_LEN stream->config->prompt_len
 
 typedef struct	s_comp
 {
