@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 17:02:01 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:16:10 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static void	ft_gotonextline(t_stream *stream)
 int			ft_cleancmd(char *str)
 {
 	char	tok;
-	char	*mem;
 
-	mem = str;
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
@@ -46,8 +44,6 @@ int			ft_cleancmd(char *str)
 		}
 		else if (*(str++) == '\\')
 			ft_memmove(str - 1, str, ft_strlen(str) + 1);
-		else
-			str++;
 	}
 	return (1);
 }
