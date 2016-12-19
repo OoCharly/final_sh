@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/18 15:21:50 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 18:14:23 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 
 	if (!mode)
 		tmp = ft_create_strhistidx((*t)[*i]);
-	else if (mode == 1)
+	else if (mode == 2)
 		tmp = ft_launchbraces((*t)[*i]);
 	else
 		tmp = ft_launch_glob((*t)[*i]);
@@ -51,7 +51,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 ** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-int		ft_check_insert(char ***t, int mode)
+int		ft_check_insert(char ***t, int mode, t_config *config)
 {
 	int i;
 	int j;
@@ -62,9 +62,11 @@ int		ft_check_insert(char ***t, int mode)
 	{
 		if (!mode && ft_checkhist((*t)[i]))
 			ft_insert(t, &i, mode);
-		else if (mode == 1 && ft_checkchars((*t)[i], "{}"))
+		else if (mode == 1 && ft_checkchars((*t)[i], "$~"))
+			ft_quotehandle(&((*t)[i++]), config);
+		else if (mode == 2 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(t, &i, mode);
-		else if (mode == 2)
+		else if (mode == 3)
 		{
 			if (ft_checkchars((*t)[i], "*[]?"))
 				ft_insert(t, &i, mode);
@@ -85,12 +87,12 @@ int		ft_check_insert(char ***t, int mode)
 }
 
 /*
-** Runs throught config->chimera, on any begin->data wich is not an operator
+** Runs throug config->chimera, on any begin->data wich is not an operator
 ** checks if there are a globing pathern or an '!'. If one of these pathern
 ** is found launch the corresponding function.
 */
 
-int			ft_insert_loop(t_list *begin)
+int			ft_insert_loop(t_list *begin, t_config *config)
 {
 	char	**t;
 	int		j;
@@ -100,10 +102,12 @@ int			ft_insert_loop(t_list *begin)
 		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
-			while (j < 3)
-				ft_check_insert(&t, j++);
+			while (j < 4)
+				ft_check_insert(&t, j++, config);
 			begin->data = t;
 		}
+		else if (begin->data_size == SSHELL && !ft_insert_loop(begin->data, config))
+			return (0);
 		begin = begin->next;
 	}
 	return (1);

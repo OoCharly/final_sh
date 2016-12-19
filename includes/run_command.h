@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/18 12:58:11 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 15:58:11 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,14 @@ int				ft_build_sentence(t_list *begin, t_config *config);
 /*
 **heredoc.c
 */
+char			*ft_quotehandle(char **t, t_config *config);
 int				ft_quote(t_list *begin, t_config *config);
 int				ft_herringbone(t_list *begin, t_config *config);
 /*
 **insert.c
 */
-int				ft_insert_loop(t_list *begin);
-int				ft_check_insert(char ***t, int mode);
+int				ft_insert_loop(t_list *begin, t_config *config);
+int				ft_check_insert(char ***t, int mode, t_config *config);
 /*
 **history_replace.c
 */

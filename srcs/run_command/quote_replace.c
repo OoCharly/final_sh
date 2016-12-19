@@ -6,75 +6,33 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:21:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 12:31:40 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/19 18:14:54 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
-static t_list	*ft_quote_replace(char **t, t_list *next)
-{
-	int			i;
-	size_t		j;
-
-	i = -1;
-	while (t[++i])
-	{
-		j = -1;
-		while (t[i][++j])
-			if (t[i][j] == '\'' || t[i][j] == '\"')
-				j = ft_dodge_quote(t[i], j);
-		j = -1;
-		while (t[i][++j])
-			if (t[i][j] == '\\')
-				j++;
-			else if (t[i][j] == '\'' || t[i][j] == '\"')
-			{
-				ft_memmove(t[i] + j, t[i] + j + 1, ft_strlen(t[i] + j));
-				j--;
-			}
-	}
-	return (next);
-}
+** Replace wildcards '~' and '$' in *str by env variables.
+** Return NULL if malloc error.
 */
-static t_list	*ft_quote_handle(t_list *next, t_config *config)
+
+char	*ft_quotehandle(char **str, t_config *config)
 {
-	char		**t;
-	int			i;
 	size_t		j;
 
-	if (!next || !next->data)
-		return (next);
-	t = (char **)next->data;
-	i = -1;
-	while (t[++i])
+	j = 0;
+	while ((*str)[j])
 	{
-		j = 0;
-		while (t[i][j])
-		{
-			if ((t[i][j] == '~' || t[i][j] == '$')
-				&& !(t[i] = ft_envvarinsert(t[i], &j, config)))
-				return (NULL);
-			else if (t[i][j] == '\'')
-				j = ft_dodge_quote(t[i], j);
-			else if (t[i][j] == '\\')
-				j += 2;
-			else
-				++j;
-		}
+		if (((*str)[j] == '~' || (*str)[j] == '$')
+				&& !(*str = ft_envvarinsert(*str, &j, config)))
+			return (NULL);
+		else if ((*str)[j] == '\'')
+			j = ft_dodge_quote(*str, j);
+		else if ((*str)[j] == '\\')
+			j += 2;
+		else
+			++j;
 	}
-	return (next);
-}
-
-int				ft_quote(t_list *begin, t_config *config)
-{
-	while (begin)
-	{
-		if (!begin->data_size && !ft_quote_handle(begin, config))
-			return (0);
-		else if (begin->data_size == SSHELL && !ft_quote(begin->data, config))
-			return (0);
-		begin = begin->next;
-	}
-	return (1);
+	return (*str);
 }
