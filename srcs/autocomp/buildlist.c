@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:27:31 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 16:38:51 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/19 11:39:39 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ void			build_list(char *str, t_stream *stream)
 	char			**dir;
 	char			*comp;
 
-	dir = set_dir(str, stream, &comp, &len_comp);
+	if (!(dir = set_dir(str, stream, &comp, &len_comp)) 
+		&& ft_freegiveone((void**)&comp))
+			return;
 	COMP_KILL = dir;
 	while (*dir)
 	{
