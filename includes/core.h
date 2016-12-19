@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/16 13:57:32 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:09:34 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CORE_H
 
 # define SHNAME			"21sh"
-# define HISTORY_SIZE	100
+# define HISTORY_SIZE	1000
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
 # define DPATH	"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
