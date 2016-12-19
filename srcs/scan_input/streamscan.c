@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/14 13:37:27 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:43:41 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ static void	ft_termios_handle(t_config *config, int mode)
 
 static void	ft_ctrl_d(t_stream *stream)
 {
+	if ((stream->config)->heredoc)
+	{
+		stream->state = STR_EOF;
+		return ;
+	}
 	ft_gohome(stream);
 	ft_freegiveone((void**)&(stream->command));
 	stream->command = ft_strdup("exit");

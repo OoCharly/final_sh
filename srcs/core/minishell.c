@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 15:18:29 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/19 18:22:07 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ static void	ft_gotonextline(t_stream *stream)
 /*
 ** Strip a string from " ' '\' with the correct rules
 */
-int		ft_cleancmd(char *str)
+
+int			ft_cleancmd(char *str)
 {
 	char	tok;
-	char	*mem;
 
-	mem = str;
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
@@ -45,8 +44,6 @@ int		ft_cleancmd(char *str)
 		}
 		else if (*(str++) == '\\')
 			ft_memmove(str - 1, str, ft_strlen(str) + 1);
-		else
-			str++;
 	}
 	return (1);
 }
@@ -83,8 +80,8 @@ void		ft_run_command(t_config *config)
 	config->shell_state = RUNNING_COMMAND;
 	if ((config->chimera = ft_lexer(config->command)))
 	{
-		if (//!ft_quote(config->chimera, config)
-				!ft_insert_loop(config->chimera, config)
+		if (!ft_quote(config->chimera, config)
+				|| !ft_insert_loop(config->chimera)
 				|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
@@ -96,9 +93,9 @@ void		ft_run_command(t_config *config)
 }
 
 /*
- **If an interuption signal is caught, frees config structure and exits.
- **Memorizes adress of stream in a static variable.
- */
+**If an interuption signal is caught, frees config structure and exits.
+**Memorizes adress of stream in a static variable.
+*/
 
 void		ft_minishell(t_config *config)
 {
@@ -106,7 +103,7 @@ void		ft_minishell(t_config *config)
 
 	fd = 1;
 	if ((ft_signal(SIGNAL_SET
-					&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
+		&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
 			|| (!isatty(1) && !(fd = 0) && !isatty(0)
 				&& ft_error(SHNAME, "unable write and read from the same fd",
 					"I quit", 1 | SERROR)))

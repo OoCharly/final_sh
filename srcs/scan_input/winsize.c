@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:44:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/16 14:21:13 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:30:41 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			ft_prompt_reset(t_stream *stream)
 	if (stream->col)
 	{
 		ft_gohome(stream);
-		lin = stream->config->prompt_len / (stream->col > col ? stream->col : col);
+		lin = PROMPT_LEN / (stream->col > col ? stream->col : col);
 		ft_repeat_termcaps(lin, "up", stream);
 		ft_repeat_termcaps(col, "le", stream);
 		stream->tput = "cd";
