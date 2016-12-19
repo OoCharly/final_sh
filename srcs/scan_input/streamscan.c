@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 15:00:21 by cdesvern         ###   ########.fr       */
+/*   Updated: 2016/12/19 16:43:41 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 	ft_sigwinch(0);
 	ft_termios_handle(config, 0);
 	ft_freegiveone((void **)(&(stream->search)));
-	if (stream->buf[0] == CTRLD 
+	if (stream->buf[0] == CTRLD
 		|| (stream->state < 0 && ft_freegiveone((void **)(&(stream->command)))
 		&& stream->state != REPROMPT
 		&& ft_error(SHNAME, NULL, SCAN_ERR, FCR_ERROR) && stream->state == -1))
