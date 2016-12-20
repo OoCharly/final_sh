@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/18 16:33:53 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/20 13:08:56 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,12 @@ static void	ft_fill_history(t_config *config, char *tmp)
 			&& config->history[config->hindex][0])
 			ft_incr_history(&(config->hindex));
 		ft_freegiveone((void **)&(config->history[config->hindex]));
-		config->history[config->hindex] = ft_strdup(tmp + 1);
-		ft_freegiveone((void**)&tmp);
+		config->history[config->hindex] = tmp + 1;
 	}
 	else if (config->history[config->hindex])
 	{
 		kill = config->history[config->hindex];
-		config->history[config->hindex] = ft_strjoin(kill, "\n");
-		ft_freegiveone((void**)&kill);
-		kill = config->history[config->hindex];
-		config->history[config->hindex] = ft_strjoin(kill, tmp);
+		config->history[config->hindex] = ft_strchrjoin(kill, '\n', tmp);
 		ft_freegiveone((void**)&kill);
 		ft_freegiveone((void**)&tmp);
 	}
