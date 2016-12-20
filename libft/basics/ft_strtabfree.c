@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 01:02:33 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 15:57:17 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/20 15:31:41 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	ft_strtabfree(char **tab)
 	{
 		i = -1;
 		while (tab[++i])
+		{
 			free(tab[i]);
+			tab[i] = NULL;
+		}
 		free(tab);
+		tab = NULL;
 	}
 }
