@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/22 12:01:48 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/22 15:20:31 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			ft_checkhist(char *str)
 	return (0);
 }
 
-int		ft_history_exclamation(t_stream *stream)
+int			ft_history_exclamation(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
