@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 16:43:41 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/22 11:37:51 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 	ft_bzero(stream, sizeof(t_stream));
 	ft_freegiveone((void **)(&(config->history[config->hindex])));
 	stream->config = config;
+	stream->command = config->exclamation;
 	SFD = fd;
 	ft_termios_handle(config, 1);
 	ft_winsize();

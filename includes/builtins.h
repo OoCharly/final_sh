@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/09 19:06:27 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/20 15:18:32 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,9 @@ char		*ft_return_hloc(char *hloc, int mode);
 **history_params.c
 */
 void		ft_manage_param(char **argv, int i, t_config *config);
+/*
+**exclamation.c
+*/
+int		ft_history_exclamation(t_stream *stream);
 
 #endif

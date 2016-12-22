@@ -23,10 +23,10 @@ builtins/cd.c \
 builtins/echo.c \
 builtins/env.c \
 builtins/environ.c \
-builtins/jobs.c \
-builtins/jobs_utils.c \
 builtins/history.c \
 builtins/history_params.c \
+builtins/jobs.c \
+builtins/jobs_utils.c \
 core/cmp.c \
 core/errors.c \
 core/free.c \
@@ -36,12 +36,13 @@ core/hash.c \
 core/main.c \
 core/minishell.c \
 core/qerror.c \
-core/signal.c \
 core/save.c \
+core/signal.c \
+globbing/braces.c \
 globbing/globbing.c \
 globbing/globbing_support.c \
 globbing/match.c \
-globbing/braces.c \
+history/exclamation.c \
 history/history.c \
 history/history_backup.c \
 history/history_search_down.c \
@@ -49,11 +50,11 @@ history/history_search_up.c \
 history/scanchr.c \
 history/searchengine.c \
 history/sprompt.c \
+history/history_replace.c \
 run_command/build_sentence.c \
 run_command/env_var_replace.c \
 run_command/exec.c \
 run_command/files.c \
-run_command/history_replace.c \
 run_command/heredoc.c \
 run_command/insert.c \
 run_command/lexer.c \
@@ -87,17 +88,17 @@ endif
 all: lib $(NAME)
 
 $(NAME): $(OBJ)
-		gcc $(FLAGS) $(HEAD) $^ -L libft -l ft -o $@ $(TERMCAPS)
+	gcc $(FLAGS) $(HEAD) $^ -L libft -l ft -o $@ $(TERMCAPS)
 
 %.o: %.c libft/libft.a
-		gcc $(FLAGS) $(HEAD) -c $< -o $@
+	gcc $(FLAGS) $(HEAD) -c $< -o $@
 
 lib:
-		make -C libft
+	make -C libft
 
 clean:
-		rm -f $(OBJ)
-			make -C libft clean
+	rm -f $(OBJ)
+	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)

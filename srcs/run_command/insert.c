@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/19 18:14:23 by jmunoz           ###   ########.fr       */
+/*   Updated: 2016/12/20 17:10:40 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 	char	**g_tab;
 	char	**kill;
 
-	if (!mode)
-		tmp = ft_create_strhistidx((*t)[*i]);
-	else if (mode == 2)
+	if (mode == 2)
 		tmp = ft_launchbraces((*t)[*i]);
 	else
 		tmp = ft_launch_glob((*t)[*i]);
@@ -60,9 +58,7 @@ int		ft_check_insert(char ***t, int mode, t_config *config)
 	i = 0;
 	while ((*t)[i])
 	{
-		if (!mode && ft_checkhist((*t)[i]))
-			ft_insert(t, &i, mode);
-		else if (mode == 1 && ft_checkchars((*t)[i], "$~"))
+		if (mode == 1 && ft_checkchars((*t)[i], "$~"))
 			ft_quotehandle(&((*t)[i++]), config);
 		else if (mode == 2 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(t, &i, mode);
@@ -83,7 +79,7 @@ int		ft_check_insert(char ***t, int mode, t_config *config)
 			j++;
 		}
 	}
-	return ( (i == j) ? 0 : 1);
+	return ((i == j) ? 0 : 1);
 }
 
 /*
@@ -103,7 +99,7 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		{
 			t = ((char **)begin->data);
 			while (j < 4)
-				ft_check_insert(&t, j++, config);
+				ft_check_insert(&t, ++j, config);
 			begin->data = t;
 		}
 		else if (begin->data_size == SSHELL && !ft_insert_loop(begin->data, config))

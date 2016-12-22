@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 16:09:34 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/20 15:14:08 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_config
 	int			ncmd_index;
 	char		*hloc;
 	char		*hlocbis;
+	char		*exclamation;
 	int			heredoc;
 	t_list		*jobs;
 	char		*fg_sentence;

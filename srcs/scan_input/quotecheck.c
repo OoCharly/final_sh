@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:28:55 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/28 09:12:07 by tboos            ###   ########.fr       */
+/*   Updated: 2016/12/22 11:37:53 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,12 @@ int			ft_quotecheck(t_stream *stream)
 	char		*test;
 
 	test = stream->command;
-	if ((test = ft_matchchr(&test)))
+	if (test && ft_history_exclamation(stream))
+	{
+		stream->state = REPROMPT;
+		stream->config->exclamation = ft_strdup(stream->command);
+	}
+	else if ((test = ft_matchchr(&test)))
 	{
 		ft_append(stream);
 		return (ft_underline_mess(test, stream));
