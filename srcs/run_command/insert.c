@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/22 12:56:43 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/22 15:02:34 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 ** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-int		ft_check_insert(char ***t, int mode, t_config *config)
+int			ft_check_insert(char ***t, int mode, t_config *config)
 {
 	int i;
 	int j;
@@ -95,7 +95,8 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 				ft_check_insert(&t, ++j, config);
 			begin->data = t;
 		}
-		else if (begin->data_size == SSHELL && !ft_insert_loop(begin->data, config))
+		else if (begin->data_size == SSHELL
+			&& !ft_insert_loop(begin->data, config))
 			return (0);
 		begin = begin->next;
 	}
