@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/20 17:10:40 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:56:43 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,11 @@ int		ft_check_insert(char ***t, int mode, t_config *config)
 		{
 			if (ft_checkchars((*t)[i], "*[]?"))
 				ft_insert(t, &i, mode);
-			else
-			{
-				ft_cleancmd((*t)[i]);
-				i++;
-				j++;
-			}
+			else if (++j)
+				ft_cleancmd((*t)[i++]);
 		}
-		else
-		{
+		else if (++j)
 			i++;
-			j++;
-		}
 	}
 	return ((i == j) ? 0 : 1);
 }
