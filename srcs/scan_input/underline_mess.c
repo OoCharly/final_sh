@@ -46,7 +46,7 @@ int		ft_underline_mess(char *mess, t_stream *stream)
 	ft_tputs(stream);
 	ft_putmess(stream, mess);
 	i = ft_checknewline(stream, stream->pos);
-	ft_repeat_termcaps(i < 0 ? -i : i, "nd", stream);
+	ft_repeat_termcaps(i, "nd", stream);
 	ft_gomatch(stream, pos_buf);
 	return (0);
 }

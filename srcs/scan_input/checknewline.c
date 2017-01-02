@@ -21,11 +21,8 @@ int		ft_checknewline(t_stream *stream, size_t p)
 	if (!stream->command)
 		return ((int)pos);
 	i = -1;
-	while (++i < p)
+	while (++i < p && stream->command[i])
 		if (stream->command[i] == '\n' || ++pos == stream->col)
 			pos = 0;
-	if (stream->command[i] == '\n' || pos == stream->col - 1)
-		return ((int)pos);
-	else
-		return ((int)-pos);
+	return (pos);
 }
