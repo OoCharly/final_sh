@@ -25,6 +25,7 @@ void			ft_flushend(t_stream *stream)
 		stream->pos += size;
 	}
 	if (stream->pos && stream->command[stream->pos - 1] != '\n'
+			&& ((ssize_t *)(stream->buf))[0] != DEL
 			&& ft_checknewline(stream, stream->pos) == 0)
 		ft_repeat_termcaps(1, "do", stream);
 	ft_erase(stream);
