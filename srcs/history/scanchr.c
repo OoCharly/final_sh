@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:20:30 by rbaran            #+#    #+#             */
-/*   Updated: 2017/01/02 17:18:54 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/02 18:14:40 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,23 @@
 
 void		ft_modifycommand(t_stream *stream)
 {
+	int	i;
+
 	ft_gohome(stream);
 	ft_freegiveone((void **)&(stream->command));
-	if (stream->config->history[stream->shindex])
+	i = -1;
+	if (stream->config->history[stream->shindex]){
 		stream->command = ft_strdup(stream->config->history[stream->shindex]);
+		i = (int)ft_strstri(stream->command, stream->search);
+	}
 	else if (stream->config->history[stream->config->hindex])
 		stream->command = ft_strdup(
 				stream->config->history[stream->config->hindex]);
 	else
 		stream->command = (char*)ft_memalloc(1);
 	ft_winsize();
+	if (i != -1)
+		ft_gomatch(stream, i);
 }
 
 void		ft_sappend(t_stream *stream)
