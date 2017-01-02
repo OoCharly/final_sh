@@ -114,7 +114,10 @@ int				ft_chrparse(t_stream *stream)
 		if (!(match = ft_chrmatch(stream)))
 			return (0);
 		if (match == -1)
+		{
+			ft_strchrsed(stream->buf, '\t', ' ');
 			stream->search ? ft_sappend(stream) : ft_append(stream);
+		}
 		else if (match > 0)
 			(*ftab[match - 1])(stream);
 	}
