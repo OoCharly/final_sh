@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:44:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 16:30:41 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/02 17:25:47 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			ft_flush_command(t_stream *stream)
 		ft_flushend(stream);
 		ft_gomatch(stream, pos);
 	}
-}
+
 
 void			ft_winsize(void)
 {

@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:20:30 by rbaran            #+#    #+#             */
-/*   Updated: 2016/12/13 14:43:44 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/02 17:18:54 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void		ft_modifycommand(t_stream *stream)
 	else
 		stream->command = (char*)ft_memalloc(1);
 	ft_winsize();
-	ft_sprompt(stream);
-	if (!stream->pos)
-		ft_goend(stream);
 }
 
 void		ft_sappend(t_stream *stream)
