@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:27:28 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 12:37:02 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/02 19:18:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void			ft_tputs(t_stream *stream)
 		ft_putstr_fd(TLE, SFD);
 	else if (stream->tput[0] == 'n')
 		ft_putstr_fd(TND, SFD);
+	else if (stream->tput[0] == 'c' && stream->tput[1] == 'l')
+		ft_putstr_fd(TCL, SFD);
 	else if (stream->tput[0] == 'c')
 		ft_putstr_fd(TCD, SFD);
 	else if (stream->tput[0] == 'd' && stream->tput[1] == 'o')
