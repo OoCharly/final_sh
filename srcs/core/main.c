@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/16 14:31:24 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/03 15:51:37 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,10 @@ static void	ft_tricase(int ac, char **av, t_config *config)
 static int	ft_history_loc_init(t_config *config, char *av)
 {
 	char		*c;
+	char		*home;
 
-	if (!config->pwd || !(c = ft_strslashjoin(config->pwd, av)))
+	if ((!(home = ft_getenv("HOME", config->env)))
+		|| !(c = ft_strslashjoin(home, av)))
 		return (ft_initerror(config));
 	if (!(config->hloc = ft_strrchr(c, '/')) && ft_freegiveone((void**)&c))
 		return (ft_initerror(config));
@@ -106,6 +108,7 @@ static int	ft_history_loc_init(t_config *config, char *av)
 	if (!(config->hloc = ft_strslashjoin(c, "history.bck"))
 			&& ft_freegiveone((void**)&c))
 		return (ft_initerror(config));
+	printf("hloc_%s\n", config->hloc);
 	ft_freegiveone((void**)&c);
 	return (0);
 }
