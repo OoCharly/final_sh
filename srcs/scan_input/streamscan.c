@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/03 13:51:52 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/03 14:34:57 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 	ft_scan(stream);
 	ft_sigwinch(0);
 	ft_termios_handle(config, 0);
-	ft_freegiveone((void **)(&(stream->search)));
-	if (stream->buf[0] == CTRLD
+	if (ft_freegiveone((void **)(&(stream->search))) && (stream->buf[0] == CTRLD
 		|| (stream->state < 0 && ft_freegiveone((void **)(&(stream->command)))
 		&& stream->state != REPROMPT
-		&& ft_error(SHNAME, NULL, SCAN_ERR, FCR_ERROR) && stream->state == -1))
+		&& ft_error(SHNAME, NULL, SCAN_ERR, FCR_ERROR) && stream->state == -1)))
 		ft_ctrl_d(stream);
-	if (stream->command && stream->command[0] && (config->hindex == 1
+	if (stream->command && stream->command[0] && (!config->hindex
+		|| config->hindex == 1
 		|| ft_strcmp(stream->command, config->history[config->hindex - 1]))
 		&& !config->heredoc && stream->state != REPROMPT)
 	{
