@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:14:39 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/03 13:45:38 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	ft_scriptgnal_handle(int i)
 {
 	t_stream	*stream;
 
-	dprintf(1, "on quitte proprement");
 	(void)i;
 	stream = ft_save_stream(NULL);
 	ft_shell_exit(stream->config);
