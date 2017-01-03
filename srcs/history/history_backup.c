@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/20 13:28:01 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/03 14:36:58 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ void		ft_load_history(t_config *config)
 	char	*file;
 
 	file = (config->hlocbis) ? config->hlocbis : config->hloc;
-	if (((fd = open(file, O_RDONLY)) < 0)
-		&& ft_error(SHNAME, NULL, "open error", CR_ERROR))
+	if ((fd = open(file, O_RDONLY)) < 0)
 		return ;
 	else
 	{
