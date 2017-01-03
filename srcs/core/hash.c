@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:32:24 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/20 14:56:11 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/03 16:03:11 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_bin(char *path, t_dirent *tdir, t_bin **pbin)
 
 	fpath = ft_strslashjoin(path, tdir->d_name);
 	if (!fpath)
-		return(-1);
+		return (-1);
 	if (stat(fpath, &st) || !S_ISREG(st.st_mode))
 		return (!ft_freegiveone((void**)&fpath));
 	if (!(bin.name = ft_strdup(tdir->d_name)) && ft_freegiveone((void**)&fpath))
@@ -44,7 +44,7 @@ static void	ft_bin_insert(DIR *dir, char *path, t_config *config)
 			ft_error(SHNAME, NULL, "error creating path to bin", CR_ERROR);
 		if (bin)
 		{
-			if(!(new = ft_lstnew(bin, sizeof(t_bin))))
+			if (!(new = ft_lstnew(bin, sizeof(t_bin))))
 			{
 				ft_freebin(bin, sizeof(t_bin));
 				ft_error(SHNAME, NULL, "error creating path to bin", CR_ERROR);
@@ -95,13 +95,12 @@ int			ft_pathtohash(t_config *config)
 			return (0);
 		rabbit = config->bin;
 		c = 'a';
-		index = 0;
-		while (index < 34)
+		index = -1;
+		while (++index < 34)
 		{
 			config->h_bin[index] = rabbit;
 			while (rabbit && (((t_bin *)rabbit->data)->name[0] < c))
 				rabbit = rabbit->next;
-			index++;
 			c++;
 		}
 	}
