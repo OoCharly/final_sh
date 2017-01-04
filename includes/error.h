@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:23:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 20:06:52 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/04 21:37:13 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@
 /*
 ** quotes errors
 */
-# define SQUOTE_ERR	"\'unexpected EOF while looking for matching `\''"
-# define DQUOTE_ERR	"\"unexpected EOF while looking for matching `\"'"
-# define PAR_ERR	")missing matching ')' character"
-# define BRA_ERR	"}missing matching '}' character"
-# define BAQU_ERR	"`missing matching '`' character"
-# define UBRA_ERR	"0unexpected '}' character"
-# define UPAR_ERR	"0unexpected ')' character"
-# define BACK_ERR	"0unexpected EOF after backslack"
+# define SQUOTE_ERR	"1\'unexpected EOF while looking for matching `\''"
+# define DQUOTE_ERR	"1\"unexpected EOF while looking for matching `\"'"
+# define PAR_ERR	"1(missing matching ')' character"
+# define BRA_ERR	"1{missing matching '}' character"
+# define BAQU_ERR	"1`missing matching '`' character"
+# define UBRA_ERR	"0}unexpected '}' character in token"
+# define UPAR_ERR	"0)unexpected ')' character in token"
+# define BACK_ERR	"0\\unexpected EOF after backslack"
 
 /*
 ** signals errors

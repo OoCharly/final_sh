@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:28:55 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 20:07:11 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/04 21:41:12 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*ft_gonext(char **str, char c)
 	++(*str);
 	if ((test = ft_matchchr(str)))
 	{
-		if (test[0] == c)
+		if (test[1] == c)
 			return (NULL);
 		else
 			return (test);
@@ -65,14 +65,14 @@ char		*ft_matchchr(char **str)
 
 	while (**str && !(test = NULL))
 	{
-		if (**str == '}')
-			return (UBRA_ERR);
+//		if (**str == '}')
+//			return (UBRA_ERR);
 		if (**str == ')')
 			return (UPAR_ERR);
 		if (**str == '(' && (test = ft_gonext(str, ')')))
 			return (test);
-		if (**str == '{' && (test = ft_gonext(str, '}')))
-			return (test);
+//		if (**str == '{' && (test = ft_gonext(str, '}')))
+//			return (test);
 		if (**str == '`' && (test = ft_gonext(str, '`')))
 			return (test);
 		if (**str == '#')
@@ -103,7 +103,7 @@ int			ft_quotecheck(t_stream *stream)
 	{
 		ft_append(stream);
 		ft_repeat_termcaps(1, "cd", stream);
-		return (ft_underline_mess(test + 1, stream));
+		return (ft_underline_mess(test + 2, stream));
 	}
 	return (1);
 }

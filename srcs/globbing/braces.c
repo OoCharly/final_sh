@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:39:35 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/15 17:49:33 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/04 21:11:54 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char			*ft_launchbraces(char *str)
 	if (str && (list = ft_braces(str, 1)))
 	{
 		if (!(tot = ft_strnew(ft_size_list(list))))
-			return (tot);
+			return (NULL);
 		while (list)
 		{
 			//ft_strcat(ft_strcat(tot, list->data), "\n");
