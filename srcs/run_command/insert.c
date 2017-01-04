@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/04 16:07:27 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/04 17:33:07 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,33 @@
 ** Changes begin->data for a new char **, in this one an new char * was insert
 ** wich contents the result of globbing or of the history index search (!).
 */
+
+static int	ft_st_checkchars(char *tmp, char *chars)
+{
+	char	*arg;
+	char	flag;
+	int		i;
+
+	while (*chars)
+	{
+		flag = 0;
+		arg = tmp;
+		i = 0;
+		while (arg[i])
+		{
+			if (arg[i] == '\\')
+				i++;
+			else if (arg[i] == '\'')			
+				flag = (flag) ? 0 : arg[i];
+			else if (arg[i] == *chars && !flag)
+				return (i + 1);
+			i++;
+		}
+		chars++;
+	}
+	return (0);
+
+}
 
 static void	ft_insert(char ***t, int *i, int mode)
 {
@@ -58,7 +85,7 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 	i = 0;
 	while ((*t)[i])
 	{
-		if (mode == 1)
+		if (mode == 1 && ft_st_checkchars((*t)[i], "~$"))
 			ft_quotehandle(&((*t)[i++]), config);
 		else if (mode == 2 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(t, &i, mode);
