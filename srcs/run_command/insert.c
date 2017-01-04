@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/22 15:02:34 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/04 16:07:27 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 	i = 0;
 	while ((*t)[i])
 	{
-		if (mode == 1 && ft_checkchars((*t)[i], "$~"))
+		if (mode == 1)
 			ft_quotehandle(&((*t)[i++]), config);
 		else if (mode == 2 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(t, &i, mode);
@@ -91,8 +91,8 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
-			while (j < 4)
-				ft_check_insert(&t, ++j, config);
+			while (++j < 4)
+				ft_check_insert(&t, j, config);
 			begin->data = t;
 		}
 		else if (begin->data_size == SSHELL
