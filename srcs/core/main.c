@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/03 15:51:37 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/04 14:54:56 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,9 @@ static int	ft_history_loc_init(t_config *config, char *av)
 	if (!(config->hloc = ft_strrchr(c, '/')) && ft_freegiveone((void**)&c))
 		return (ft_initerror(config));
 	config->hloc[0] = '\0';
-	if (!(config->hloc = ft_strslashjoin(c, "history.bck"))
+	if (!(config->hloc = ft_strjoin(c, "history.bck"))
 			&& ft_freegiveone((void**)&c))
 		return (ft_initerror(config));
-	printf("hloc_%s\n", config->hloc);
 	ft_freegiveone((void**)&c);
 	return (0);
 }
