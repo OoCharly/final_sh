@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/03 15:15:19 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/04 12:04:17 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,18 @@ void	ft_unsetenv(char **argv, t_config *config)
 {
 	int		i;
 	int		n;
+	char	**cp;
 
 	i = 0;
+	cp = config->env;
 	while (argv[++i])
 	{
-		if ((n = ft_igetenv(argv[i], config->env)) >= 0)
+		if ((n = ft_igetenv(argv[i], cp)) >= 0)
 		{
-			free(argv[n]);
-			argv[n] = argv[n + 1];
-			while (argv[++n])
-				argv[n] = argv[n + 1];
+			free(cp[n]);
+			cp[n] = cp[n + 1];
+			while (cp[++n])
+				cp[n] = cp[n + 1];
 			if (config->shell_state != RUNNING_SON
 				&& !ft_strncmp("PATH", argv[i], 4) && ft_strlen(argv[i]) == 4)
 				ft_pathtohash(config);
