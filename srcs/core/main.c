@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 14:54:56 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/04 18:09:34 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static void	ft_manage_files(int ac, char **av, t_config *config)
 	int			fd;
 	int			i;
 	char		*test;
+	char		*alacon;
 
 	i = 0;
+	alacon = NULL;
 	while (++i < ac)
 	{
 		if ((fd = open(av[i], O_RDONLY)) < 0
@@ -28,12 +30,16 @@ static void	ft_manage_files(int ac, char **av, t_config *config)
 		ft_script_line(-1);
 		while ((get_next_line(fd, &config->command)) > 0 && ft_script_line(1))
 		{
-			test = config->command;
+			alacon = (alacon) ? ft_strchrjoin(alacon, '\n', config->command):
+				ft_strdup(config->command);
+			test = alacon;
 			if ((test = ft_matchchr(&test)))
-				ft_error(SHNAME, PARSE_ERR, ft_qerr(test), 1 | SERROR | EEXIT);
-			else
+			{
+				config->command = alacon;
 				ft_run_command(config);
-			ft_freegiveone((void**)&config->command);
+				ft_freegiveone((void**)&config->command);
+				alacon = NULL;
+			}
 		}
 		get_next_line(-1, NULL);
 		close(fd);
