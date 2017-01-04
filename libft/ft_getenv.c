@@ -6,11 +6,22 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/03 14:07:23 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/01/03 14:48:42 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/03 15:48:16 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/*
+** ft_igetenv return the env index for the name given and -1 if the name
+** doesn't match any environment variable
+**
+** ft_getenv return the value of the environment given and NULL if the name
+** doesn't match any
+**
+** ft_getenv_whole return the entire String of the given name and NULL if the
+** name doesn't match any
+*/
 
 int		ft_igetenv(char *name, char **env)
 {
@@ -35,6 +46,7 @@ int		ft_igetenv(char *name, char **env)
 	}
 	return (-1);
 }
+
 char	*ft_getenv_whole(char *name, char **env)
 {
 	char	*np;
