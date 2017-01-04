@@ -35,9 +35,10 @@ core/free_pros.c \
 core/hash.c \
 core/main.c \
 core/minishell.c \
-core/qerror.c \
 core/save.c \
+core/script.c \
 core/signal.c \
+core/terminit.c \
 globbing/braces.c \
 globbing/globbing.c \
 globbing/globbing_support.c \
@@ -45,12 +46,12 @@ globbing/match.c \
 history/exclamation.c \
 history/history.c \
 history/history_backup.c \
+history/history_replace.c \
 history/history_search_down.c \
 history/history_search_up.c \
 history/scanchr.c \
 history/searchengine.c \
 history/sprompt.c \
-history/history_replace.c \
 run_command/build_sentence.c \
 run_command/env_var_replace.c \
 run_command/exec.c \

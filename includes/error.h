@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:23:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/23 16:13:05 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/04 20:06:52 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@
 /*
 ** quotes errors
 */
-# define QUOTE_ERR	"please end your quote before running command"
-# define PAR_ERR	"missing '(' ')' '[' ']' '{' '}' or \"`\" character"
-# define BACK_ERR	"missing character after backslash"
+# define SQUOTE_ERR	"\'unexpected EOF while looking for matching `\''"
+# define DQUOTE_ERR	"\"unexpected EOF while looking for matching `\"'"
+# define PAR_ERR	")missing matching ')' character"
+# define BRA_ERR	"}missing matching '}' character"
+# define BAQU_ERR	"`missing matching '`' character"
+# define UBRA_ERR	"0unexpected '}' character"
+# define UPAR_ERR	"0unexpected ')' character"
+# define BACK_ERR	"0unexpected EOF after backslack"
 
 /*
 ** signals errors

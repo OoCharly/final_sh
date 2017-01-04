@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 18:09:34 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/04 19:15:55 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,53 +16,17 @@ static void	ft_manage_files(int ac, char **av, t_config *config)
 {
 	int			fd;
 	int			i;
-	char		*test;
-	char		*alacon;
 
 	i = 0;
-	alacon = NULL;
 	while (++i < ac)
 	{
 		if ((fd = open(av[i], O_RDONLY)) < 0
 				&& ft_error(SHNAME, "can't open input file", av[i], 1 | SERROR))
 			return ;
 		ft_shname_or_file(av[i]);
-		ft_script_line(-1);
-		while ((get_next_line(fd, &config->command)) > 0 && ft_script_line(1))
-		{
-			alacon = (alacon) ? ft_strchrjoin(alacon, '\n', config->command):
-				ft_strdup(config->command);
-			test = alacon;
-			if ((test = ft_matchchr(&test)))
-			{
-				config->command = alacon;
-				ft_run_command(config);
-				ft_freegiveone((void**)&config->command);
-				alacon = NULL;
-			}
-		}
-		get_next_line(-1, NULL);
+		ft_scripting(fd, config);
 		close(fd);
 		ft_shname_or_file(SHNAME);
-	}
-}
-
-/*
-**Searches the terminal name in config->env. If variable TERM exists,
-**initializes the termcaps.
-*/
-
-static void	ft_termcaps_init(t_config *config)
-{
-	char		*i;
-
-	i = ft_strtabfindstart(config->env, "TERM=");
-	if (i && tgetent(NULL, i + 5))
-		config->term_state = 1;
-	else
-	{
-		ft_error(SHNAME, ANSI_USE, BEAWARE_ERR, CR_ERROR);
-		config->term_state = 0;
 	}
 }
 
@@ -74,8 +38,6 @@ static void	ft_termcaps_init(t_config *config)
 
 static void	ft_tricase(int ac, char **av, t_config *config)
 {
-	char		*test;
-
 	ft_signal(SIGNAL_SCRIPT);
 	if (ac == 1 && isatty(0))
 	{
@@ -83,18 +45,7 @@ static void	ft_tricase(int ac, char **av, t_config *config)
 		ft_minishell(config);
 	}
 	else if (ac == 1 && (config->heredoc = 2))
-	{
-		while (get_next_line(0, &config->command) > 0 && ft_script_line(1))
-		{
-			test = config->command;
-			if ((test = ft_matchchr(&test)))
-				ft_error(SHNAME, PARSE_ERR, ft_qerr(test), 1 | SERROR | EEXIT);
-			else
-				ft_run_command(config);
-			ft_freegiveone((void**)&config->command);
-		}
-		get_next_line(-1, NULL);
-	}
+		ft_scripting(0, config);
 	else if ((config->heredoc = 2))
 		ft_manage_files(ac, av, config);
 	ft_shell_exit(config);
