@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 20:12:24 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 11:54:09 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,10 @@ void			ft_termcaps_init(t_config *config);
 ** script.c
 */
 void			ft_scripting(int fd, t_config *config);
+
+/*
+** debug.c
+*/
+void		ft_printchimera(t_list *chimera);
 
 #endif

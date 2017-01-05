@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/04 17:21:53 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/05 12:46:27 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		ft_addtoline(t_stream *stream, char *add, char *b)
 		pos = stream->pos;
 		ft_gomatch(stream, b - stream->command);
 		ft_memmove(b, stream->command + pos,
-			strlen(stream->command + pos) + 1);
+		ft_strlen(stream->command + pos) + 1);
 		ft_bzero(stream->buf, 256);
 		while ((size = ft_strlen(ft_strncpy(stream->buf, add, 255))) == 255)
 		{
@@ -58,7 +58,8 @@ int				ft_rep(t_stream *stream, char *b)
 		return (0);
 	}
 	add = ft_strtabchrjoin(arg, ' ');
-	add[strlen(add) - 1] = 0;
+	if (add)
+		add[ft_strlen(add) - 1] = 0;
 	ft_addtoline(stream, add, b);
 	ft_strtabfree_content(arg);
 	return (1);
