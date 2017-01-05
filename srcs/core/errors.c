@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:54 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/17 17:31:43 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 17:47:27 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ char		*ft_shname_or_file(char *name)
 	if (name)
 		errn = name;
 	return (errn);
-}
-
-/*
-**Returns line if an error occured.
-*/
-
-size_t		ft_script_line(int mode)
-{
-	static size_t	script_line = 0;
-
-	if (mode < 0)
-		script_line = 0;
-	else if (mode)
-		script_line += mode;
-	return (script_line);
 }
 
 static void	ft_last_exit_fail(int mode)
@@ -68,12 +53,12 @@ int			ft_error(char *name, char *other, char *mess, int mode)
 	if (ft_script_line(0) && !ft_strcmp(SHNAME, name))
 		FT_PUTSTRFD("ligne ", ft_st_itoa((int)ft_script_line(0)), ": ", 2);
 	if (other)
-	{
 		ft_putstr_fd(other, 2);
-		ft_putstr_fd(": ", 2);
-	}
 	if (mess)
+	{
+		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(mess, 2);
+	}
 	if (mode & CR_ERROR)
 		ft_putchar_fd('\n', 2);
 	ft_last_exit_fail(mode);
