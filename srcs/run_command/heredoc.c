@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:17:20 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 15:00:36 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/03 12:49:49 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 		ft_freegiveone((void**)&kill);
 		tmp = ft_streamscan(config, ft_save_stream(NULL), 0);
 	}
+	ft_freegiveone((void**)&tmp);
 }
 
 static int	ft_stateprep_herdoc(t_list *begin, t_config *config)
@@ -66,7 +67,7 @@ static int	ft_decant(t_list *cmd, t_list *src, int i)
 			ft_error(SHNAME, PARSE_ERR, "newline", CR_ERROR | EEXIT);
 		return (0);
 	}
-	if (!src)
+	if (!src || !((char**)src->data) || !((char**)src->data)[0] || !((char**)src->data)[0][0])
 		return (1);
 	while (((char**)src->data)[++i])
 	{

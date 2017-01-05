@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/01/04 21:35:50 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 14:39:42 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef		struct	s_brace
 
 size_t	ft_size_list(t_list *begin);
 int		ft_checkchars(char *arg, char *chars);
-
+int		ft_closechar(char *arg, char *c);
 /*
 ** globbing.c
 */

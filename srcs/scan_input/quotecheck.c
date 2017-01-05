@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:28:55 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 18:14:54 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 18:45:16 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static char	*ft_gonext(char **str, char c)
 	}
 	else if (c == ')')
 		return (PAR_ERR);
-	else if (c == '}')
-		return (BRA_ERR);
 	else
 		return (BAQU_ERR);
 }
@@ -65,14 +63,10 @@ char		*ft_matchchr(char **str)
 
 	while (**str && !(test = NULL))
 	{
-//		if (**str == '}')
-//			return (UBRA_ERR);
 		if (**str == ')')
 			return (UPAR_ERR);
 		if (**str == '(' && (test = ft_gonext(str, ')')))
 			return (test);
-//		if (**str == '{' && (test = ft_gonext(str, '}')))
-//			return (test);
 		if (**str == '`' && (test = ft_gonext(str, '`')))
 			return (test);
 		if (**str == '#')

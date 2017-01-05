@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:54:52 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/06 12:25:59 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/05 16:41:50 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ t_list			*ft_run_sentence(t_list *begin, t_config *config, int *r_pipe)
 	{
 		if (!begin->data_size || begin->data_size == SSHELL)
 		{
+			if (!begin->data_size
+				&& !ft_insert_loop((char ***)&begin->data, config))
+				ft_error(SHNAME, "malloc error in globbing", NULL, 1 | 4);
 			if ((tmp = ft_fork_process(begin, config, r_pipe)))
 				ft_list_push_back(&process, tmp);
 		}

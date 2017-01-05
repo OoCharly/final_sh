@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:39:35 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/04 21:11:54 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 14:45:07 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_list			*ft_braces(char *str, char out)
 			ft_list_merge(&(b.all), b.arg1);
 			b.arg1 = NULL;
 		}
-		else if (*str == '{' && (b.size = ft_checkchars(str, "}") - 1))
+		else if (*str == '{' && (b.size = ft_closechar(str, "{}")))
 		{
 			ft_braces2(&b, str);
 			str += b.size;
