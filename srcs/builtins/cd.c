@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 08:37:59 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 16:12:17 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,17 @@ void		ft_cd(char **argv, t_config *config)
 	if ((i = (ft_strcmp(argv[0], "cd") ? 0 : 1)) && ft_strtablen(argv) - i > 1
 		&& ft_error(SHNAME, "cd", "too many arguments", CR_ERROR))
 		return ;
-	else if (!argv[i] && (path = ft_strtabfind(config->env, "HOME=")))
-		path = ft_strdup(path + 5);
+	else if (!argv[i] && (path = ft_getenv("HOME", config->env)))
+		path = ft_strdup(path);
 	else if (argv[i] && argv[i][0] == '/')
 		path = ft_strdup(argv[i]);
 	else if (argv[i] && argv[i][0] == '~'
-			&& (path = ft_strtabfind(config->env, "HOME=")))
-		path = ft_strslashjoin(path + 5,
+			&& (path = ft_getenv("HOME", config->env)))
+		path = ft_strslashjoin(path,
 				(ft_strlen(argv[i]) > 2 ? argv[i] + 2 : "."));
 	else if (argv[i] && argv[i][0] == '-'
-			&& (path = ft_strtabfind(config->env, "OLDPWD=")))
-		path = ft_strslashjoin(path + 7,
-				(ft_strlen(argv[i]) > 2 ? argv[i] + 2 : "."));
+			&& (path = ft_strdup(ft_getenv("OLDPWD", config->env))))
+		ft_putendl(path);
 	else if (argv[i] && (path = config->pwd))
 		path = ft_strslashjoin(path, argv[i]);
 	if (path)

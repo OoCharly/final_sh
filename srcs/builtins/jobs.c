@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 08:51:31 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 15:03:51 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,19 @@ static void		ft_continue(t_config *config, char *description, int mode)
 	t_list	*p;
 	t_list	*target;
 
+	target = NULL;
 	if (!(config->jobs))
 		ft_error(mode == JOBS_FG ? "fg" : "bg", NULL, "no current jobs",
 				CR_ERROR);
 	else if (!(target = ft_extract_job(config, description)))
 		ft_error(mode == JOBS_FG ? "fg" : "bg", description, "no such job",
 				CR_ERROR);
-	else if (mode == JOBS_FG)
-	{
-		p = target;
-		while ((p = p->next))
-			kill(*((pid_t*)p->data), SIGCONT);
-		ft_freegiveone((void**)&config->fg_sentence);
+	p = target;
+	while ((p = p->next))
+		kill(*((pid_t*)p->data), SIGCONT);
+	ft_freegiveone((void**)&config->fg_sentence);
+	if (mode == JOBS_FG)
 		ft_wait_sentence(target, config);
-	}
 }
 
 void			ft_jobs(char **argv, t_config *config)
