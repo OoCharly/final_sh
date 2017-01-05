@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 16:09:34 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/19 19:14:37 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,10 @@ int				ft_cleancmd(char *str);
 int				ft_signal(int mode);
 void			ft_signal_handle(int i);
 void			ft_sigwinch(int mode);
+
+/*
+** debug.c
+*/
+void		ft_printchimera(t_list *chimera);
 
 #endif
