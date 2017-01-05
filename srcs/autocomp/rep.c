@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/05 12:10:47 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/05 12:46:27 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int				ft_rep(t_stream *stream, char *b)
 		return (0);
 	}
 	add = ft_strtabchrjoin(arg, ' ');
-	add[strlen(add) - 1] = 0;
+	if (add)
+		add[ft_strlen(add) - 1] = 0;
 	ft_addtoline(stream, add, b);
 	ft_strtabfree_content(arg);
 	return (1);
