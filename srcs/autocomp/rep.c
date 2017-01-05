@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/04 17:21:53 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/05 12:10:47 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		ft_addtoline(t_stream *stream, char *add, char *b)
 		pos = stream->pos;
 		ft_gomatch(stream, b - stream->command);
 		ft_memmove(b, stream->command + pos,
-			strlen(stream->command + pos) + 1);
+		ft_strlen(stream->command + pos) + 1);
 		ft_bzero(stream->buf, 256);
 		while ((size = ft_strlen(ft_strncpy(stream->buf, add, 255))) == 255)
 		{
