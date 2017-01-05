@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 13:52:17 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/02 19:23:44 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void			ft_flushend(t_stream *stream)
 		stream->pos += size;
 	}
 	if (stream->pos && stream->command[stream->pos - 1] != '\n'
-			&& ft_checknewline(stream, stream->pos - 1) >= 0)
+			&& ((ssize_t *)(stream->buf))[0] != DEL
+			&& ft_checknewline(stream, stream->pos) == 0)
 		ft_repeat_termcaps(1, "do", stream);
 	ft_erase(stream);
 }
@@ -76,7 +77,7 @@ static int		ft_chrmatch(t_stream *stream)
 {
 	static ssize_t		match[] = {CLF, SUP, CHT, DEL,
 		LEF, RIG, UPP, DOW,
-		CLEF, CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, NUL};
+		CLEF, CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, NUL};
 	int					i;
 
 	i = 0;
@@ -102,7 +103,7 @@ int				ft_chrparse(t_stream *stream)
 			&ft_del, &ft_left, &ft_right, &ft_up, &ft_down,
 			&ft_ctrlleft, &ft_ctrlright, &ft_ctrlup, &ft_ctrldown,
 			&ft_goend, &ft_gohome, &ft_searchengine, &ft_searchengineend,
-			&ft_syntax_color};
+			&ft_syntax_color, &ft_clear};
 
 	if (COMP_STATE == 2 && ((ssize_t*)(stream->buf))[0] == CLF)
 		ft_end_autocomp(stream);

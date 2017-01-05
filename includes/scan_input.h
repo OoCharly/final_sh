@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 16:30:42 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/02 19:24:06 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define TND "\x1b[C"
 # define TDL "\x1b[K"
 # define TCD "\x1b[J"
+# define TCL "\x1b[2J"
 # define REPROMPT -10
 # define STR_EOF -11
 # define PROMPT_LEN stream->config->prompt_len
@@ -111,6 +112,7 @@ void			ft_erase(t_stream *stream);
 void			ft_clean_field(t_stream *stream);
 void			ft_sup(t_stream *stream);
 void			ft_del(t_stream *stream);
+void			ft_clear(t_stream *stream);
 /*
 **chrparse.c
 */

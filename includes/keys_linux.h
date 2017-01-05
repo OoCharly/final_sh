@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:51:46 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/23 17:04:35 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/02 19:22:37 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define NUL	0x00
 # define ESC	0x1b
 # define CTRLD	0x4
+# define CTRLL	0xc
 # define ALTS	0x0013
 # define SHCHT	0x5a5b1b
 

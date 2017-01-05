@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/14 14:14:52 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/04 12:04:17 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 	char	*memo;
 
 	f = config->env;
-	if (((i = ft_strtabifindstart(f, n)) >= 0
+	if (((i = ft_igetenv(n, f)) >= 0
 		&& (memo = f[i])
 		&& ((val && !(f[i] = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
 		|| (!val && !(f[i] = ft_strjoin(n, "="))))
@@ -79,13 +79,22 @@ void	ft_readysetenv(char **argv, t_config *config)
 void	ft_unsetenv(char **argv, t_config *config)
 {
 	int		i;
+	int		n;
+	char	**cp;
 
 	i = 0;
+	cp = config->env;
 	while (argv[++i])
 	{
-		ft_strncmptabdel(config->env, argv[i]);
-		if (config->shell_state != RUNNING_SON
-			&& !ft_strncmp("PATH", argv[i], 4) && ft_strlen(argv[i]) == 4)
-			ft_pathtohash(config);
+		if ((n = ft_igetenv(argv[i], cp)) >= 0)
+		{
+			free(cp[n]);
+			cp[n] = cp[n + 1];
+			while (cp[++n])
+				cp[n] = cp[n + 1];
+			if (config->shell_state != RUNNING_SON
+				&& !ft_strncmp("PATH", argv[i], 4) && ft_strlen(argv[i]) == 4)
+				ft_pathtohash(config);
+		}
 	}
 }

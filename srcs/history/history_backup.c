@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/18 16:33:53 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/03 14:36:58 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ static void	ft_fill_history(t_config *config, char *tmp)
 	else if (config->history[config->hindex])
 	{
 		kill = config->history[config->hindex];
-		config->history[config->hindex] = ft_strjoin(kill, "\n");
-		ft_freegiveone((void**)&kill);
-		kill = config->history[config->hindex];
-		config->history[config->hindex] = ft_strjoin(kill, tmp);
+		config->history[config->hindex] = ft_strchrjoin(kill, '\n', tmp);
 		ft_freegiveone((void**)&kill);
 		ft_freegiveone((void**)&tmp);
 	}
@@ -104,8 +101,7 @@ void		ft_load_history(t_config *config)
 	char	*file;
 
 	file = (config->hlocbis) ? config->hlocbis : config->hloc;
-	if (((fd = open(file, O_RDONLY)) < 0)
-		&& ft_error(SHNAME, NULL, "open error", CR_ERROR))
+	if ((fd = open(file, O_RDONLY)) < 0)
 		return ;
 	else
 	{

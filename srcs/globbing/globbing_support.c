@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:01:07 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/18 12:57:11 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/04 21:35:20 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				ft_checkchars(char *tmp, char *chars)
 	char	*arg;
 	char	flag;
 	int		i;
-	
+
 	while (*chars)
 	{
 		flag = 0;

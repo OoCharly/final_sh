@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 18:24:33 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/04 20:52:16 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void		ft_run_command(t_config *config)
 			ft_parse(config);
 		}
 	}
-	ft_freegiveone((void**)&config->command);
+	if (config && config->exclamation)
+		ft_freegiveone((void**)&config->exclamation);
+	else
+		ft_freegiveone((void**)&config->command);
 }
 
 /*
@@ -109,6 +112,7 @@ void		ft_minishell(t_config *config)
 		ft_shell_exit(config);
 	config->shell_state = SCANNING_COMMAND;
 	while (1)
+	{
 		if ((config->command = ft_streamscan(config, ft_save_stream(NULL), fd)))
 		{
 			ft_run_command(config);
@@ -116,4 +120,5 @@ void		ft_minishell(t_config *config)
 				ft_gotonextline(ft_save_stream(NULL));
 			config->shell_state = SCANNING_COMMAND;
 		}
+	}
 }

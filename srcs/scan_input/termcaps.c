@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:27:28 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 12:37:02 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/02 19:18:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void			ft_tputs(t_stream *stream)
 		ft_putstr_fd(TLE, SFD);
 	else if (stream->tput[0] == 'n')
 		ft_putstr_fd(TND, SFD);
+	else if (stream->tput[0] == 'c' && stream->tput[1] == 'l')
+		ft_putstr_fd(TCL, SFD);
 	else if (stream->tput[0] == 'c')
 		ft_putstr_fd(TCD, SFD);
 	else if (stream->tput[0] == 'd' && stream->tput[1] == 'o')
@@ -66,10 +68,11 @@ void			ft_mvleft(t_stream *stream)
 	if (stream->pos)
 	{
 		i = 0;
-		if (0 > (i = ft_checknewline(stream, stream->pos - 1)))
+		if (ft_checknewline(stream, stream->pos))
 			ft_repeat_termcaps(1, "le", stream);
 		else
 		{
+			i = ft_checknewline(stream, stream->pos - 1);
 			ft_repeat_termcaps(1, "up", stream);
 			ft_repeat_termcaps(i, "nd", stream);
 		}
@@ -81,7 +84,7 @@ void			ft_mvright(t_stream *stream)
 {
 	if (stream->command && stream->command[0])
 	{
-		if (0 > ft_checknewline(stream, stream->pos))
+		if (ft_checknewline(stream, stream->pos + 1))
 			ft_repeat_termcaps(1, "nd", stream);
 		else
 			ft_repeat_termcaps(1, "do", stream);

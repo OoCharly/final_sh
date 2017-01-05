@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/19 18:14:23 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/04 17:33:07 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,40 @@
 ** wich contents the result of globbing or of the history index search (!).
 */
 
+static int	ft_st_checkchars(char *tmp, char *chars)
+{
+	char	*arg;
+	char	flag;
+	int		i;
+
+	while (*chars)
+	{
+		flag = 0;
+		arg = tmp;
+		i = 0;
+		while (arg[i])
+		{
+			if (arg[i] == '\\')
+				i++;
+			else if (arg[i] == '\'')			
+				flag = (flag) ? 0 : arg[i];
+			else if (arg[i] == *chars && !flag)
+				return (i + 1);
+			i++;
+		}
+		chars++;
+	}
+	return (0);
+
+}
+
 static void	ft_insert(char ***t, int *i, int mode)
 {
 	char	*tmp;
 	char	**g_tab;
 	char	**kill;
 
-	if (!mode)
-		tmp = ft_create_strhistidx((*t)[*i]);
-	else if (mode == 2)
+	if (mode == 2)
 		tmp = ft_launchbraces((*t)[*i]);
 	else
 		tmp = ft_launch_glob((*t)[*i]);
@@ -51,7 +76,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 ** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-int		ft_check_insert(char ***t, int mode, t_config *config)
+int			ft_check_insert(char ***t, int mode, t_config *config)
 {
 	int i;
 	int j;
@@ -60,9 +85,7 @@ int		ft_check_insert(char ***t, int mode, t_config *config)
 	i = 0;
 	while ((*t)[i])
 	{
-		if (!mode && ft_checkhist((*t)[i]))
-			ft_insert(t, &i, mode);
-		else if (mode == 1 && ft_checkchars((*t)[i], "$~"))
+		if (mode == 1 && ft_st_checkchars((*t)[i], "~$"))
 			ft_quotehandle(&((*t)[i++]), config);
 		else if (mode == 2 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(t, &i, mode);
@@ -70,20 +93,13 @@ int		ft_check_insert(char ***t, int mode, t_config *config)
 		{
 			if (ft_checkchars((*t)[i], "*[]?"))
 				ft_insert(t, &i, mode);
-			else
-			{
-				ft_cleancmd((*t)[i]);
-				i++;
-				j++;
-			}
+			else if (++j)
+				ft_cleancmd((*t)[i++]);
 		}
-		else
-		{
+		else if (++j)
 			i++;
-			j++;
-		}
 	}
-	return ( (i == j) ? 0 : 1);
+	return ((i == j) ? 0 : 1);
 }
 
 /*
@@ -102,11 +118,12 @@ int			ft_insert_loop(t_list *begin, t_config *config)
 		if (!begin->data_size && !(j = 0))
 		{
 			t = ((char **)begin->data);
-			while (j < 4)
-				ft_check_insert(&t, j++, config);
+			while (++j < 4)
+				ft_check_insert(&t, j, config);
 			begin->data = t;
 		}
-		else if (begin->data_size == SSHELL && !ft_insert_loop(begin->data, config))
+		else if (begin->data_size == SSHELL
+			&& !ft_insert_loop(begin->data, config))
 			return (0);
 		begin = begin->next;
 	}

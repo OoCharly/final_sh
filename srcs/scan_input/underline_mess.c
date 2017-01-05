@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:18:09 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 10:22:21 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/02 17:07:57 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,18 @@ void	ft_putmess(t_stream *stream, char *mess)
 
 int		ft_underline_mess(char *mess, t_stream *stream)
 {
-	size_t			i;
+	int			i;
 	unsigned int	pos_buf;
 
 	pos_buf = stream->pos;
 	ft_goend(stream);
-	stream->tput = "do";
-	ft_tputs(stream);
-	stream->tput = "le";
-	i = stream->col;
-	while (i--)
-		ft_tputs(stream);
+	ft_repeat_termcaps(1, "do", stream);
+	ft_repeat_termcaps(stream->col, "le", stream);
 	stream->tput = "cd";
 	ft_tputs(stream);
 	ft_putmess(stream, mess);
-	if (stream->command)
-		i = stream->config->prompt_len + ft_strlen(stream->command);
-	else
-		i = stream->config->prompt_len;
-	i = i % stream->col;
-	stream->tput = "nd";
-	while (i--)
-		ft_tputs(stream);
+	i = ft_checknewline(stream, stream->pos);
+	ft_repeat_termcaps(i, "nd", stream);
 	ft_gomatch(stream, pos_buf);
 	return (0);
 }

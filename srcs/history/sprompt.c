@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 16:23:59 by rbaran            #+#    #+#             */
-/*   Updated: 2016/12/13 14:58:17 by rbaran           ###   ########.fr       */
+/*   Updated: 2016/12/22 15:19:30 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_sprompt(t_stream *stream)
 {
 	char	*buf;
 	char	*kill;
-	//int		index;
 
 	if (stream->search && stream->search[0] &&
 		(buf = ft_strjoin("back-i-search: ", stream->search)))
@@ -51,7 +50,4 @@ void	ft_sprompt(t_stream *stream)
 		buf = ft_strdup("back-i-search: _");
 	ft_underline_mess(buf, stream);
 	ft_freegiveone((void**)&buf);
-	/*if (stream->command && stream->search && stream->search[0]
-			&& (index = ft_strstri(stream->command, stream->search)) != -1)
-		ft_gomatch(stream, (size_t)index);*/
 }

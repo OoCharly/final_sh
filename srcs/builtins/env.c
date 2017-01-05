@@ -6,15 +6,22 @@
 /*   By: rbaran <rbaran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 14:14:44 by rbaran            #+#    #+#             */
-/*   Updated: 2016/12/14 14:46:12 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/04 12:30:48 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_printhelp(void)
+static void	ft_printhelp(char c)
 {
-	ft_putstr("HOY\n");
+	if (c)
+	{
+		ft_putstr("env: illegal option -- ");
+		ft_putchar(c);
+		ft_putchar('\n');
+	}
+	ft_putendl("usage: env [-i] [-u name]");
+	ft_putendl("\t[name=value ...] [utility [argument ...]]");
 	return ;
 }
 
@@ -38,7 +45,10 @@ static int	ft_parseparams(char **argv, int *param, t_config *config)
 			ft_unsetenv((char**)unset, config);
 		}
 		else
-			break ;
+		{
+			ft_printhelp(argv[i][1]);
+			return (-1);
+		}
 	}
 	return (i);
 }
@@ -70,9 +80,11 @@ void		ft_env(char **argv, t_config *config)
 	int		index;
 
 	param = 0;
-	index = ft_parseparams(argv, &param, config);
+	if ((index = ft_parseparams(argv, &param, config)) < 0
+			&& (config->last_exit = 1))
+		return ;
 	if (param & ENV_H)
-		return (ft_printhelp());
+		return (ft_printhelp(0));
 	if (param & ENV_I)
 	{
 		ft_strtabfree(config->env);

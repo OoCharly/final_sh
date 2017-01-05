@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:51:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/14 14:19:26 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/20 12:54:35 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@
 
 void			ft_list_free_av(void *data, size_t data_size)
 {
-	if (data_size == PIPE && data && ((t_pipe*)data)->others_fd)
-		ft_strtabfree(((t_pipe*)data)->others_fd);
 	if (!data_size && data)
 		ft_strtabfree((char **)data);
 	else if (data_size == OP || data_size == HEREDOC)
 		ft_freegiveone(&data);
-	else if (data_size == PIPE && data && ((t_pipe*)data)->others_fd &&
-		((t_pipe*)data)->others_fd[0])
+	else if (data_size == PIPE && data)
 	{
-		ft_strtabfree(((t_pipe*)data)->others_fd);
+		if (((t_pipe*)data)->others_fd)
+			ft_strtabfree(((t_pipe*)data)->others_fd);
 		ft_freegiveone(&data);
 	}
 	else if (data_size == SSHELL)

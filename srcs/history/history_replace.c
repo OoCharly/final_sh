@@ -6,55 +6,11 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/19 10:47:27 by maxpetit         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:01:49 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_ret_intervalquote(char *str, int *begin, int *end, int i)
-{
-	char	*ret;
-
-	if ((ret = ft_strchr(str + i, '\'')))
-	{
-		*begin = ret - str;
-		*end = ft_dodge_quote(str, *begin);
-		return (1);
-	}
-	return (0);
-}
-
-/*
-**Checks if there is the character '!' in str without a '\' ahead.
-*/
-
-int			ft_checkhist(char *str)
-{
-	static int	i;
-	int			begin;
-	int			end;
-	char		*ret;
-
-	begin = 0;
-	end = 0;
-	if (str[i])
-	{
-		ft_ret_intervalquote(str, &begin, &end, i);
-		if ((ret = ft_strchr(str + i, '!')))
-		{
-			i = ret - str;
-			if ((end == 0 || (i < begin))
-				&& ((ft_strcmp(ret, str + i) && *(ret - 1) != '\\')
-				|| (!ft_strcmp(ret, str + i))) && !(i = 0))
-				return (1);
-			i = end;
-			return (ft_checkhist(str));
-		}
-	}
-	i = 0;
-	return (0);
-}
 
 static int	ft_ret_idx(char *str, int i, char **su)
 {
@@ -110,8 +66,6 @@ static char	*ft_loop_hist(char *str, char **pre, char **su)
 			}
 			if (str[i + 1] && ((j = ft_ret_idx(str, i, su)) >= 0))
 				return (ft_strdup(config->history[j - 1]));
-			else if (ft_error(SHNAME, NULL, "syntax error", CR_ERROR))
-				return (NULL);
 		}
 	return (NULL);
 }
