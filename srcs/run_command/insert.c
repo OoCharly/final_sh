@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/04 17:33:07 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/05 16:40:09 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,24 +108,15 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 ** is found launch the corresponding function.
 */
 
-int			ft_insert_loop(t_list *begin, t_config *config)
+int			ft_insert_loop(char ***command, t_config *config)
 {
 	char	**t;
 	int		j;
 
-	while (begin)
-	{
-		if (!begin->data_size && !(j = 0))
-		{
-			t = ((char **)begin->data);
-			while (++j < 4)
-				ft_check_insert(&t, j, config);
-			begin->data = t;
-		}
-		else if (begin->data_size == SSHELL
-			&& !ft_insert_loop(begin->data, config))
-			return (0);
-		begin = begin->next;
-	}
+	j = 0;
+	t = *command;
+	while (++j < 4)
+		ft_check_insert(&t, j, config);
+	*command = t;
 	return (1);
 }
