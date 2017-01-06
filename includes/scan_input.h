@@ -89,6 +89,7 @@ int				ft_underline_mess(char *mess, t_stream *stream);
 /*
 **quotecheck.c
 */
+char			*ft_gonextquote(char **str, char c);
 char			*ft_matchchr(char **str);
 int				ft_quotecheck(t_stream *stream);
 /*

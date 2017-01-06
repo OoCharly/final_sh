@@ -75,10 +75,9 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 	ft_strswap(&stream->command, &config->exclamation);
 	SFD = fd;
 	ft_pack_scan(stream, config);
-	if (stream->command && stream->command[0]
-		&& (!config->hindex || config->hindex == 1
-		|| ft_strcmp(stream->command, config->history[config->hindex - 1]))
-		&& !config->heredoc && stream->state != REPROMPT && !config->exclamation)
+	if (ft_is_memerizable(stream->command)
+		&& !config->heredoc && stream->state != REPROMPT
+		&& !config->exclamation)
 	{
 		ft_push_history(stream, config, 0);
 		ft_incr_history(&(config->hindex));

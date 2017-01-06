@@ -58,6 +58,7 @@ void			ft_fgbg(char **argv, t_config *config, int mode);
 /*
 **history.c
 */
+int			ft_is_memerizable(char *cmd);
 void		ft_history(char **argv, t_config *config);
 char		*ft_return_hloc(char *hloc, int mode);
 /*

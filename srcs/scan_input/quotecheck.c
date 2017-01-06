@@ -41,7 +41,7 @@ static char	*ft_gonext(char **str, char c)
 		return (BAQU_ERR);
 }
 
-static char	*ft_gonextquote(char **str, char c)
+char		*ft_gonextquote(char **str, char c)
 {
 	++(*str);
 	while (**str && **str != c)

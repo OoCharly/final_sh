@@ -33,6 +33,17 @@ void	ft_incr_history(int *hindex)
 **config->ncmd_index is filled to.
 */
 
+int		ft_is_memerizable(char *cmd)
+{
+	while (cmd && *cmd)
+	{
+		if (ft_isprint(*cmd) && !ft_isspace(*cmd))
+			return (1);
+		++cmd;
+	}
+	return (0);
+}
+
 void	ft_push_history(t_stream *stream, t_config *config, int mode)
 {
 	char *cmd;

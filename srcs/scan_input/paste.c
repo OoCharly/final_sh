@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+static char	*ft_strchr_dodge(char *str, char c)
+{
+	while (str && *str)
+	{
+		if (*str == c)
+			return (str);
+		if (*str == '\'' || *str == '\"')
+			if (ft_gonextquote(&str, *str))
+				return (NULL);
+		++str;
+	}
+	return (NULL);
+}
+
 static char	*ft_checkpaste(t_stream *stream)
 {
 	char	*match;
@@ -9,13 +23,16 @@ static char	*ft_checkpaste(t_stream *stream)
 	mem = NULL;
 	match = stream->command;
 	while ((test = match)
-		&& (match = ft_strchr(match, '\n')))
+		&& (match = ft_strchr_dodge(match, '\n')))
 	{
 		*match = 0;
 		if (!ft_matchchr(&test))
 		{
-			ft_push_history(stream, stream->config, 0);
-			ft_incr_history(&(stream->config->hindex));
+			if (ft_is_memerizable(stream->command) && !stream->config->heredoc)
+			{
+				ft_push_history(stream, stream->config, 0);
+				ft_incr_history(&(stream->config->hindex));
+			}
 			mem = match + 1;
 			ft_winsize();
 			*match = ';';
