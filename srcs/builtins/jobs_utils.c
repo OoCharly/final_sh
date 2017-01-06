@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:35:03 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/14 08:36:31 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/06 19:09:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_cmp_jobs(t_list *s, char *description, int i)
 
 	if (!description)
 		return (1);
-	sentence = (char*)s->data;
+	sentence = ((t_sentence*)s->data)->sentence;
 	if (*description == '%' && ++description)
 	{
 		if (ft_isdigit(*description) && ft_atoi(description) == i)
@@ -52,7 +52,7 @@ void	ft_print_jobs(t_list *sentence, char *description)
 	{
 		FT_PUTSTRFD("[", ft_st_itoa(i), "]       ", 1);
 		FT_PUTSTRFD(ft_st_itoa(*((int*)sentence->next->data)), "    ",
-				sentence->data, 1);
+				((t_sentence*)sentence->data)->sentence, 1);
 		ft_putchar('\n');
 		found = 1;
 	}
