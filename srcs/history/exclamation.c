@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/06 13:17:18 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/06 13:25:00 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			ft_history_exclamation(t_stream *stream)
 	return (0);
 }
 
-void		ft_history_rep(t_stream *stream)
+int		ft_history_rep(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
@@ -90,13 +90,14 @@ void		ft_history_rep(t_stream *stream)
 	if (ft_checkchars(COMP_BEGIN, "!"))
 	{
 		mem = NULL;
-		config = ft_save_config(NULL);
-		ft_incr_history(&config->hindex);
+		config = stream->config;
 		tmp = COMP_BEGIN;
 		while ((tmp = ft_create_strhistidx(tmp))
 			&& ft_freegiveone((void**)&mem))
 			mem = tmp;
 		ft_freegiveone((void**)&(COMP_BEGIN));
 		COMP_BEGIN = mem;
+		return (1);
 	}
+	return (0);
 }
