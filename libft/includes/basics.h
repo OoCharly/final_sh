@@ -66,7 +66,7 @@ void	ft_char_clean(char *str, char c);
 void	ft_chartab_clean(char **str, char c);
 void	ft_charstr_clean(char *str, char *tok);
 void	ft_tabstr_clean(char **str, char *tok);
-void	ft_strchrsed(char *str, char o, char d);
+void	ft_strchrsed(char *str, char origin, char target);
 
 /*
 ** COPY && CAT

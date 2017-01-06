@@ -1,11 +1,11 @@
 #include "libft.h"
 
-void	ft_strchrsed(char *str, char o, char d)
+void	ft_strchrsed(char *str, char origin, char target)
 {
 	while (str && *str)
 	{
-		if (*str == o)
-			*str = d;
+		if (*str == origin)
+			*str = target;
 		++str;
 	}
 }
