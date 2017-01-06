@@ -46,7 +46,11 @@ void			ft_tputs(t_stream *stream)
 	else if (stream->tput[0] == 'n')
 		ft_putstr_fd(TND, SFD);
 	else if (stream->tput[0] == 'c' && stream->tput[1] == 'l')
+	{
+		ft_repeat_termcaps(1000, "up", stream);
+		ft_repeat_termcaps(1000, "le", stream);
 		ft_putstr_fd(TCL, SFD);
+	}
 	else if (stream->tput[0] == 'c')
 		ft_putstr_fd(TCD, SFD);
 	else if (stream->tput[0] == 'd' && stream->tput[1] == 'o')

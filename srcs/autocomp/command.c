@@ -34,9 +34,7 @@ void		ft_autocomp_underline(t_stream *stream, char mode)
 	}
 	else
 	{
-		i = (stream->command) ? stream->config->prompt_len +
-			ft_strlen(stream->command) : stream->config->prompt_len;
-		i = i % stream->col;
+		i = ft_checknewline(stream, ft_strlen(stream->command));
 		ft_repeat_termcaps(i, "nd", stream);
 		ft_gomatch(stream, pos_buf);
 	}
@@ -62,8 +60,7 @@ void		ft_autocomp_delete(t_stream *stream)
 		ft_strncpy(stream->command, kill, COMP_POS_COMMAND);
 		ft_strcpy(stream->command + COMP_POS_COMMAND,
 				kill + COMP_POS_COMMAND + len);
-		ft_putstr_fd(stream->command, SFD);
-		stream->pos += (ft_strlen(stream->command) % stream->col);
+		ft_winsize();
 		ft_freegiveone((void**)&kill);
 	}
 	ft_gomatch(stream, COMP_POS_COMMAND);

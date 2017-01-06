@@ -14,6 +14,7 @@
 
 void			ft_secure_prompt(t_stream *stream)
 {
+	ft_repeat_termcaps(1, "cd", stream);
 	ft_prompt(stream->config);
 	if (!((stream->config->prompt_len) % stream->col))
 		ft_repeat_termcaps(1, "do", stream);
