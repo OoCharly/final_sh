@@ -26,6 +26,7 @@ void		ft_signal_handle(int i)
 				stream->config->shell_state = SIGINT_COMMAND;
 			else
 			{
+				ft_freegiveone((void**)&stream->config->exclamation);
 				stream->state = REPROMPT;
 			}
 		}

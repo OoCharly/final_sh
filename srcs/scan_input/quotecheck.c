@@ -97,7 +97,6 @@ int			ft_quotecheck(t_stream *stream)
 	else if ((test = ft_matchchr(&test)))
 	{
 		ft_append(stream);
-		ft_repeat_termcaps(1, "cd", stream);
 		return (ft_underline_mess(test + 2, stream));
 	}
 	return (1);
