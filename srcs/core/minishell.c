@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 16:33:39 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/05 18:45:39 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,9 @@ void		ft_run_command(t_config *config)
 			ft_parse(config);
 		}
 	}
-	if (config && config->exclamation)
-		ft_freegiveone((void**)&config->exclamation);
-	else
-		ft_freegiveone((void**)&config->command);
+//	if (config && config->exclamation)
+//		ft_freegiveone((void**)&config->exclamation);
+	ft_freegiveone((void**)&config->command);
 }
 
 /*

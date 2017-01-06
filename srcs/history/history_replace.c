@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/22 12:01:49 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 18:26:17 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static char	*ft_loop_hist(char *str, char **pre, char **su)
 				if (str[i + 2])
 					*su = str + i + 2;
 				j = config->hindex;
-				ft_decr_history(&j);
 				return ((j > 0) ? ft_strdup(config->history[j - 1]) : NULL);
 			}
 			if (str[i + 1] && ((j = ft_ret_idx(str, i, su)) >= 0))

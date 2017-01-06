@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/06 13:12:10 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/06 13:17:18 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int			ft_checkhist(char *str)
 		ft_ret_intervalquote(str, &begin, &end, i);
 		if ((ret = ft_strchr(str + i, '!')))
 		{
+			if (ret[1] == 0)
+				return (0);
 			i = ret - str;
 			if ((end == 0 || (i < begin))
 				&& ((ft_strcmp(ret, str + i) && *(ret - 1) != '\\')
@@ -66,8 +68,7 @@ int			ft_history_exclamation(t_stream *stream)
 	if (ft_checkchars(stream->command, "!"))
 	{
 		mem = NULL;
-		config = ft_save_config(NULL);
-		ft_incr_history(&config->hindex);
+		config = stream->config;
 		tmp = stream->command;
 		while ((tmp = ft_create_strhistidx(tmp))
 			&& ft_freegiveone((void**)&mem))

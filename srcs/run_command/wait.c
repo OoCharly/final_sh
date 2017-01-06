@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:16:10 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 12:33:01 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		ft_list_push_front(&job, new);
 	if (ft_wait(&job, config))
 	{
+		printf("OOOOOOOOOOOOOO\n");
 		if (!(new = ft_lstnew((void*)job, JOB)))
 		{
 			ft_error(SHNAME, "parser", "malloc error on job control", CR_ERROR);
