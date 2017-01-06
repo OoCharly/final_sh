@@ -77,6 +77,11 @@ typedef struct	s_globing
 */
 char			*ft_streamscan(t_config *config, t_stream *stream, int fd);
 /*
+**term_handle.c
+*/
+int				ft_init_term(t_config *config);
+void			ft_termios_handle(t_config *config, int mode);
+/*
 **underlinemess.c
 */
 void			ft_putmess(t_stream *stream, char *mess);
@@ -180,5 +185,9 @@ size_t			ft_get_cur_col(char *cmd, size_t pos,  t_stream *stream);
 */
 t_stream		*ft_save_stream(t_stream *stream);
 t_config		*ft_save_config(t_config *config);
+/* 
+**paste.c
+*/
+int				ft_pastereturn(t_stream *stream);
 
 #endif

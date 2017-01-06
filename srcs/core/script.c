@@ -20,7 +20,7 @@ static void	ft_eof_error(int script_line)
 	eof_line = ft_script_line(0);
 	ft_script_line(-script_line);
 	test= ft_set_test(NULL);
-	ft_error(SHNAME, test + 2, NULL, 1 | 4);
+	ft_error(SHNAME, NULL, test + 2, 1 | 4);
 	ft_script_line(-eof_line);
 	cha[0] = *(test + 1);
 	ft_error(SHNAME, UEOF_ERR, cha, 1 | 4 | EEXIT);
@@ -32,7 +32,7 @@ static void	ft_eof_error(int script_line)
 
 size_t		ft_script_line(int mode)
 {
-	static size_t	script_line = 1;
+	static size_t	script_line = 0;
 
 	if (mode == -1)
 		script_line = 1;
@@ -50,7 +50,7 @@ static char	*ft_scripting_inloop(char *command, char *l, t_config *config)
 	config->command = command;
 	if (!(command = command ? ft_strchrjoin(command, '\n', l) : ft_strdup(l))
 		&& ft_freegiveone((void**)&l)
-		&& ft_error(SHNAME, "malloc error", NULL, 1 | 4 | 8))
+		&& ft_error(SHNAME, NULL, "malloc error", 1 | 4 | 8))
 		return (NULL);
 	ft_freegiveone((void**)&config->command);
 	test = command;

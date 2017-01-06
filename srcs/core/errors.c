@@ -53,12 +53,12 @@ int			ft_error(char *name, char *other, char *mess, int mode)
 	if (ft_script_line(0) && !ft_strcmp(SHNAME, name))
 		FT_PUTSTRFD("ligne ", ft_st_itoa((int)ft_script_line(0)), ": ", 2);
 	if (other)
-		ft_putstr_fd(other, 2);
-	if (mess)
 	{
+		ft_putstr_fd(other, 2);
 		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(mess, 2);
 	}
+	if (mess)
+		ft_putstr_fd(mess, 2);
 	if (mode & CR_ERROR)
 		ft_putchar_fd('\n', 2);
 	ft_last_exit_fail(mode);

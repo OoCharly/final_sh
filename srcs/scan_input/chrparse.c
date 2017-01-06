@@ -16,6 +16,7 @@ void			ft_flushend(t_stream *stream)
 {
 	size_t		size;
 
+	ft_repeat_termcaps(1, "cd", stream);
 	if (stream->search)
 		ft_flushsearch(stream);
 	else if (stream->command && stream->command[0])
@@ -111,15 +112,17 @@ int				ft_chrparse(t_stream *stream)
 		(*ftab[1])(stream);
 	else
 	{
-		if (!(match = ft_chrmatch(stream)))
-			return (0);
-		if (match == -1)
+		if ((match = ft_chrmatch(stream)) == -1)
 		{
 			ft_strchrsed(stream->buf, '\t', ' ');
 			stream->search ? ft_sappend(stream) : ft_append(stream);
+			if (ft_strlen(stream->buf) > 1 && ft_pastereturn(stream))
+				match = 0;
 		}
 		else if (match > 0)
 			(*ftab[match - 1])(stream);
+		if (!match)
+			return (0);
 	}
 	return (1);
 }

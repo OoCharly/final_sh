@@ -74,10 +74,12 @@ scan_input/checknewline.c \
 scan_input/chrparse.c \
 scan_input/cursor.c \
 scan_input/deletion.c \
+scan_input/paste.c \
 scan_input/prompt.c \
 scan_input/quotecheck.c \
 scan_input/streamscan.c \
 scan_input/syntax_color.c \
+scan_input/term_handle.c \
 scan_input/termcaps.c \
 scan_input/underline_mess.c \
 scan_input/winsize.c \
