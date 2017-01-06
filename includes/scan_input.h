@@ -21,6 +21,7 @@
 # define TDL "\x1b[K"
 # define TCD "\x1b[J"
 # define TCL "\x1b[2J"
+# define ANSI_REVERSEVID "\x1b[7m"
 # define REPROMPT -10
 # define STR_EOF -11
 # define PROMPT_LEN stream->config->prompt_len

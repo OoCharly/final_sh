@@ -85,7 +85,7 @@ int				ft_checkchars(char *tmp, char *chars)
 
 size_t			ft_size_list(t_list *begin)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
 	while (begin)

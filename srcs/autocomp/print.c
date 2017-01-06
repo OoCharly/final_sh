@@ -38,11 +38,8 @@ void		ft_print_elem(t_list *list, t_stream *stream)
 			ft_putstr_fd(ANSI_COLOR_MAGENTA, SFD);
 	}
 	if ((list->data_size & 1))
-		ft_repeat_termcaps(1, "mr", stream);
+		ft_putstr_fd(ANSI_REVERSEVID, SFD);
 	ft_putstrpad_fd(list->data, COMP_PAD, 'L', SFD);
-	if ((list->data_size & 1))
-		ft_repeat_termcaps(1, "me", stream);
-	if (!stream->config->syntax_color_off)
 		ft_putstr_fd(ANSI_COLOR_RESET, SFD);
 }
 

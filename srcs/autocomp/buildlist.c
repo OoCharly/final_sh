@@ -16,6 +16,10 @@
 ** Built list if not exist. add elem in a existing list.
 ** hidden files are ignored if patern does not begin with '.'.
 */
+int				ft_scmp(void *data1, void *data2)
+{
+	return (ft_strcmp((char *)data1, (char *)data2));
+}
 
 static void		do_list(t_stream *stream, struct dirent *file, char *dir)
 {
@@ -32,14 +36,9 @@ static void		do_list(t_stream *stream, struct dirent *file, char *dir)
 		&& ft_strcmp(file->d_name, ".")
 		&& ft_strcmp(file->d_name, "..")) || file->d_name[0] != '.')
 	{
-		if (!COMP_BEGIN_LIST)
-			COMP_BEGIN_LIST = ft_lstnew((S_ISDIR(data_size)) ?
-				ft_strjoin(file->d_name, "/") :
-					ft_strdup(file->d_name), data_size);
-		else
-			ft_list_push_back(&(COMP_BEGIN_LIST),
-				ft_lstnew((S_ISDIR(data_size)) ? ft_strjoin(file->d_name, "/") :
-					ft_strdup(file->d_name), data_size));
+		ft_sorted_list_insert(&(COMP_BEGIN_LIST),
+		ft_lstnew((S_ISDIR(data_size)) ? ft_strjoin(file->d_name, "/") :
+		ft_strdup(file->d_name), data_size), &ft_scmp);
 		get_pad(stream, file->d_name);
 	}
 }
