@@ -67,19 +67,6 @@ static char	*ft_scripting_inloop(char *command, char *l, t_config *config)
 	ft_freegiveone((void**)&l);
 	return (command);
 }
-/*
-		while (get_next_line(0, &config->command) > 0 && ft_script_line(1))
-		{
-			test = config->command;
-			if ((test = ft_matchchr(&test)))
-				ft_error(SHNAME, PARSE_ERR, ft_qerr(test), 1 | SERROR | EEXIT);
-			else
-				ft_run_command(config);
-			ft_freegiveone((void**)&config->command);
-		}
-		get_next_line(-1, NULL);
-	}
-*/
 
 void		ft_scripting(int fd, t_config *config)
 {
