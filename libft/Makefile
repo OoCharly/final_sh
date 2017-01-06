@@ -16,7 +16,7 @@ FLAGS = -Wall -Wextra -Werror
 SRC = ft_atoi.c ft_exit.c ft_itoa.c ft_putchar.c ft_putchar_fd.c ft_putcstr.c \
 	ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c \
 	ft_putstr_fd.c ft_status.c ft_usage.c ft_putstrtab.c ft_inserttab.c\
-	gnl/get_next_line.c ft_putstrlist.c
+	gnl/get_next_line.c ft_putstrlist.c ft_getenv.c
 LIST = ft_list_at.c ft_list_find.c ft_list_last.c ft_list_merge.c \
 	ft_list_push_back.c ft_list_push_front.c ft_list_remove_if.c \
 	ft_list_reverse.c ft_list_size.c ft_list_sort.c ft_lstdel.c \
@@ -34,7 +34,8 @@ BASIC = ft_bzero.c ft_freegiveone.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_strslashjoin.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtabdup.c \
 	ft_strtabfind.c ft_strtabfree.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 	ft_strtabadd.c ft_strtabdiv.c ft_strtabiter.c ft_strinsert.c ft_isspace.c \
-	ft_strtabjoin.c ft_strlenc.c ft_strfjoin.c ft_char_clean.c ft_strchrsed.c
+	ft_strtabjoin.c ft_strlenc.c ft_strfjoin.c ft_char_clean.c \
+	ft_swap.c
 BASICS = $(foreach B, $(BASIC), basics/$(B))
 SRCS = $(SRC) $(LISTS) $(BASICS)
 OBJ = $(SRCS:.c=.o)

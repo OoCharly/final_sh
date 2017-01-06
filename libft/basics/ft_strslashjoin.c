@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/06 08:40:11 by tboos             #+#    #+#             */
-/*   Updated: 2016/03/06 08:40:12 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 16:12:19 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strchrjoin(char *s1, char c, char *s2)
 {
 	char	*new;
 
-	if (!s1 || !s2 || !(*s1) || !(*s2))
+	if (!s1 || !s2)
 		return (NULL);
 	new = (char *)ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	new = ft_strcpy(new, s1);
@@ -29,7 +29,7 @@ char	*ft_strslashjoin(char *s1, char *s2)
 {
 	char	*new;
 
-	if (!s1 || !s2 || !(*s1) || !(*s2))
+	if (!s1 || !s2)
 		return (NULL);
 	new = (char *)ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 2);
 	new = ft_strcpy(new, s1);

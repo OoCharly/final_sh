@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/20 15:14:08 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 11:54:09 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ size_t			ft_script_line(int mode);
 int				ft_error(char *name, char *other, char *mess, int mode);
 int				ft_initerror(t_config *config);
 void			ft_lexer_error(char *command);
-char			*ft_qerr(char *err);
 /*
 **hash.c && cmp.c
 */
@@ -117,5 +116,18 @@ int				ft_cleancmd(char *str);
 int				ft_signal(int mode);
 void			ft_signal_handle(int i);
 void			ft_sigwinch(int mode);
+/*
+** terminit.c
+*/
+void			ft_termcaps_init(t_config *config);
+/*
+** script.c
+*/
+void			ft_scripting(int fd, t_config *config);
+
+/*
+** debug.c
+*/
+void		ft_printchimera(t_list *chimera);
 
 #endif

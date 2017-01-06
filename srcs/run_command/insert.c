@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/22 15:02:34 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 16:40:09 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,33 @@
 ** Changes begin->data for a new char **, in this one an new char * was insert
 ** wich contents the result of globbing or of the history index search (!).
 */
+
+static int	ft_st_checkchars(char *tmp, char *chars)
+{
+	char	*arg;
+	char	flag;
+	int		i;
+
+	while (*chars)
+	{
+		flag = 0;
+		arg = tmp;
+		i = 0;
+		while (arg[i])
+		{
+			if (arg[i] == '\\')
+				i++;
+			else if (arg[i] == '\'')			
+				flag = (flag) ? 0 : arg[i];
+			else if (arg[i] == *chars && !flag)
+				return (i + 1);
+			i++;
+		}
+		chars++;
+	}
+	return (0);
+
+}
 
 static void	ft_insert(char ***t, int *i, int mode)
 {
@@ -58,7 +85,7 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 	i = 0;
 	while ((*t)[i])
 	{
-		if (mode == 1 && ft_checkchars((*t)[i], "$~"))
+		if (mode == 1 && ft_st_checkchars((*t)[i], "~$"))
 			ft_quotehandle(&((*t)[i++]), config);
 		else if (mode == 2 && ft_checkchars((*t)[i], "{}"))
 			ft_insert(t, &i, mode);
@@ -81,24 +108,15 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 ** is found launch the corresponding function.
 */
 
-int			ft_insert_loop(t_list *begin, t_config *config)
+int			ft_insert_loop(char ***command, t_config *config)
 {
 	char	**t;
 	int		j;
 
-	while (begin)
-	{
-		if (!begin->data_size && !(j = 0))
-		{
-			t = ((char **)begin->data);
-			while (j < 4)
-				ft_check_insert(&t, ++j, config);
-			begin->data = t;
-		}
-		else if (begin->data_size == SSHELL
-			&& !ft_insert_loop(begin->data, config))
-			return (0);
-		begin = begin->next;
-	}
+	j = 0;
+	t = *command;
+	while (++j < 4)
+		ft_check_insert(&t, j, config);
+	*command = t;
 	return (1);
 }

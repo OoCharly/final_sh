@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/22 11:44:58 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 18:45:39 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,16 @@ void		ft_run_command(t_config *config)
 	config->shell_state = RUNNING_COMMAND;
 	if ((config->chimera = ft_lexer(config->command)))
 	{
-		if (!ft_insert_loop(config->chimera, config)
-				|| !ft_herringbone(config->chimera, config))
+		if (!ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
 		{
 			ft_parse(config);
 		}
 	}
-	if (config && config->exclamation)
-		ft_freegiveone((void**)&config->exclamation);
-	else
-		ft_freegiveone((void**)&config->command);
+//	if (config && config->exclamation)
+//		ft_freegiveone((void**)&config->exclamation);
+	ft_freegiveone((void**)&config->command);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:28:55 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 18:55:39 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/05 18:45:16 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ static char	*ft_gonext(char **str, char c)
 	++(*str);
 	if ((test = ft_matchchr(str)))
 	{
-		if (**str == c)
+		if (test[1] == c)
 			return (NULL);
 		else
 			return (test);
 	}
-	else
+	else if (c == ')')
 		return (PAR_ERR);
+	else
+		return (BAQU_ERR);
 }
 
 static char	*ft_gonextquote(char **str, char c)
@@ -46,32 +48,33 @@ static char	*ft_gonextquote(char **str, char c)
 		if (ft_backslash(str))
 			return (BACK_ERR);
 	if (**str != c)
-		return (QUOTE_ERR);
+	{
+		if (c == '\'')
+			return (SQUOTE_ERR);
+		if (c == '\"')
+			return (DQUOTE_ERR);
+	}
 	return (NULL);
 }
 
 char		*ft_matchchr(char **str)
 {
-	static char	needle[] = "]})";
+	char		*test;
 
-	while (**str)
+	while (**str && !(test = NULL))
 	{
-		if (ft_strchr(needle, **str))
-			return (PAR_ERR);
-		if (**str == '(' && ft_gonext(str, ')'))
-			return (QUOTE_ERR);
-		if (**str == '[' && ft_gonext(str, ']'))
-			return (QUOTE_ERR);
-		if (**str == '{' && ft_gonext(str, '}'))
-			return (QUOTE_ERR);
-		if (**str == '`' && ft_gonext(str, '`'))
-			return (QUOTE_ERR);
+		if (**str == ')')
+			return (UPAR_ERR);
+		if (**str == '(' && (test = ft_gonext(str, ')')))
+			return (test);
+		if (**str == '`' && (test = ft_gonext(str, '`')))
+			return (test);
 		if (**str == '#')
 			break ;
-		if (**str == '\'' && ft_gonextquote(str, **str))
-			return (QUOTE_ERR);
-		if (**str == '\"' && ft_gonextquote(str, **str))
-			return (QUOTE_ERR);
+		if (**str == '\'' && (test = ft_gonextquote(str, **str)))
+			return (test);
+		if (**str == '\"' && (test = ft_gonextquote(str, **str)))
+			return (test);
 		if (ft_backslash(str))
 			return (BACK_ERR);
 	}
@@ -94,7 +97,8 @@ int			ft_quotecheck(t_stream *stream)
 	else if ((test = ft_matchchr(&test)))
 	{
 		ft_append(stream);
-		return (ft_underline_mess(test, stream));
+		ft_repeat_termcaps(1, "cd", stream);
+		return (ft_underline_mess(test + 2, stream));
 	}
 	return (1);
 }

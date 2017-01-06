@@ -6,32 +6,11 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 16:16:50 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/11/18 14:00:08 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 12:26:55 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**  parse env for specified str.
-*/
-
-int			ft_getenvline(char *str, char **e)
-{
-	int		i;
-
-	i = 0;
-	if (!e)
-		return (-1);
-	while (e[i])
-	{
-		if (!ft_strncmp(e[i], str, ft_strlenc(e[i], '=')) &&
-				ft_strlenc(e[i], '=') == (int)ft_strlen(str))
-			return (i);
-		i++;
-	}
-	return (i);
-}
 
 /*
 ** store every variable specified in a array.
@@ -39,19 +18,14 @@ int			ft_getenvline(char *str, char **e)
 
 char		**ft_getenvtab(char *str, char **e)
 {
-	int		i;
 	char	*ret;
 
 	if (!e)
 		return (NULL);
-	i = ft_getenvline(str, e);
-	if (e[i] == NULL)
+	ret = ft_getenv(str, e);
+	if (ret == NULL)
 		return (NULL);
-	ret = ft_strrchr(e[i], '=');
-	if (ret)
-		return (ft_strsplit(ret + 1, ':'));
-	else
-		return (ft_strsplit(e[i], ':'));
+	return (ft_strsplit(ret + 1, ':'));
 }
 
 /*

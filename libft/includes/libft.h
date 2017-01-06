@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/04 18:24:51 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/09 11:49:09 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/03 14:47:12 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,7 @@ void	ft_putstrlist(t_list *list, char c);
 */
 char	**ft_insertdeletetab(char **big, char **small, size_t index);
 char	**ft_inserttab(char **big, char **small, size_t index);
+char	*ft_getenv(char *name, char **env);
+char	*ft_getenv_whole(char *name, char **env);
+int		ft_igetenv(char *name, char **env);
 #endif
