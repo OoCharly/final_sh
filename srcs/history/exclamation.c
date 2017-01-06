@@ -62,13 +62,10 @@ int			ft_history_exclamation(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
-	t_config	*config;
 
-	//if (ft_checkhist(stream->command))
 	if (ft_checkchars(stream->command, "!"))
 	{
 		mem = NULL;
-		config = stream->config;
 		tmp = stream->command;
 		while ((tmp = ft_create_strhistidx(tmp))
 			&& ft_freegiveone((void**)&mem))
@@ -84,13 +81,10 @@ int		ft_history_rep(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
-	t_config	*config;
 
-	//if (ft_checkhist(stream->command))
 	if (ft_checkchars(COMP_BEGIN, "!"))
 	{
 		mem = NULL;
-		config = stream->config;
 		tmp = COMP_BEGIN;
 		while ((tmp = ft_create_strhistidx(tmp))
 			&& ft_freegiveone((void**)&mem))
