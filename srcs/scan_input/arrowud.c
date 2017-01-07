@@ -36,21 +36,39 @@ void	ft_gohome(t_stream *stream)
 void	ft_ctrlup(t_stream *stream)
 {
 	size_t		col;
+	size_t		mem;
 
 	if (stream->search)
 		ft_searchengineend(stream);
-	col = stream->col;
+	col = ft_checknewline(stream, stream->pos);
+	mem = col;
 	while (col--)
+		ft_left(stream);
+	ft_left(stream);
+	col = ft_checknewline(stream, stream->pos);
+	while (col-- > mem)
 		ft_left(stream);
 }
 
 void	ft_ctrldown(t_stream *stream)
 {
 	size_t		col;
+	size_t		mem;
 
 	if (stream->search)
 		ft_searchengineend(stream);
-	col = stream->col;
-	while (col--)
-		ft_right(stream);
+	if (stream->pos)
+	{
+		col = ft_checknewline(stream, stream->pos);
+		mem = col;
+		while (col++ < stream->col)
+		{
+			ft_right(stream);
+			if (stream->command[stream->pos] == '\n')
+				col = stream->col - 1;
+		}
+		col = ft_checknewline(stream, stream->pos);
+		while (col++ < mem && stream->command[stream->pos] != '\n')
+			ft_right(stream);
+	}
 }
