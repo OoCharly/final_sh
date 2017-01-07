@@ -17,11 +17,7 @@ static void	ft_gotonextline(t_stream *stream)
 	usleep(70000);
 	if (0 < read(0, buf, 29) && (test = ft_strchr(buf, ';')) && ++test
 		&& ft_atoi(test) > 1)
-	{
-		ft_putstr_fd(ANSI_REVERSEVID, SFD);
-		ft_putstr_fd("%\n", SFD);
-		ft_putstr_fd(ANSI_COLOR_RESET, SFD);
-	}
+		FT_PUTSTRFD(ANSI_REVERSEVID, "%\n", ANSI_COLOR_RESET, SFD);
 }
 
 /*

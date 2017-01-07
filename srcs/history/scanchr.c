@@ -31,6 +31,9 @@ void		ft_modifycommand(t_stream *stream)
 	ft_winsize();
 	if (i != -1)
 		ft_gomatch(stream, i);
+	else
+		ft_goend(stream);
+	ft_sprompt(stream);
 }
 
 void		ft_sappend(t_stream *stream)
