@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-static void	ft_gotonextline(t_stream *stream)
-{
-	ft_putchar('\n');
-	stream->tput = "le";
-	ft_tputs(stream);
-	ft_tputs(stream);
-}
-
 /*
 ** Strip a string from " ' '\' with the correct rules
 */
@@ -83,12 +75,8 @@ void		ft_run_command(t_config *config)
 		if (!ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
-		{
 			ft_parse(config);
-		}
 	}
-//	if (config && config->exclamation)
-//		ft_freegiveone((void**)&config->exclamation);
 	ft_freegiveone((void**)&config->command);
 }
 
@@ -114,8 +102,6 @@ void		ft_minishell(t_config *config)
 		if ((config->command = ft_streamscan(config, ft_save_stream(NULL), fd)))
 		{
 			ft_run_command(config);
-			if (config->shell_state != RUNNING_COMMAND)
-				ft_gotonextline(ft_save_stream(NULL));
 			config->shell_state = SCANNING_COMMAND;
 		}
 	}

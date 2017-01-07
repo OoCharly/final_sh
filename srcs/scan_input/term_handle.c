@@ -1,6 +1,29 @@
 #include "minishell.h"
 
 /*
+** Make sure to be on column 1, asking the terminal, waiting 100 millisecond
+** for an answer and fetching the data. if column is superior to one, a %
+** char keep track of the absence of a cariage return from last command
+*/
+
+static void	ft_gotonextline(t_stream *stream)
+{
+	char	buf[30];
+	char	*test;
+
+	ft_bzero(&buf, 30);
+	ft_putstr_fd("\x1b[6n", 0);
+	usleep(100000);
+	if (0 < read(0, buf, 29) && (test = ft_strchr(buf, ';')) && ++test
+		&& ft_atoi(test) > 1)
+	{
+		ft_putstr_fd(ANSI_REVERSEVID, SFD);
+		ft_putstr_fd("%\n", SFD);
+		ft_putstr_fd(ANSI_COLOR_RESET, SFD);
+	}
+}
+
+/*
 **Copies the current terminal attributes in config->termios and
 **config->termios_backup. Changes the control mode in non canonical and stop
 **echo of input characters. Defines a minimun of zero characters for
@@ -32,9 +55,12 @@ void	ft_termios_handle(t_config *config, int mode)
 
 	if (!state && ft_init_term(config))
 		state = 1;
-	if (mode && state
-		&& (tcsetattr(STDIN_FILENO, TCSADRAIN, &(config->termios)) == -1))
-		ft_error(SHNAME, NULL, TERM_ERR, CR_ERROR);
+	if (mode && state)
+	{
+		if (tcsetattr(STDIN_FILENO, TCSADRAIN, &(config->termios)) == -1)
+			ft_error(SHNAME, NULL, TERM_ERR, CR_ERROR);
+		ft_gotonextline(ft_save_stream(NULL));
+	}
 	else if (!mode && state
 		&& (-1 == tcsetattr(STDIN_FILENO, TCSANOW, &(config->termios_backup))))
 		ft_error(SHNAME, NULL, RESET_TERM_ERR, CR_ERROR);

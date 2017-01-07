@@ -116,7 +116,6 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		ft_list_push_front(&job, new);
 	if (ft_wait(&job, config))
 	{
-		printf("OOOOOOOOOOOOOO\n");
 		if (!(new = ft_lstnew((void*)job, JOB)))
 		{
 			ft_error(SHNAME, "parser", "malloc error on job control", CR_ERROR);
