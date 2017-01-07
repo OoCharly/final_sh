@@ -3,7 +3,8 @@
 /*
 ** Make sure to be on column 1, asking the terminal, waiting 100 millisecond
 ** for an answer and fetching the data. if column is superior to one, a %
-** char keep track of the absence of a cariage return from last command
+** char keep track of the absence of a cariage return from last command.
+** Waiting time was define step by step on a linux machine.
 */
 
 static void	ft_gotonextline(t_stream *stream)
@@ -13,7 +14,7 @@ static void	ft_gotonextline(t_stream *stream)
 
 	ft_bzero(&buf, 30);
 	ft_putstr_fd("\x1b[6n", 0);
-	usleep(100000);
+	usleep(70000);
 	if (0 < read(0, buf, 29) && (test = ft_strchr(buf, ';')) && ++test
 		&& ft_atoi(test) > 1)
 	{
