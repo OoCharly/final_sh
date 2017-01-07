@@ -81,13 +81,10 @@ void		ft_autocomp_print_grid(size_t start, size_t end, t_stream *stream)
 	while (start < end)
 	{
 		ft_autocomp_print_line(list, start, stream);
-		stream->tput = "le";
-		j = COMP_COL;
-		while (j--)
-			ft_tputs(stream);
-		stream->tput = "do";
 		if (start != end - 1)
-			ft_tputs(stream);
+			ft_putchar_fd('\n', SFD);
+		else
+			ft_repeat_termcaps(COMP_COL, "le", stream);
 		list = list->next;
 		start++;
 	}

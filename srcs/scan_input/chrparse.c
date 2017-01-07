@@ -116,7 +116,7 @@ int				ft_chrparse(t_stream *stream)
 		{
 			ft_strchrsed(stream->buf, '\t', ' ');
 			stream->search ? ft_sappend(stream) : ft_append(stream);
-			if (ft_strlen(stream->buf) > 1 && ft_pastereturn(stream))
+			if (ft_strchr(stream->buf, '\n') && ft_pastereturn(stream))
 				match = 0;
 		}
 		else if (match > 0)
