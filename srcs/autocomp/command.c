@@ -26,9 +26,7 @@ void		ft_autocomp_underline(t_stream *stream, char mode)
 	{
 		pos_buf = stream->pos;
 		ft_goend(stream);
-		stream->tput = "do";
-		ft_tputs(stream);
-		ft_repeat_termcaps(stream->col, "le", stream);
+		ft_putchar_fd('\n', SFD);
 		stream->tput = "cd";
 		ft_tputs(stream);
 	}

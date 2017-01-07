@@ -40,8 +40,7 @@ int		ft_underline_mess(char *mess, t_stream *stream)
 
 	pos_buf = stream->pos;
 	ft_goend(stream);
-	ft_repeat_termcaps(1, "do", stream);
-	ft_repeat_termcaps(stream->col, "le", stream);
+	ft_putchar_fd('\n', SFD);
 	stream->tput = "cd";
 	ft_tputs(stream);
 	ft_putmess(stream, mess);
