@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:52:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/06 19:34:59 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/07 00:41:16 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_free_all_process(t_list **process, int mode)
 		{
 			free(((t_sentence*)tmp->data)->sentence);
 			if (((t_sentence*)tmp->data)->supervisor_pid)
-				kill(((t_sentence*)(tmp->data)->supervisor_pid), SIGQUIT);
+				kill(((t_sentence*)(tmp->data))->supervisor_pid, SIGQUIT);
 			free(tmp->data);
 		}
 		else if (mode)
