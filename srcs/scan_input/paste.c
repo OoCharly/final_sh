@@ -29,11 +29,6 @@ static int	ft_checkpaste(t_stream *stream, char **err)
 			*match = 0;
 		if (!(*err = ft_matchchr(&(*err))))
 		{
-			if (ft_is_memerizable(stream->command) && !stream->config->heredoc)
-			{
-				ft_push_history(stream, stream->config, 0);
-				ft_incr_history(&(stream->config->hindex));
-			}
 			stream->config->exclamation = match ? ft_strdup(match + 1)
 				: stream->config->exclamation;
 			return (1);
