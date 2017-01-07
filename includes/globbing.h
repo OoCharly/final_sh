@@ -38,7 +38,7 @@ int		ft_closechar(char *arg, char *c);
 */
 
 void	ft_glob(DIR *dir, char *path, char *glob);
-char	*ft_launch_glob(char *str);
+char	**ft_launch_glob(char *str);
 
 /*
 ** match.c
@@ -51,7 +51,7 @@ int		ft_match(char *glob, char *comp, char jump);
 ** braces.c
 */
 
-char	*ft_launchbraces(char	*str);
+char	**ft_launchbraces(char *str);
 void	ft_braces2(t_brace *b, char *str);
 t_list	*ft_braces(char	*str, char out);
 

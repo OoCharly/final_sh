@@ -46,18 +46,16 @@ static int	ft_st_checkchars(char *tmp, char *chars)
 
 static void	ft_insert(char ***t, int *i, int mode)
 {
-	char	*tmp;
 	char	**g_tab;
 	char	**kill;
 
+	g_tab = NULL;
 	if (mode == 2)
-		tmp = ft_launchbraces((*t)[*i]);
+		g_tab = ft_launchbraces((*t)[*i]);
 	else
-		tmp = ft_launch_glob((*t)[*i]);
-	if (tmp)
+		g_tab = ft_launch_glob((*t)[*i]);
+	if (g_tab)
 	{
-		g_tab = ft_strsplit(tmp, -1);
-		ft_freegiveone((void **)&tmp);
 		kill = *t;
 		*t = ft_insertdeletetab(*t, g_tab, *i);
 		*i += ft_strtablen(g_tab);

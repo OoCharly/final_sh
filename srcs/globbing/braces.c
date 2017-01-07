@@ -117,26 +117,22 @@ t_list			*ft_braces(char *str, char out)
 ** Put list result into a char string. Free list and list data.
 */
 
-char			*ft_launchbraces(char *str)
+char			**ft_launchbraces(char *str)
 {
-	t_list	*list;
+	t_list	*begin;
 	t_list	*tmp;
-	char	*tot;
+	char	**result;
 
-	list = NULL;
-	tot = NULL;
-	if (str && (list = ft_braces(str, 1)))
+	result = NULL;
+	if (str && (begin = ft_braces(str, 1)))
 	{
-		if (!(tot = ft_strnew(ft_size_list(list))))
-			return (NULL);
-		while (list)
+		while (begin)
 		{
-			//ft_strcat(ft_strcat(tot, list->data), "\n");
-			tot[ft_strlen(ft_strcat(tot, list->data))] = -1;
-			tmp = list;
-			list = list->next;
-			ft_lstdelone(&tmp, ft_list_free_data);
+			result = ft_strtabadd_free(result, begin->data);
+			tmp = begin;
+			begin = begin->next;
+			ft_lstdelone(&tmp, NULL);
 		}
 	}
-	return (tot);
+	return (result);
 }
