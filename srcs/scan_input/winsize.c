@@ -42,8 +42,6 @@ void			ft_prompt_reset(t_stream *stream)
 		lin = PROMPT_LEN / (stream->col > col ? stream->col : col);
 		ft_repeat_termcaps(lin, "up", stream);
 		ft_repeat_termcaps(col, "le", stream);
-		stream->tput = "cd";
-		ft_tputs(stream);
 	}
 	stream->col = col;
 	stream->cur_col = stream->config->prompt_len % stream->col;

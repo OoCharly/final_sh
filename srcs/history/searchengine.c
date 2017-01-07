@@ -41,6 +41,7 @@ void		ft_searchengineend(t_stream *stream)
 
 void		ft_searchengine(t_stream *stream)
 {
+	ft_gohome(stream);
 	if (!(stream->search))
 	{
 		stream->search = ft_strnew(1);

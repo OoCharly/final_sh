@@ -27,7 +27,6 @@ static void	ft_down_search(t_stream *stream)
 
 void		ft_down(t_stream *stream)
 {
-	ft_gohome(stream);
 	if (stream->search)
 		ft_searchengine(stream);
 	if (stream->shindex != stream->config->hindex)
@@ -36,6 +35,7 @@ void		ft_down(t_stream *stream)
 		if (stream->config->history[stream->config->hindex]
 			&& stream->config->history[stream->config->hindex][0])
 			ft_down_search(stream);
+		ft_gohome(stream);
 		ft_freegiveone((void **)&(stream->command));
 		if (stream->config->history[stream->shindex]
 			&& (stream->command = stream->config->history[stream->shindex])
@@ -44,9 +44,8 @@ void		ft_down(t_stream *stream)
 			return ;
 		else
 		{
-			stream->pos = 0;
+			ft_winsize();
 			ft_goend(stream);
 		}
 	}
-	ft_winsize();
 }

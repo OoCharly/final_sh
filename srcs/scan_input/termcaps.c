@@ -91,7 +91,7 @@ void			ft_mvright(t_stream *stream)
 		if (ft_checknewline(stream, stream->pos + 1))
 			ft_repeat_termcaps(1, "nd", stream);
 		else
-			ft_repeat_termcaps(1, "do", stream);
+			ft_putchar_fd('\n', SFD);
 		stream->pos++;
 	}
 }
