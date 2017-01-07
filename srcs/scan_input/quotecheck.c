@@ -61,7 +61,8 @@ char		*ft_matchchr(char **str)
 {
 	char		*test;
 
-	while (**str && !(test = NULL))
+	test = NULL;
+	while (**str)
 	{
 		if (**str == ')')
 			return (UPAR_ERR);
@@ -78,7 +79,6 @@ char		*ft_matchchr(char **str)
 		if (ft_backslash(str))
 			return (BACK_ERR);
 	}
-	**str = 0;
 	return (NULL);
 }
 
@@ -94,8 +94,13 @@ int			ft_quotecheck(t_stream *stream)
 		stream->state = REPROMPT;
 		stream->config->exclamation = ft_strdup(stream->command);
 	}
-	else if ((test = ft_matchchr(&test)))
+	else if ((test && (test = ft_pastereturn(stream))
+		&& (test = stream->command)
+		&& (test = ft_matchchr(&test)))
+		|| ((test = stream->command)
+		&& (test = ft_matchchr(&test))))
 	{
+		ft_strcpy(stream->buf, "\n\0");
 		ft_append(stream);
 		return (ft_underline_mess(test + 2, stream));
 	}

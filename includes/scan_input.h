@@ -190,6 +190,6 @@ t_config		*ft_save_config(t_config *config);
 /* 
 **paste.c
 */
-int				ft_pastereturn(t_stream *stream);
+char			*ft_pastereturn(t_stream *stream);
 
 #endif

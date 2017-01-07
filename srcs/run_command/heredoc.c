@@ -17,14 +17,14 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 	char		*hkill;
 	char		*tmp;
 
-	tmp = ft_streamscan(config, ft_save_stream(NULL), 0);
-	while (stream->state != REPROMPT && stream->state != STR_EOF
-		&& (!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0])))
+	tmp = ft_streamscan(config, stream, 0);
+	while (stream->state != REPROMPT && stream->state != STR_EOF)
 	{
 		stream->shindex = stream->config->hindex;
 		ft_decr_history(&stream->shindex);
-		if (!(begin->next->data = ft_strtabadd_free((char**)begin->next->data,
-			((tmp) ? tmp : ft_strnew(1))))
+		if (((!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0]))
+			&& !(begin->next->data = ft_strtabadd_free((char**)begin->next->data,
+			((tmp) ? tmp : ft_strnew(1)))))
 			|| !(hkill = ft_strchrjoin(config->history[stream->shindex], '\n',
 			tmp ? tmp : ft_strnew(1))))
 		{
@@ -34,7 +34,9 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 		}
 		ft_strswap(&config->history[stream->shindex], &hkill);
 		ft_freegiveone((void**)&hkill);
-		tmp = ft_streamscan(config, ft_save_stream(NULL), 0);
+		if (tmp && !ft_strcmp(tmp, ((char**)begin->next->data)[0]))
+			break ;
+		tmp = ft_streamscan(config, stream, 0);
 	}
 	ft_freegiveone((void**)&tmp);
 }

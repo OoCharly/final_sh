@@ -53,9 +53,15 @@ static void	ft_scan(t_stream *stream)
 static void	ft_pack_scan(t_stream *stream, t_config *config)
 {
 	ft_termios_handle(config, 1);
+	if (config->heredoc && stream->command)
+	{
+		config->exclamation = ft_strchr(stream->command, '\n');
+		if (config->exclamation && !(*(config->exclamation) = 0))
+			config->exclamation = ft_strdup(config->exclamation + 1);
+	}
 	ft_winsize();
 	ft_goend(stream);
-	if (!stream->command || !ft_pastereturn(stream))
+	if (!stream->command || (!config->heredoc && !ft_pastereturn(stream)))
 		ft_scan(stream);
 	if (ft_freegiveone((void **)(&(stream->search))) && (stream->buf[0] == CTRLD
 		|| (stream->state < 0 && ft_freegiveone((void **)(&(stream->command)))
@@ -76,8 +82,7 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 	SFD = fd;
 	ft_pack_scan(stream, config);
 	if (ft_is_memerizable(stream->command)
-		&& !config->heredoc && stream->state != REPROMPT
-		&& !config->exclamation)
+		&& !config->heredoc && stream->state != REPROMPT)
 	{
 		ft_push_history(stream, config, 0);
 		ft_incr_history(&(config->hindex));

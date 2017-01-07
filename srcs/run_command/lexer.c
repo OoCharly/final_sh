@@ -29,8 +29,8 @@ int				ft_next_op(char *cmd, size_t i)
 		else
 			++i;
 	}
-	if (cmd[i] == '#' && i && cmd[i - 1] != ' ')
-		ft_next_op(cmd, i);
+	if (cmd[i] == '#')
+		cmd[i] = 0;
 	return (i);
 }
 

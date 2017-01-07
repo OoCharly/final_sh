@@ -9,58 +9,58 @@ static char	*ft_strchr_dodge(char *str, char c)
 		if (*str == '\'' || *str == '\"')
 			if (ft_gonextquote(&str, *str))
 				return (NULL);
+		if (*str == '\\')
+			++str;
 		++str;
 	}
-	return (NULL);
+	return (str);
 }
 
-static char	*ft_checkpaste(t_stream *stream)
+static int	ft_checkpaste(t_stream *stream, char **err)
 {
 	char	*match;
-	char	*test;
-	char	*mem;
 
-	mem = NULL;
 	match = stream->command;
-	while ((test = match)
+	while ((stream->command)
 		&& (match = ft_strchr_dodge(match, '\n')))
 	{
-		*match = 0;
-		if (!ft_matchchr(&test))
+		*err = stream->command;
+		if (*match || (match = NULL))
+			*match = 0;
+		if (!(*err = ft_matchchr(&(*err))))
 		{
 			if (ft_is_memerizable(stream->command) && !stream->config->heredoc)
 			{
 				ft_push_history(stream, stream->config, 0);
 				ft_incr_history(&(stream->config->hindex));
 			}
-			mem = match + 1;
-			ft_winsize();
-			*match = ';';
-			break;
+			stream->config->exclamation = match ? ft_strdup(match + 1)
+				: stream->config->exclamation;
+			return (1);
 		}
-		else
+		else if ((match = match ? match + 1 : NULL))
 			*match = '\n';
-		++match;
 	}
-	return (mem);
+	return (0);
 }
 
-int		ft_pastereturn(t_stream *stream)
+char		*ft_pastereturn(t_stream *stream)
 {
+	char	*err;
 	size_t	pos;
-	char	*mem;
 
+	err = NULL;
 	if (ft_history_exclamation(stream))
 		ft_winsize();
 	pos = stream->pos;
 	ft_gohome(stream);
-	mem = ft_checkpaste(stream);
-	if (mem)
+	if (ft_checkpaste(stream, &err))
 	{
-		stream->config->exclamation = ft_strdup(mem);
-		*mem = 0;
-		return (1);
+		ft_winsize();
+		ft_goend(stream);
+		return (NULL);
 	}
-	ft_gomatch(stream, pos);
-	return (0);
+	else
+		ft_gomatch(stream, pos);
+	return (err);
 }
