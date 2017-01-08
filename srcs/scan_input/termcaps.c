@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:27:28 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 19:18:04 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 18:24:20 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ void			ft_mvleft(t_stream *stream)
 		else
 		{
 			i = ft_checknewline(stream, stream->pos - 1);
-			ft_repeat_termcaps(1, "up", stream);
-			ft_repeat_termcaps(i, "nd", stream);
+			if (SYSTEM == MAC && !i && stream->pos -1 != '\n')
+				ft_repeat_termcaps(1, "le", stream);
+			else
+			{
+				ft_repeat_termcaps(1, "up", stream);
+				ft_repeat_termcaps(i, "nd", stream);
+			}
 		}
 		--stream->pos;
 	}
@@ -90,6 +95,10 @@ void			ft_mvright(t_stream *stream)
 	{
 		if (ft_checknewline(stream, stream->pos + 1))
 			ft_repeat_termcaps(1, "nd", stream);
+		else if (SYSTEM == MAC && stream->pos
+				&& stream->command[stream->pos - 1] != '\n'
+				&& !ft_checknewline(stream, stream->pos))
+			;
 		else
 			ft_putchar_fd('\n', SFD);
 		stream->pos++;

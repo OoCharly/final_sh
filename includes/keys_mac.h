@@ -6,14 +6,14 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:51:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 18:09:13 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/08 18:14:09 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_MAC_H
 # define KEYS_MAC_H
 
-# define SYSTEM1 1
+# define SYSTEM 1
 # define MAC 1
 # define LINUX 0
 /*
