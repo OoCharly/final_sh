@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 12:26:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 13:57:45 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/08 15:55:49 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		ft_print_elem(t_list *list, t_stream *stream)
 	if ((list->data_size & 1))
 		ft_putstr_fd(ANSI_REVERSEVID, SFD);
 	ft_putstrpad_fd(list->data, COMP_PAD, 'L', SFD);
-		ft_putstr_fd(ANSI_COLOR_RESET, SFD);
+	ft_putstr_fd(ANSI_COLOR_RESET, SFD);
 }
 
 /*

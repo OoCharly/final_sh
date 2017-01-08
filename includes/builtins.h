@@ -6,12 +6,12 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/06 13:25:24 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:29:21 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_C
-# define BUILTINS_C
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 # include "minishell.h"
 
@@ -58,17 +58,17 @@ void			ft_fgbg(char **argv, t_config *config, int mode);
 /*
 **history.c
 */
-int			ft_is_memerizable(char *cmd);
-void		ft_history(char **argv, t_config *config);
-char		*ft_return_hloc(char *hloc, int mode);
+int				ft_is_memerizable(char *cmd);
+void			ft_history(char **argv, t_config *config);
+char			*ft_return_hloc(char *hloc, int mode);
 /*
 **history_params.c
 */
-void		ft_manage_param(char **argv, int i, t_config *config);
+void			ft_manage_param(char **argv, int i, t_config *config);
 /*
 **exclamation.c
 */
-int		ft_history_exclamation(t_stream *stream);
-int		ft_history_rep(t_stream *stream);
+int				ft_history_exclamation(t_stream *stream);
+int				ft_history_rep(t_stream *stream);
 
 #endif

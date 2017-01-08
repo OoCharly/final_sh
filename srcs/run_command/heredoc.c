@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:17:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/03 12:49:49 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:20:19 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 		stream->shindex = stream->config->hindex;
 		ft_decr_history(&stream->shindex);
 		if (((!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0]))
-			&& !(begin->next->data = ft_strtabadd_free((char**)begin->next->data,
-			((tmp) ? tmp : ft_strnew(1)))))
+			&& !(begin->next->data = ft_strtabadd_free(
+				(char**)begin->next->data, ((tmp) ? tmp : ft_strnew(1)))))
 			|| !(hkill = ft_strchrjoin(config->history[stream->shindex], '\n',
 			tmp ? tmp : ft_strnew(1))))
 		{
@@ -73,7 +73,8 @@ static int	ft_decant(t_list *cmd, t_list *src, int i)
 			ft_error(SHNAME, PARSE_ERR, "newline", CR_ERROR | EEXIT);
 		return (0);
 	}
-	if (!src || !((char**)src->data) || !((char**)src->data)[0] || !((char**)src->data)[0][0])
+	if (!src || !((char**)src->data) || !((char**)src->data)[0]
+			|| !((char**)src->data)[0][0])
 		return (1);
 	while (((char**)src->data)[++i])
 	{

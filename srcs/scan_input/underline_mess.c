@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:18:09 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 17:07:57 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:22:20 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_putmess(t_stream *stream, char *mess)
 
 int		ft_underline_mess(char *mess, t_stream *stream)
 {
-	int			i;
+	int				i;
 	unsigned int	pos_buf;
 
 	pos_buf = stream->pos;

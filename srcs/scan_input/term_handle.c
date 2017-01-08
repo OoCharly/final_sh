@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   term_handle.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/08 16:21:34 by tboos             #+#    #+#             */
+/*   Updated: 2017/01/08 16:21:44 by tboos            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -27,7 +39,7 @@ static void	ft_gotonextline(t_stream *stream)
 **noncanonical read. No defines a timeout for noncanonical read.
 */
 
-int	ft_init_term(t_config *config)
+int			ft_init_term(t_config *config)
 {
 	if (tcgetattr(STDIN_FILENO, &(config->termios_backup)) == -1
 		|| !ft_memcpy(&(config->termios), &(config->termios_backup),
@@ -46,7 +58,7 @@ int	ft_init_term(t_config *config)
 **exists, modification are set immediately.
 */
 
-void	ft_termios_handle(t_config *config, int mode)
+void		ft_termios_handle(t_config *config, int mode)
 {
 	static char		state = 0;
 
@@ -63,5 +75,3 @@ void	ft_termios_handle(t_config *config, int mode)
 		ft_error(SHNAME, NULL, RESET_TERM_ERR, CR_ERROR);
 	return ;
 }
-
-

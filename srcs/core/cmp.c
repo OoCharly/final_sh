@@ -6,11 +6,16 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 11:33:35 by tboos             #+#    #+#             */
-/*   Updated: 2016/03/23 13:41:17 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/08 15:56:57 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			ft_scmp(void *data1, void *data2)
+{
+	return (ft_strcmp((char *)data1, (char *)data2));
+}
 
 int			ft_proscmp(void *pid1, void *pid2)
 {

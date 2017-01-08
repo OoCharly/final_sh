@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/05 16:40:09 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:19:33 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_st_checkchars(char *tmp, char *chars)
 		{
 			if (arg[i] == '\\')
 				i++;
-			else if (arg[i] == '\'')			
+			else if (arg[i] == '\'')
 				flag = (flag) ? 0 : arg[i];
 			else if (arg[i] == *chars && !flag)
 				return (i + 1);
@@ -41,7 +41,6 @@ static int	ft_st_checkchars(char *tmp, char *chars)
 		chars++;
 	}
 	return (0);
-
 }
 
 static void	ft_insert(char ***t, int *i, int mode)

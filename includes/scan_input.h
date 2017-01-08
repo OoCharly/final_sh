@@ -6,25 +6,25 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 19:24:06 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:33:17 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCAN_INPUT_H
 # define SCAN_INPUT_H
 
-# define SFD stream->fd
-# define TUP "\x1b[A"
-# define TDO "\x1b[B"
-# define TLE "\x1b[D"
-# define TND "\x1b[C"
-# define TDL "\x1b[K"
-# define TCD "\x1b[J"
-# define TCL "\x1b[2J"
-# define ANSI_REVERSEVID "\x1b[7m"
-# define REPROMPT -10
-# define STR_EOF -11
-# define PROMPT_LEN stream->config->prompt_len
+# define TUP				"\x1b[A"
+# define TDO				"\x1b[B"
+# define TLE				"\x1b[D"
+# define TND				"\x1b[C"
+# define TDL				"\x1b[K"
+# define TCD				"\x1b[J"
+# define TCL				"\x1b[2J"
+# define ANSI_REVERSEVID	"\x1b[7m"
+# define REPROMPT			-10
+# define STR_EOF			-11
+# define SFD				stream->fd
+# define PROMPT_LEN			stream->config->prompt_len
 
 typedef struct	s_comp
 {
@@ -60,7 +60,6 @@ typedef struct	s_stream
 	size_t		autocomp_state;
 	t_config	*config;
 	t_comp		comp;
-
 }				t_stream;
 
 typedef struct	s_globing
@@ -136,7 +135,8 @@ void			ft_autocomp(t_stream *stream);
 */
 void			ft_loop_path(t_stream *stream, t_globing *data);
 int				ft_search_chr(char *str, char c);
-int				ft_checkdir(t_stream *stream, t_list *list, t_globing *glob, char *path, char *needle);
+int				ft_checkdir(t_stream *stream, t_list *list, t_globing *glob,
+				char *path, char *needle);
 /*
 **outputfile.c
 */
@@ -154,7 +154,8 @@ void			ft_decr_history(int *hindex);
 void			ft_incr_history(int *hindex);
 void			ft_push_history(t_stream *stream, t_config *config, int mode);
 void			ft_load_history(t_config *config);
-void			ft_purge_history(t_config *config, char **hist, int index, int mode);
+void			ft_purge_history(t_config *config, char **hist, int index,
+				int mode);
 void			ft_searchengine(t_stream *stream);
 void			ft_searchengineend(t_stream *stream);
 void			ft_sappend(t_stream *stream);
@@ -175,19 +176,19 @@ void			ft_secure_prompt(t_stream *stream);
 */
 int				ft_checknewline(t_stream *stream, size_t p);
 /*
-*syntax_color.c
+**syntax_color.c
 */
 void			ft_syntax_color(t_stream *stream);
 /*
 ** cursor.c
 */
-size_t			ft_get_cur_col(char *cmd, size_t pos,  t_stream *stream);
-/* 
+size_t			ft_get_cur_col(char *cmd, size_t pos, t_stream *stream);
+/*
 **save.c
 */
 t_stream		*ft_save_stream(t_stream *stream);
 t_config		*ft_save_config(t_config *config);
-/* 
+/*
 **paste.c
 */
 char			*ft_pastereturn(t_stream *stream);

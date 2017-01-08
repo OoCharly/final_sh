@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 19:23:44 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:24:27 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			ft_append(t_stream *stream)
 static int		ft_chrmatch(t_stream *stream)
 {
 	static ssize_t		match[] = {CLF, SUP, CHT, DEL, LEF, RIG, UPP, DOW, CLEF,
-						CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, NUL};
+			CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, NUL};
 	int					i;
 
 	i = 0;
@@ -99,11 +99,10 @@ static int		ft_chrmatch(t_stream *stream)
 int				ft_chrparse(t_stream *stream)
 {
 	int					match;
-	static void			(*ftab[])(t_stream *) = {&ft_sup, &ft_autocomp,
-			&ft_del, &ft_left, &ft_right, &ft_up, &ft_down,
-			&ft_ctrlleft, &ft_ctrlright, &ft_ctrlup, &ft_ctrldown,
-			&ft_goend, &ft_gohome, &ft_searchengine, &ft_searchengineend,
-			&ft_syntax_color, &ft_clear};
+	static void			(*ftab[])(t_stream *) = {&ft_sup, &ft_autocomp, &ft_del,
+			&ft_left, &ft_right, &ft_up, &ft_down, &ft_ctrlleft, &ft_ctrlright,
+			&ft_ctrlup, &ft_ctrldown, &ft_goend, &ft_gohome, &ft_searchengine,
+			&ft_searchengineend, &ft_syntax_color, &ft_clear};
 
 	if (COMP_STATE == 2 && ((ssize_t*)(stream->buf))[0] == CLF)
 		ft_end_autocomp(stream);

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 11:54:09 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:29:49 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define SHNAME			"21sh"
 # define HISTORY_SIZE	1000
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
+# define FREE			ft_freegiveone
 # define DPATH	"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 /*
@@ -88,6 +89,7 @@ void			ft_lexer_error(char *command);
 */
 int				ft_pathtohash(t_config *config);
 int				ft_return_binpath(t_config *config, char *name, char **path);
+int				ft_scmp(void *data1, void *data2);
 int				ft_proscmp(void *pid1, void *pid2);
 int				ft_ascii_cmp(t_bin *s1, t_bin *s2);
 /*
@@ -128,6 +130,6 @@ void			ft_scripting(int fd, t_config *config);
 /*
 ** debug.c
 */
-void		ft_printchimera(t_list *chimera);
+void			ft_printchimera(t_list *chimera);
 
 #endif

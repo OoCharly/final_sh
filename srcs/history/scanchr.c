@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:20:30 by rbaran            #+#    #+#             */
-/*   Updated: 2017/01/02 18:14:40 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:18:41 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		ft_modifycommand(t_stream *stream)
 	ft_gohome(stream);
 	ft_freegiveone((void **)&(stream->command));
 	i = -1;
-	if (stream->config->history[stream->shindex]){
+	if (stream->config->history[stream->shindex])
+	{
 		stream->command = ft_strdup(stream->config->history[stream->shindex]);
 		i = (int)ft_strstri(stream->command, stream->search);
 	}

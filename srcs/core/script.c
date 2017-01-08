@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   script.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/08 15:57:35 by tboos             #+#    #+#             */
+/*   Updated: 2017/01/08 15:59:54 by tboos            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*ft_set_test(char *current)
@@ -19,7 +31,7 @@ static void	ft_eof_error(int script_line)
 	cha[1] = 0;
 	eof_line = ft_script_line(0);
 	ft_script_line(-script_line);
-	test= ft_set_test(NULL);
+	test = ft_set_test(NULL);
 	ft_error(SHNAME, NULL, test + 2, 1 | 4);
 	ft_script_line(-eof_line);
 	cha[0] = *(test + 1);
@@ -93,7 +105,6 @@ void		ft_scripting(int fd, t_config *config)
 		else
 			err_line = 0;
 	}
-	ft_freegiveone((void**)&command);
-	if (err_line)
+	if (ft_freegiveone((void**)&command) && err_line)
 		ft_eof_error(err_line);
 }

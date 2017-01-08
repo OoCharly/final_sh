@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:29 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 16:40:07 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 15:53:56 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void		ft_state_zero(t_stream *stream)
 			return ;
 		COMP_MODE = get_mode(len, stream->command, stream);
 		build_list(COMP_BEGIN, stream);
+		FREE((void**)&COMP_KILL);
 		if (COMP_PAD > COMP_ROW)
 			return ;
 		if (COMP_BEGIN_LIST)

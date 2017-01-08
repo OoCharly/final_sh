@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/07 00:38:09 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 15:56:34 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		ft_continue(t_config *config, char *description, int mode)
 				CR_ERROR);
 	else if (!(target = ft_extract_job(config, description)))
 		ft_error(mode == JOBS_FG ? "fg" : "bg", description, "no such job",
-				CR_ERROR);	
+				CR_ERROR);
 	if (target && (mode == JOBS_FG || mode == JOBS_BG))
 	{
 		p = target;

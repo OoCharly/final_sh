@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:27:31 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 11:39:39 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 15:53:58 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 ** Built list if not exist. add elem in a existing list.
 ** hidden files are ignored if patern does not begin with '.'.
 */
-int				ft_scmp(void *data1, void *data2)
-{
-	return (ft_strcmp((char *)data1, (char *)data2));
-}
 
 static void		do_list(t_stream *stream, struct dirent *file, char *dir)
 {
@@ -110,9 +106,8 @@ void			build_list(char *str, t_stream *stream)
 	char			**dir;
 	char			*comp;
 
-	if (!(dir = set_dir(str, stream, &comp, &len_comp)) 
-		&& ft_freegiveone((void**)&comp))
-			return;
+	if (!(dir = set_dir(str, stream, &comp, &len_comp)) && FREE((void**)&comp))
+		return ;
 	COMP_KILL = dir;
 	while (*dir)
 	{
@@ -125,10 +120,9 @@ void			build_list(char *str, t_stream *stream)
 					do_list(stream, file, *dir);
 			closedir(directory);
 		}
-		ft_freegiveone((void **)&(*dir));
+		FREE((void **)&(*dir));
 		dir++;
 	}
 	get_size_list(stream);
-	ft_freegiveone((void**)&COMP_KILL);
-	ft_freegiveone((void**)&comp);
+	FREE((void**)&comp);
 }
