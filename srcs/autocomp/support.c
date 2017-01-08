@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:44:31 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:05:44 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/08 19:18:43 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,8 @@ void	reset_autocomp(t_stream *stream)
 
 void	ft_repeat_termcaps(size_t time, char *term, t_stream *stream)
 {
-	size_t i;
-
-	i = time;
 	stream->tput = term;
-	while (i--)
+	while (time--)
 		ft_tputs(stream);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 16:33:17 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/08 18:43:59 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct	s_stream
 	size_t		pos;
 	size_t		col;
 	size_t		row;
-	size_t		cur_col;
 	size_t		autocomp_state;
 	t_config	*config;
 	t_comp		comp;

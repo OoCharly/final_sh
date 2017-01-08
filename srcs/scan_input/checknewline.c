@@ -6,7 +6,7 @@
 /*   By: rbaran <rbaran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 13:59:34 by rbaran            #+#    #+#             */
-/*   Updated: 2017/01/02 17:05:46 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 18:39:00 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,8 @@ int		ft_checknewline(t_stream *stream, size_t p)
 			pos = 0;
 	return (pos);
 }
+/*
+ft_checkline(t_stream *stream)
+{
+
+}*/

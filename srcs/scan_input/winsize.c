@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:44:56 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 17:31:49 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 19:20:20 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ void			ft_prompt_reset(t_stream *stream)
 	stream->row = w.ws_row;
 	if (stream->col)
 	{
-		ft_gohome(stream);
 		lin = PROMPT_LEN / (stream->col > col ? stream->col : col);
-		ft_repeat_termcaps(lin, "up", stream);
-		ft_repeat_termcaps(col, "le", stream);
+		if (SYSTEM == MAC
+			&& PROMPT_LEN % (stream->col > col ? stream->col : col) == 0)
+			++lin;
+		ft_gohome(stream);
+		ft_putchar_fd('\n', SFD);
+		ft_repeat_termcaps(lin + 1, "up", stream);
 	}
 	stream->col = col;
-	stream->cur_col = stream->config->prompt_len % stream->col;
 	ft_secure_prompt(stream);
 }
 
