@@ -6,13 +6,16 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:51:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 19:22:37 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 18:09:15 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_LINUX_H
 # define KEYS_LINUX_H
 
+# define SYSTEM 0
+# define MAC 1
+# define LINUX 0
 /*
 ** CLF		\n
 ** SUP		suprr
