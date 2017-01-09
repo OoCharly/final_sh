@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/04 18:24:51 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/09 04:29:41 by tboos            ###   ########.fr       */
+/*   Created: 2017/01/09 05:21:58 by tboos             #+#    #+#             */
+/*   Updated: 2017/01/09 05:22:17 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_getenv(char *name, char **env);
 char	*ft_getenv_whole(char *name, char **env);
 int		ft_igetenv(char *name, char **env);
 /*
-** DEBUG AND FEEDBACK 
+** DEBUG AND FEEDBACK
 */
 int		ft_ringbell_fd(int fd);
 

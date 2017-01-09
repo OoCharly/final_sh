@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:27:28 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 19:20:21 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 05:19:55 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			ft_mvleft(t_stream *stream)
 		else
 		{
 			i = ft_checknewline(stream, stream->pos - 1);
-			if (SYSTEM == MAC && !i && stream->pos -1 != '\n')
+			if (SYSTEM == MAC && !i && stream->pos - 1 != '\n')
 				ft_repeat_termcaps(1, "le", stream);
 			else
 			{

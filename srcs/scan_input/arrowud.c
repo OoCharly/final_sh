@@ -6,15 +6,15 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:16 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 17:43:03 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 05:19:15 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
- **Moves cursor on the last colum.
- */
+**Moves cursor on the last colum.
+*/
 
 void	ft_goend(t_stream *stream)
 {
@@ -24,8 +24,8 @@ void	ft_goend(t_stream *stream)
 }
 
 /*
- **Moves cursor on the first column after the prompt.
- */
+**Moves cursor on the first column after the prompt.
+*/
 
 void	ft_gohome(t_stream *stream)
 {
