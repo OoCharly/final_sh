@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:18:09 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/09 01:24:52 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 05:14:48 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_putmess(t_stream *stream, char *mess)
 	ft_repeat_termcaps(1, "cd", stream);
 	ft_putstr_fd(mess, SFD);
 	if (ft_strlen(mess) % stream->col == 0)
-		ft_putchar_fd('\n', SFD);
+		ft_repeat_termcaps(1, "do", stream);
 	ft_putchar_fd('\n', SFD);
 	i = ft_strlen(mess) / stream->col;
 	ft_repeat_termcaps(i + 2, "up", stream);
