@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:44:56 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 19:29:25 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 02:58:48 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ void			ft_winsize(void)
 	ft_gomatch(stream, pos);
 	if (COMP_STATE)
 		ft_comp_print(stream);
+	else if (stream->search)
+		ft_sprompt(stream);
 	ft_sigwinch(1);
 }
