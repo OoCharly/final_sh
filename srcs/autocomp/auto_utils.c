@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:57 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/16 17:14:50 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/09 03:45:16 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		ft_is_separator(char c)
 	if (c == '&')
 		return (1);
 	if (c == '|')
+		return (1);
+	if (c == '/')
 		return (1);
 	if (ft_isspace(c))
 		return (1);

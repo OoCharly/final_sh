@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:56:48 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 13:50:49 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 04:16:35 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,6 @@ void		ft_down(t_stream *stream)
 			ft_goend(stream);
 		}
 	}
+	else
+		ft_ringbell_fd(SFD);
 }

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 16:29:49 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 04:32:16 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define HISTORY_SIZE	1000
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
 # define FREE			ft_freegiveone
+# define BELL			ft_ringbell_fd
 # define DPATH	"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 /*

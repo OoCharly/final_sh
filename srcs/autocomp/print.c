@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 12:26:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 15:55:49 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 05:12:45 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		ft_autocomp_print_grid(size_t start, size_t end, t_stream *stream)
 	j = -1;
 	while (++j < start)
 		list = list->next;
-	while (start < end)
+	while (start < end && list)
 	{
 		ft_autocomp_print_line(list, start, stream);
 		if (start != end - 1)
