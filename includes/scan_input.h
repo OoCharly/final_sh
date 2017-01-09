@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 18:43:59 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/08 23:57:16 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void			ft_termios_handle(t_config *config, int mode);
 /*
 **underlinemess.c
 */
-void			ft_putmess(t_stream *stream, char *mess);
 int				ft_underline_mess(char *mess, t_stream *stream);
 /*
 **quotecheck.c
