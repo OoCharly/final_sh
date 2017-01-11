@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/11 15:49:35 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/11 17:24:56 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static int	ft_wait(t_list **process, t_config *config)
 					&& (config->shell_state = RUNNING_COMMAND))
 				|| WIFSTOPPED(stat_loc))
 			return (ft_supervisor(process, STOP, config));
-			//return (1);
 		else if (pid && !ft_handle_pid_return(process, config, stat_loc, pid))
 			return (0);
 	}
