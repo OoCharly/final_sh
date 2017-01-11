@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/06 19:09:12 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/11 15:49:21 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # define PROS		100
 # define SENT		101
 # define JOB		102
+
+/*
+** JOBS CONTROL DEFINES
+*/
+# define STOP		1
 
 /*
 ** MOST USED DEFFERENTIATION
@@ -107,5 +112,17 @@ int				ft_check_insert(char ***t, int mode, t_config *config);
 */
 char			*ft_create_strhistidx(char *str);
 int				ft_checkhist(char *str);
-
+/*
+**process_manag.c
+*/
+void			ft_process_manag(t_list **process, t_list *tmp);
+/*
+**supervisor.c
+*/
+pid_t			ft_supervisor(t_list **process, int mod, t_config *config);
+void			ft_exit_supervisor(int signum);
+/*
+**supervisor_signals.c
+*/
+int				ft_set_suphandlers();
 #endif

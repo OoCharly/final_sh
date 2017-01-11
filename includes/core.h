@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 11:54:09 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/11 14:54:45 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct	s_config
 	char		*command;
 	t_list		*chimera;
 	t_list		*chimera_tail;
+	pid_t		shell_pgid;
 	char		dot_sequence;
 	int			last_exit;
 	bool		syntax_color_off;

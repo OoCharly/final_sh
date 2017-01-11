@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 20:52:16 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/11 14:55:50 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ void		ft_run_command(t_config *config)
 				|| !ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
-		{
 			ft_parse(config);
-		}
 	}
 	if (config && config->exclamation)
 		ft_freegiveone((void**)&config->exclamation);
@@ -104,6 +102,7 @@ void		ft_minishell(t_config *config)
 	int		fd;
 
 	fd = 1;
+	config->shell_pgid = getpgrp();
 	if ((ft_signal(SIGNAL_SET
 		&& ft_error(SHNAME, "unable to set signal", "I quit", 1 | SERROR)))
 			|| (!isatty(1) && !(fd = 0) && !isatty(0)
