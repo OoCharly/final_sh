@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/12 13:33:21 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/12 16:18:52 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void		ft_signal_handle(int i)
 			if (stream->config->shell_state == RUNNING_COMMAND)
 				stream->config->shell_state = SIGINT_COMMAND;
 			else
-			{
 				stream->state = REPROMPT;
-			}
 		}
 		if (i == SIGTSTP && stream->config->shell_state == RUNNING_COMMAND)
 			stream->config->shell_state = SIGTSTP_COMMAND;
