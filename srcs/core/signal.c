@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/11 17:25:17 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/12 13:33:21 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int			ft_signal(int mode)
 		if (SIG_ERR == signal(SIGINT, &ft_signal_handle))
 			return (ft_status(1));
 		if (SIG_ERR == signal(SIGTSTP, &ft_signal_handle))
+			return (ft_status(1));
+		if (SIG_ERR == signal(SIGTTOU, SIG_IGN))
 			return (ft_status(1));
 		return (0);
 	}
