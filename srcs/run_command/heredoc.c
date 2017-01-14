@@ -53,7 +53,7 @@ static int	ft_stateprep_herdoc(t_list *begin, t_config *config)
 	config->pwd_subrep = "heredoc> ";
 	config->prompt_len = 9;
 	ft_heredoc(begin, config, stream);
-	ft_update_pwd(config);
+	ft_update_prompt(config);
 	config->heredoc = 0;
 	if (stream->state == REPROMPT)
 		return (1);
