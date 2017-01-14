@@ -9,8 +9,8 @@ TERMCAPS = -lm -lncurses
 HEAD = -I libft/includes -I includes
 OS = $(shell uname -s)
 SRC = \
-autocomp/auto_utils.c \
 autocomp/autocomp.c \
+autocomp/auto_utils.c \
 autocomp/buildlist.c \
 autocomp/command.c \
 autocomp/getenv.c \
@@ -44,8 +44,8 @@ globbing/globbing.c \
 globbing/globbing_support.c \
 globbing/match.c \
 history/exclamation.c \
-history/history.c \
 history/history_backup.c \
+history/history.c \
 history/history_replace.c \
 history/history_search_down.c \
 history/history_search_up.c \
@@ -58,8 +58,8 @@ run_command/exec.c \
 run_command/files.c \
 run_command/heredoc.c \
 run_command/insert.c \
-run_command/lexer.c \
 run_command/lexer_av.c \
+run_command/lexer.c \
 run_command/lexer_match_op.c \
 run_command/lexer_sshell.c \
 run_command/parser.c \
@@ -79,14 +79,16 @@ scan_input/prompt.c \
 scan_input/quotecheck.c \
 scan_input/streamscan.c \
 scan_input/syntax_color.c \
-scan_input/term_handle.c \
 scan_input/termcaps.c \
+scan_input/term_handle.c \
 scan_input/underline_mess.c \
 scan_input/visual.c \
 scan_input/winsize.c \
 
 ifeq ($(OS), Linux)
-	FLAGS += -D LINUX
+	FLAGS += -D SYSTEM=1
+else
+	FLAGS += -D SYSTEM=0
 endif
 
 all: lib $(NAME)

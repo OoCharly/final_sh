@@ -38,7 +38,7 @@
 # include "builtins.h"
 # include "error.h"
 
-# ifdef LINUX
+# if SYSTEM==1
 #  include "keys_linux.h"
 # else
 #  include "keys_mac.h"

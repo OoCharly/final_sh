@@ -13,7 +13,6 @@
 #ifndef KEYS_LINUX_H
 # define KEYS_LINUX_H
 
-# define SYSTEM 0
 # define MAC 1
 # define LINUX 0
 /*
