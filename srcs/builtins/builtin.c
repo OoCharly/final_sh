@@ -14,8 +14,19 @@
 
 static void	ft_pwd(char **argv, t_config *config)
 {
-	if (argv[1])
+	char	buf[_POSIX_PATH_MAX];
+
+	if (argv[1] && (argv[1][0] != '-' || argv[2]))
 		ft_error("pwd", NULL, "too many arguments", CR_ERROR);
+	else if (argv[1] && (argv[1][1] != 'L' && argv[1][1] != 'P'))
+		ft_error("pwd", "unknown flag(s)", argv[1], CR_ERROR);
+	else if (argv[1] && argv[1][1] == 'P')
+	{
+		if (!getcwd(buf, _POSIX_PATH_MAX))
+			ft_error("pwd", NULL, "broken getcwd", CR_ERROR);
+		else
+			ft_putendl(buf);
+	}
 	else
 		ft_putendl(config->pwd);
 }
