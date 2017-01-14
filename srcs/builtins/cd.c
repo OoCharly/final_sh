@@ -19,28 +19,61 @@ static void	ft_pwd_error(t_config *config)
 	config->prompt_len = 9;
 }
 
-void		ft_update_pwd(t_config *config)
+static void	ft_clean_path(char *path)
+{
+	int		i;
+
+	i = 0;
+	while (path && path[i])
+	{
+		if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '/')
+			ft_strcpy(path + i, path + i + 2);
+		else if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '.'
+			&& i - 2 > 0 && path[i - 1] != '.' && path[i - 2] != '.')
+		{
+			while (--i != 0 && path[i] != '/')
+				;
+			ft_strcpy(path + i + 1, ft_strchr(path + i + 1, '/') + 3);
+		}
+		else if (path[i] == '/' && path[i + 1] == '/')
+			ft_memmove(path + i, path + i + 1, strlen(path + i));
+		else
+			i++;
+	}
+	if (path && i > 2 && path[i - 1] == '.' && path[i - 2] == '/')
+		path[i - 1] = '\0';
+	if (path && i && path[i - 1] == '/')
+		path[i - 1] = '\0';
+	if (*path == '/' && *(path + 1) == '.' && *(path + 2) == '.')
+		*(path + 1) = '\0';
+	if (!*path)
+		*path = '/';
+}
+
+void		ft_update_prompt(t_config *config)
 {
 	char	buf[_POSIX_PATH_MAX];
 	char	*pwd;
 
 	ft_freegiveone((void**)&(config->pwd));
-	if (!getcwd(buf, _POSIX_PATH_MAX))
-		ft_pwd_error(config);
+	if (!((pwd = ft_strtabfindstart(config->env, "PWD="))
+		&& ft_strncpy(buf, pwd + 4, _POSIX_PATH_MAX)))
+	{
+		if (!getcwd(buf, _POSIX_PATH_MAX))
+		{
+			ft_pwd_error(config);
+			return ;
+		}
+		ft_setenv("PWD", ft_strdup(buf), config);
+	}
 	else
 	{
-		if (!(pwd = ft_strtabfindstart(config->env, "PWD="))
-			|| ft_strcmp(buf, pwd + 4))
-			ft_setenv("PWD", buf, config);
 		if (!(pwd = ft_strdup(buf)))
 			ft_pwd_error(config);
 		else
 		{
 			config->pwd = pwd;
-			if (!pwd[1])
-				config->pwd_subrep = pwd;
-			else
-				config->pwd_subrep = ft_strrchr(pwd, '/') + 1;
+			config->pwd_subrep = (!pwd[1] ? pwd : ft_strrchr(pwd, '/') + 1);
 			config->prompt_len = ft_strlen(config->pwd_subrep) + 6;
 		}
 	}
@@ -50,6 +83,7 @@ static void	ft_path_follow(char *path, t_config *config)
 {
 	struct stat	buf;
 
+	ft_clean_path(path);
 	if (path[1] && !ft_access_dir(path))
 		;
 	else if (-1 == access(path, F_OK))
@@ -61,11 +95,14 @@ static void	ft_path_follow(char *path, t_config *config)
 	else if (-1 == access(path, X_OK))
 		ft_error(SHNAME, "permission denied", path, CR_ERROR);
 	else if (!chdir(path))
-		;
+	{
+		ft_setenv("PWD", path, config);
+		ft_update_prompt(config);
+		return ;
+	}
 	else
 		ft_error(SHNAME, "failed moving to directory", path, CR_ERROR);
-	ft_update_pwd(config);
-	free(path);
+	FREE((void**)&path);
 }
 
 void		ft_cd(char **argv, t_config *config)
