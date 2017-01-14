@@ -82,6 +82,7 @@ scan_input/syntax_color.c \
 scan_input/term_handle.c \
 scan_input/termcaps.c \
 scan_input/underline_mess.c \
+scan_input/visual.c \
 scan_input/winsize.c \
 
 ifeq ($(OS), Linux)

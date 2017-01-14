@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/09 05:12:49 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/12 17:59:20 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_stream
 	char		*command;
 	char		*kill;
 	char		*search;
+	int			visual;
 	size_t		pos;
 	size_t		col;
 	size_t		row;
@@ -190,5 +191,12 @@ t_config		*ft_save_config(t_config *config);
 **paste.c
 */
 char			*ft_pastereturn(t_stream *stream);
+/*
+**visual.c
+*/
+void			ft_visselect(t_stream *stream);
+void			ft_viscut(t_stream *stream);
+void			ft_viscopy(t_stream *stream);
+void			ft_vispaste(t_stream *stream);
 
 #endif

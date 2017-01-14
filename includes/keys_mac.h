@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:51:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 18:14:09 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/12 18:11:55 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@
 # define CTRLL	0xc
 # define ALTS	0x92C3
 # define SHCHT	0x5A5B1B
+# define VISD	0x64
+# define VISP	0x70
+# define VISV	0x76
+# define VISY	0x79
 
 #endif
