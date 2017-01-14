@@ -25,6 +25,7 @@
 # define STR_EOF			-11
 # define SFD				stream->fd
 # define PROMPT_LEN			stream->config->prompt_len
+# define LEN_TABMATCH		22
 
 typedef struct	s_comp
 {
@@ -54,6 +55,7 @@ typedef struct	s_stream
 	char		*kill;
 	char		*search;
 	int			visual;
+	size_t		visual_pos;
 	size_t		pos;
 	size_t		col;
 	size_t		row;
