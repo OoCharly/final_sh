@@ -34,6 +34,10 @@
 ** NUL		\0
 ** ESC		escape
 ** CTRLD	ctrl + D
+** D		0x64
+** P		0x70
+** V		0x76
+** Y		0x79
 */
 
 # define CLF	0x0A
@@ -57,5 +61,9 @@
 # define CTRLL	0xc
 # define ALTS	0x0013
 # define SHCHT	0x5a5b1b
+# define VISD	0x64
+# define VISP	0x70
+# define VISV	0x76
+# define VISY	0x79
 
 #endif

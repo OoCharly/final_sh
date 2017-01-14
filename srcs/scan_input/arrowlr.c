@@ -18,6 +18,8 @@ void	ft_left(t_stream *stream)
 		ft_searchengineend(stream);
 	if (stream->pos)
 		ft_mvleft(stream);
+	if (stream->visual)
+		ft_visselect(stream);
 }
 
 void	ft_right(t_stream *stream)
@@ -26,6 +28,8 @@ void	ft_right(t_stream *stream)
 		ft_searchengineend(stream);
 	if (stream->command && ft_strlen(stream->command) != stream->pos)
 		ft_mvright(stream);
+	if (stream->visual)
+		ft_visselect(stream);
 }
 
 void	ft_ctrlleft(t_stream *stream)
@@ -37,6 +41,8 @@ void	ft_ctrlleft(t_stream *stream)
 		&& !(!ft_isspace(stream->command[stream->pos])
 		&& ft_isspace(stream->command[stream->pos - 1])))
 		ft_mvleft(stream);
+	if (stream->visual)
+		ft_visselect(stream);
 }
 
 void	ft_ctrlright(t_stream *stream)
@@ -49,4 +55,6 @@ void	ft_ctrlright(t_stream *stream)
 		&& stream->command[stream->pos] != '\0'
 		&& ft_isspace(stream->command[stream->pos - 1])))
 		ft_mvright(stream);
+	if (stream->visual)
+		ft_visselect(stream);
 }

@@ -40,6 +40,7 @@ void		ft_searchengineend(t_stream *stream)
 	else
 	{
 		stream->visual ^= 1;
+		stream->visual_pos = stream->pos;
 		ft_winsize();
 	}
 }
