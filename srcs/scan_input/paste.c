@@ -23,32 +23,37 @@ static char	*ft_strchr_dodge(char *str, char c)
 				return (NULL);
 		if (*str == '\\')
 			++str;
-		++str;
+		if (*str)
+			++str;
 	}
-	return (str);
+	return (NULL);
 }
 
-static int	ft_checkpaste(t_stream *stream, char **err)
+static char	*ft_checkpaste(t_stream *stream)
 {
 	char	*match;
+	char	*err;
 
 	match = stream->command;
 	while ((stream->command)
 		&& (match = ft_strchr_dodge(match, '\n')))
 	{
-		*err = stream->command;
-		if (*match || (match = NULL))
-			*match = 0;
-		if (!(*err = ft_matchchr(&(*err))))
+		err = stream->command;
+dprintf(1, "\ncmd test = %s\n", err);
+		*match = 0;
+		if (!ft_matchchr(&err))
 		{
 			stream->config->exclamation = match ? ft_strdup(match + 1)
 				: stream->config->exclamation;
-			return (1);
+			return (NULL);
 		}
-		else if ((match = match ? match + 1 : NULL))
-			*match = '\n';
+		*match = '\n';
+		++match;
+dprintf(1, "\npost match = %s\n", match);
 	}
-	return (0);
+	match = stream->command;
+dprintf(1, "\ncmd test = %s\n", match);
+	return (ft_matchchr(&match));
 }
 
 char		*ft_pastereturn(t_stream *stream)
@@ -61,7 +66,7 @@ char		*ft_pastereturn(t_stream *stream)
 		ft_winsize();
 	pos = stream->pos;
 	ft_gohome(stream);
-	if (ft_checkpaste(stream, &err))
+	if (!(err = ft_checkpaste(stream)))
 	{
 		ft_winsize();
 		ft_goend(stream);

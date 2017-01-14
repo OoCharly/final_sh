@@ -43,6 +43,24 @@ static int	ft_node_jobs(char **argv, t_config *config)
 	return (1);
 }
 
+static void	ft_builtin_exit(char **argv, t_config *config)
+{
+	int		status;
+	char	*p;
+
+	p = argv[1];
+	if (p)
+	{
+		status = ft_atoi(p);
+		while (*p)
+			if (!ft_isdigit(*(p++)))
+				status = 255;
+		ft_status(status);
+		config->last_exit = status;
+	}
+	ft_shell_exit(config);
+}
+
 /*
 **Returns 1 if argument is a builtin, in this case launch the appropriate
 **function, otherwise return 0.
@@ -51,7 +69,7 @@ static int	ft_node_jobs(char **argv, t_config *config)
 int			ft_is_no_fork_builtin(char **argv, t_config *config)
 {
 	if (!ft_strcmp(argv[0], "exit"))
-		ft_shell_exit(config);
+		ft_builtin_exit(argv, config);
 	else if (!ft_strcmp(argv[0], "exitfather"))
 		ft_kill_father(config);
 	else if (ft_node_jobs(argv, config))

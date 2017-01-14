@@ -23,22 +23,25 @@ static char	*ft_backslash(char **str)
 	return (NULL);
 }
 
-static char	*ft_gonext(char **str, char c)
+static char	*ft_gonext(char **str)
 {
+	char		c;
 	char		*test;
 
+	c = **str;
 	++(*str);
+	dprintf(1, "\nc = %c\n && **str = %c\n", c, **str);
 	if ((test = ft_matchchr(str)))
 	{
-		if (test[1] == c)
+		if ('(' == c && **str == ')')
 			return (NULL);
-		else
-			return (test);
+		if ('`' == c && **str == '`')
+			return (NULL);
+		return (test);
 	}
-	else if (c == ')')
+	else if (c == '(')
 		return (PAR_ERR);
-	else
-		return (BAQU_ERR);
+	return (BAQU_ERR);
 }
 
 char		*ft_gonextquote(char **str, char c)
@@ -66,9 +69,9 @@ char		*ft_matchchr(char **str)
 	{
 		if (**str == ')')
 			return (UPAR_ERR);
-		if (**str == '(' && (test = ft_gonext(str, ')')))
+		if (**str == '(' && (test = ft_gonext(str)))
 			return (test);
-		if (**str == '`' && (test = ft_gonext(str, '`')))
+		if (**str == '`' && (test = ft_gonext(str)))
 			return (test);
 		if (**str == '#')
 			break ;
@@ -94,11 +97,7 @@ int			ft_quotecheck(t_stream *stream)
 		stream->state = REPROMPT;
 		stream->config->exclamation = ft_strdup(stream->command);
 	}
-	else if ((test && (test = ft_pastereturn(stream))
-		&& (test = stream->command)
-		&& (test = ft_matchchr(&test)))
-		|| ((test = stream->command)
-		&& (test = ft_matchchr(&test))))
+	else if (test && (test = ft_pastereturn(stream)))
 	{
 		ft_strcpy(stream->buf, "\n\0");
 		ft_append(stream);
