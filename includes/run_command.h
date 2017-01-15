@@ -19,9 +19,10 @@
 ** POLYMORPHIC CHAINLIST
 */
 # define OP			1
-# define PIPE		13
 # define HEREDOC	3
 # define SSHELL		4
+# define VAR		8
+# define PIPE		13
 # define PROS		100
 # define SENT		101
 # define JOB		102

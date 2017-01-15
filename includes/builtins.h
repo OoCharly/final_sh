@@ -28,6 +28,8 @@
 **Echo builtin defines (params)
 */
 # define ECHO_N		0x01
+# define ECHO_MINE	0x02
+# define ECHO_MAJE	0x04
 
 /*
 **jobs builtin defines

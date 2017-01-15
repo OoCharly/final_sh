@@ -66,16 +66,13 @@ void		ft_update_prompt(t_config *config)
 		}
 		ft_setenv("PWD", ft_strdup(buf), config);
 	}
+	if (!(pwd = ft_strdup(buf)))
+		ft_pwd_error(config);
 	else
 	{
-		if (!(pwd = ft_strdup(buf)))
-			ft_pwd_error(config);
-		else
-		{
-			config->pwd = pwd;
-			config->pwd_subrep = (!pwd[1] ? pwd : ft_strrchr(pwd, '/') + 1);
-			config->prompt_len = ft_strlen(config->pwd_subrep) + 6;
-		}
+		config->pwd = pwd;
+		config->pwd_subrep = (!pwd[1] ? pwd : ft_strrchr(pwd, '/') + 1);
+		config->prompt_len = ft_strlen(config->pwd_subrep) + 6;
 	}
 }
 

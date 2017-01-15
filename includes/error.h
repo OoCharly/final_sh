@@ -47,8 +47,8 @@
 # define PAR_ERR	"1(missing matching ')' character"
 # define BRA_ERR	"1{missing matching '}' character"
 # define BAQU_ERR	"1`missing matching '`' character"
-# define UBRA_ERR	"0}unexpected '}' character in token"
-# define UPAR_ERR	"0)unexpected ')' character in token"
+# define UBRA_ERR	"0}unexpected '}' character in list"
+# define UPAR_ERR	"0)unexpected ')' character in list"
 # define BACK_ERR	"0\\unexpected EOF after backslack"
 # define UEOF_ERR	"unexpected EOF while searching matching"
 
