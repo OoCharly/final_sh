@@ -43,7 +43,7 @@ static char	**sft_tabdup(char **t, char *m, int nb)
 **words and return malloced table of av.
 */
 
-static char	**ft_strdodgesplit(char *s)
+char		**ft_strdodgesplit(char *s)
 {
 	char	**t;
 	char	*m;

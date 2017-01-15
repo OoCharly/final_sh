@@ -85,6 +85,7 @@ static t_list	*ft_fork_process(t_list *begin, t_config *config, int *r_pipe)
 
 	new = NULL;
 	if (!begin->data_size && ((!begin->data || !((char**)begin->data)[0])
+		|| ft_is_only_variable((char***)&begin->data, config)
 		|| ft_is_no_fork_builtin(begin->data, config)
 		|| !(path = ft_path_handle(begin->data, config))))
 		return (NULL);

@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+static void		ft_free_var(t_var *var)
+{
+	free(var->name);
+	if (var->type == VAR_STD)
+		free(var->value);
+	else if (var->type == VAR_TAB)
+		ft_strtabfree((char**)var->value);
+}
+
 /*
 **Function called in parameter of ft_freelist. For any type in begin->data,
 **calls the appropriate function of free.
@@ -31,6 +40,8 @@ void			ft_list_free_av(void *data, size_t data_size)
 	}
 	else if (data_size == SSHELL)
 		ft_freelist((t_list **)&data);
+	else if (data_size == VAR)
+		ft_free_var(data);
 }
 
 t_list			*ft_freelist(t_list **begin)

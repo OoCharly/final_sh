@@ -48,6 +48,7 @@ void	ft_free_config(t_config *config)
 		ft_freegiveone((void **)&(config->hlocbis));
 		ft_freelist(&config->chimera);
 		ft_freelist(&config->chimera_tail);
+		ft_freelist(&config->variables);
 		ft_freegiveone((void**)&config->command);
 		ft_freegiveone((void**)&config->fg_sentence);
 		get_next_line(-1, NULL);

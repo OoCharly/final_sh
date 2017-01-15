@@ -42,25 +42,28 @@ int			ft_cleancmd(char *str)
 
 void		ft_print_list(t_list *elem)
 {
-	if (!elem->data_size)
+	if (elem->data_size == VAR)
 	{
-		ft_putstr("\nargv :\n");
+		ft_putstr(((t_var*)elem->data)->name);
+		if (((t_var*)elem->data)->type == VAR_STD)
+			ft_putstr((char*)((t_var*)elem->data)->value);
+		else if (((t_var*)elem->data)->type == VAR_TAB)
+			ft_putstrtab((char**)((t_var*)elem->data)->value, '\n');
+	}
+	else if (!elem->data_size)
+	{
 		if (elem->data)
 			ft_putstrtab((char **)(elem->data), '\n');
 		ft_putchar('\n');
 	}
 	else if (elem->data_size == SSHELL)
-	{
-		ft_putstr("\nSSHELL :\n");
 		ft_lstiter((t_list *)elem->data, ft_print_list);
-	}
 	else if (elem->data_size == OP)
 		FT_PUTSTRFD("\nop :\n", (char*)elem->data, "\n", 1);
 	else if (elem->data_size == JOB)
 		ft_print_jobs(elem->data, NULL);
 	else if (elem->data_size == PIPE)
 	{
-		ft_putstr("\npipe :\n");
 		ft_putnbr(((int*)elem->data)[0]);
 		ft_putnbr(((int*)elem->data)[1]);
 		ft_putchar('\n');

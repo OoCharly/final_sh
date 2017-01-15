@@ -61,6 +61,7 @@ int				ft_access_exec(char *path, char **argv, t_config *config);
 t_list			*ft_lexer(char *cmd);
 char			*ft_envvarinsert(char *cmd, size_t *i, t_config *config);
 t_list			*ft_built_couple(char *cmd, size_t *i);
+char			**ft_strdodgesplit(char *s);
 t_list			*ft_av_handle(char *cmd, size_t i);
 int				ft_dodge_quote(char *cmd, size_t i);
 char			*ft_match_op(char *cmd, size_t *i);
@@ -102,5 +103,11 @@ int				ft_check_insert(char ***t, int mode, t_config *config);
 */
 char			*ft_create_strhistidx(char *str);
 int				ft_checkhist(char *str);
+/*
+**variables.c && variables_utils.c
+*/
+int				ft_is_only_variable(char ***argv, t_config *config);
+int				ft_new_var(char *name, void *value, size_t type,
+				t_config *config);
 
 #endif

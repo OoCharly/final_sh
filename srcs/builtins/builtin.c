@@ -74,10 +74,9 @@ int			ft_is_no_fork_builtin(char **argv, t_config *config)
 		ft_kill_father(config);
 	else if (ft_node_jobs(argv, config))
 		;
-	else if (!ft_strcmp(argv[0], "unsetenv") || !ft_strcmp(argv[0], "unset"))
+	else if (!ft_strcmp(argv[0], "unsetenv"))
 		ft_unsetenv(argv, config);
-	else if (!ft_strcmp(argv[0], "setenv") || !ft_strcmp(argv[0], "set")
-		|| !ft_strcmp(argv[0], "export"))
+	else if (!ft_strcmp(argv[0], "setenv"))
 		ft_readysetenv(argv, config);
 	else if (!ft_strcmp(argv[0], "cd"))
 		ft_cd(argv, config);
