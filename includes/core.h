@@ -36,6 +36,12 @@
 # define SIGNAL_SET		0
 # define SIGNAL_RESET	1
 # define SIGNAL_SCRIPT	2
+/*
+** variables and functions 
+*/
+# define VAR_STD	001
+# define VAR_TAB	002
+# define VAR_FUN	004
 
 typedef struct dirent	t_dirent;
 typedef struct termios	t_termios;
@@ -46,11 +52,17 @@ typedef struct	s_bin
 	char		*name;
 	char		*path_name;
 }				t_bin;
-
+typedef struct	s_var
+{
+	char		*name;
+	void		*value;
+	size_t		type;
+}				t_var;
 typedef struct	s_config
 {
 	int			shell_state;
 	char		**env;
+	t_list		*variables;
 	char		*pwd;
 	char		*pwd_subrep;
 	size_t		prompt_len;
