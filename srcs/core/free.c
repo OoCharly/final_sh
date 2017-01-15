@@ -51,6 +51,7 @@ void	ft_free_config(t_config *config)
 		ft_freelist(&config->variables);
 		ft_freegiveone((void**)&config->command);
 		ft_freegiveone((void**)&config->fg_sentence);
+		FREE((void **)&config->visual_buf);
 		get_next_line(-1, NULL);
 	}
 }

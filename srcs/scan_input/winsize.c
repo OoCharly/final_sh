@@ -35,6 +35,8 @@ void			ft_prompt_reset(t_stream *stream)
 
 	ioctl(SFD, TIOCGWINSZ, &w);
 	col = w.ws_col;
+	if (stream->visual && stream->col != col)
+		stream->visual = 2;
 	stream->row = w.ws_row;
 	if (stream->col)
 	{
@@ -56,8 +58,8 @@ void			ft_flush_command(t_stream *stream)
 	{
 		stream->pos = 0;
 		ft_flushend(stream);
-		ft_gomatch(stream, pos);
 	}
+	ft_gomatch(stream, pos);
 }
 
 void			ft_winsize(void)
@@ -74,5 +76,10 @@ void			ft_winsize(void)
 		ft_comp_print(stream);
 	else if (stream->search)
 		ft_sprompt(stream);
+	if (stream->command && stream->visual == 2)
+	{
+		stream->visual = 1;
+		ft_visselect(stream);
+	}
 	ft_sigwinch(1);
 }
