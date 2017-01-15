@@ -39,7 +39,6 @@ static char	*ft_checkpaste(t_stream *stream)
 		&& (match = ft_strchr_dodge(match, '\n')))
 	{
 		err = stream->command;
-dprintf(1, "\ncmd test = %s\n", err);
 		*match = 0;
 		if (!ft_matchchr(&err))
 		{
@@ -49,10 +48,8 @@ dprintf(1, "\ncmd test = %s\n", err);
 		}
 		*match = '\n';
 		++match;
-dprintf(1, "\npost match = %s\n", match);
 	}
 	match = stream->command;
-dprintf(1, "\ncmd test = %s\n", match);
 	return (ft_matchchr(&match));
 }
 
