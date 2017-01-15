@@ -34,12 +34,16 @@ static char	*ft_gonext(char **str)
 	{
 		if ('(' == c && **str == ')')
 			return (NULL);
+		if ('{' == c && **str == '}')
+			return (NULL);
 		if ('`' == c && test[1] == '`')
 			return (NULL);
 		return (test);
 	}
 	else if (c == '(')
 		return (PAR_ERR);
+	else if (c == '{')
+		return (BRA_ERR);
 	return (BAQU_ERR);
 }
 
@@ -68,7 +72,11 @@ char		*ft_matchchr(char **str)
 	{
 		if (**str == ')')
 			return (UPAR_ERR);
+		if (**str == '}')
+			return (UBRA_ERR);
 		if (**str == '(' && (test = ft_gonext(str)))
+			return (test);
+		if (**str == '{' && (test = ft_gonext(str)))
 			return (test);
 		if (**str == '`' && (test = ft_gonext(str)))
 			return (test);
