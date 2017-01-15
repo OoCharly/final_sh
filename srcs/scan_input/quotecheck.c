@@ -30,12 +30,11 @@ static char	*ft_gonext(char **str)
 
 	c = **str;
 	++(*str);
-	dprintf(1, "\nc = %c\n && **str = %c\n", c, **str);
 	if ((test = ft_matchchr(str)))
 	{
 		if ('(' == c && **str == ')')
 			return (NULL);
-		if ('`' == c && **str == '`')
+		if ('`' == c && test[1] == '`')
 			return (NULL);
 		return (test);
 	}
@@ -79,7 +78,7 @@ char		*ft_matchchr(char **str)
 			return (test);
 		if (**str == '\"' && (test = ft_gonextquote(str, **str)))
 			return (test);
-		if (ft_backslash(str))
+		if (ft_backslash(str) && *(*str - 1) == '\\')
 			return (BACK_ERR);
 	}
 	return (NULL);
