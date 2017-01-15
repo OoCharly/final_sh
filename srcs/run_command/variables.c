@@ -41,13 +41,11 @@ int			ft_is_only_variable(char ***argv, t_config *config)
 	char	*match;
 	int		size;
 
-	while (*argv && **argv && (match = ft_strchr(**argv, '=')))
+	while (*argv && **argv && (match = ft_strchr(**argv, '='))
 //		|| (match = ft_strchr((*argv)[0], '(')))
-	{
-		size = ft_prep_var(*argv, match + 1, config);
+		&& (size = ft_prep_var(*argv, match, config)))
 		while (size-- && (*argv = ft_strncmptabdel(*argv, **argv)))
 			;
-	}
 	if (!*argv || (!**argv && FREE((void**)*argv)))
 		return (1);
 	return (0);

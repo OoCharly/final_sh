@@ -13,6 +13,34 @@
 #include "minishell.h"
 
 /*
+** Strip a string from " ' '\' with the correct rules
+*/
+
+static int	ft_cleancmd(char *str)
+{
+	char	tok;
+
+	while (*str)
+	{
+		if (*str == '"' || *str == '\'')
+		{
+			tok = *str;
+			ft_memmove(str, str + 1, ft_strlen(str));
+			while (*str && *str != tok)
+			{
+				if (*str == '\\' && tok == '"' && *(str + 1) == tok)
+					ft_memmove(str, str + 1, ft_strlen(str));
+				str++;
+			}
+			ft_memmove(str, str + 1, ft_strlen(str));
+		}
+		else if (*(str++) == '\\')
+			ft_memmove(str - 1, str, ft_strlen(str) + 1);
+	}
+	return (1);
+}
+
+/*
 ** Changes begin->data for a new char **, in this one an new char * was insert
 ** wich contents the result of globbing or of the history index search (!).
 */

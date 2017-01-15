@@ -69,6 +69,12 @@ int				ft_next_op(char *cmd, size_t i);
 void			ft_lexer_sshell_off(char *cmd, size_t i);
 t_list			*ft_lexer_sshell_on(char *cmd, size_t *i, t_list *next);
 /*
+**lexer_utils.c
+*/
+int				ft_test_emptyness(char *cmd, size_t i, char c);
+size_t			ft_gonext_par(char *cmd, size_t i);
+size_t			ft_increm_dodge_quotes(char *cmd, size_t i);
+/*
 **parser.c
 */
 char			*ft_save_cmd(char *cmd);

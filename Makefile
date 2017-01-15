@@ -62,6 +62,7 @@ run_command/lexer.c \
 run_command/lexer_av.c \
 run_command/lexer_match_op.c \
 run_command/lexer_sshell.c \
+run_command/lexer_utils.c \
 run_command/parser.c \
 run_command/parser_multiple_fd.c \
 run_command/parser_sequence.c \

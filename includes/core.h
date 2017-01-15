@@ -125,7 +125,6 @@ void			ft_free_all_jobs(t_list **job);
 void			ft_run_command(t_config *config);
 void			ft_minishell(t_config *config);
 void			ft_print_list(t_list *elem);
-int				ft_cleancmd(char *str);
 /*
 **signal.c
 */

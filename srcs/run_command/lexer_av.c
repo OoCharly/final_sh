@@ -19,6 +19,7 @@
 static char	**sft_tabdup(char **t, char *m, int nb)
 {
 	int		i;
+	char	*kill;;
 
 	i = 0;
 	while (nb--)
@@ -33,6 +34,13 @@ static char	**sft_tabdup(char **t, char *m, int nb)
 			m += ft_strlen(m) + 1;
 			while (ft_isspace(*m))
 				m++;
+			if (*m == '(' && ft_test_emptyness(m, 1, ')'))
+			{
+				kill = t[i - 1];
+				t[i - 1] = ft_strjoin(kill, "()");
+				free(kill);
+				nb--;
+			}
 		}
 	}
 	return (t);
@@ -60,10 +68,10 @@ char		**ft_strdodgesplit(char *s)
 		if (ft_isspace(*s) && *(s - 1) && !ft_isspace(*(s - 1))
 			&& !(*s = 0) && ++s)
 			nb++;
-		else if ((*s == '\'' || *s == '\"') && (i = ft_dodge_quote(s, i)))
+		else if (*s == '(' && ft_test_emptyness(s, 1, ')'))
+			s += ft_gonext_par(s, i);
+		else if ((i = ft_increm_dodge_quotes(s, i)))
 			s += i;
-		else
-			++s;
 	}
 	nb += *(s - 1) && !ft_isspace(*(s - 1)) ? 1 : 0;
 	if (!(t = (char **)ft_memalloc(sizeof(char *) * (nb + 1))))

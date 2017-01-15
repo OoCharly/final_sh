@@ -16,6 +16,8 @@ int				ft_new_var(char *name, void *value, size_t type, t_config *config)
 	new->name = name;
 	new->value = value;
 	new->type = type;
+	if (type == VAR_STD && 0 <= ft_igetenv(name, config->env))
+		ft_setenv(name, value, config);
 	if ((elem = ft_list_find(config->variables, (void*)name, &var_name_cmp)))
 	{
 		ft_list_free_av(elem->data, elem->data_size);

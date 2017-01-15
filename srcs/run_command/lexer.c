@@ -21,26 +21,28 @@
 int				ft_next_op(char *cmd, size_t i)
 {
 	while (cmd[i] && !ft_strchr("><|&;()#", cmd[i]))
+		i = ft_increm_dodge_quotes(cmd, i);
+	if (cmd[i] == '(' && ft_test_emptyness(cmd, i + 1, ')')
+		&& ft_test_emptyness(cmd, 0, '(')
+		&& ft_error(SHNAME, NULL, "missing name for function", 1 | EEXIT))
+		return (0);
+	if (cmd[i] == '(' && i && cmd[i - 1] == '=' && (i = ft_gonext_par(cmd, i)))
+		return (ft_next_op(cmd, i));
+	if (cmd[i] == '(' && i && !ft_test_emptyness(cmd, 0, '(') 
+		&& ft_test_emptyness(cmd, i + 1, ')') && (i = ft_gonext_par(cmd, i)))
 	{
-		if (cmd[i] == '\\')
-			i += 2;
-		else if (cmd[i] == '\'' || cmd[i] == '\"')
-			i = ft_dodge_quote(cmd, i);
-		else
+		while (ft_isspace(cmd[i]))
 			++i;
+		if (cmd[i] == '{')
+			ft_gonext_par(cmd, i);
+		else if (ft_error(SHNAME, NULL,
+			"function need bracket to delimiter body", 1 | EEXIT))
+			return (0);
+		return (ft_next_op(cmd, i));
 	}
 	if (cmd[i] == '#')
 		cmd[i] = 0;
 	return (i);
-}
-
-static int		ft_test_emptysshell(char *cmd, size_t i)
-{
-	while (ft_isspace(cmd[i]))
-		++i;
-	if (cmd[i] == ')')
-		return (ft_error(SHNAME, "parse error", "empty sshell", CR_ERROR));
-	return (0);
 }
 
 static t_list	*ft_op_handle(char *cmd, size_t *i)
@@ -50,7 +52,8 @@ static t_list	*ft_op_handle(char *cmd, size_t *i)
 
 	if (!(next = ft_av_handle(cmd, *i)))
 		return (NULL);
-	else if (cmd[*i] == '(' && ft_test_emptysshell(cmd, *i + 1))
+	else if (cmd[*i] == '(' && ft_test_emptyness(cmd, *i + 1, ')')
+		&& ft_error(SHNAME, "parse error", "empty sshell", CR_ERROR))
 		return (NULL);
 	else if (cmd[*i] == '(' && ++(*i))
 		return (ft_lexer_sshell_on(cmd, i, next));
@@ -75,7 +78,8 @@ t_list			*ft_built_couple(char *cmd, size_t *i)
 {
 	t_list	*next;
 
-	*i = ft_next_op(cmd, *i);
+	if (!(*i = ft_next_op(cmd, *i)))
+		return (NULL);
 	if (*i && (cmd[*i] == '>' || cmd[*i] == '<'))
 		while (*i && ft_isdigit(cmd[*i - 1]))
 			(*i)--;
