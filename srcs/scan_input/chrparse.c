@@ -76,10 +76,10 @@ void			ft_append(t_stream *stream)
 
 static int		ft_chrmatch(t_stream *stream)
 {
-	static ssize_t		match[] = {CLF, SUP, CHT, DEL, LEF, RIG, UPP, DOW, CLEF,
-		CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, 0, 0, 0, 0, NUL};
-	static ssize_t		visualmatch[] = {CLF, SUP, 0, DEL, LEF, RIG, 0, 0, CLEF,
-		CRIG, CUPP, CDOW, END, HOM, 0, ESC, ALTS, CTRLL, VISD, VISP, VISY,
+	static ssize_t		match[] = {CLF, 0, SUP, CHT, DEL, LEF, RIG, UPP, DOW, CLEF,
+		CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, 0, 0, 0, NUL};
+	static ssize_t		visualmatch[] = {CLF, VISP, SUP, 0, DEL, LEF, RIG, 0, 0, CLEF,
+		CRIG, CUPP, CDOW, END, HOM, 0, ESC, ALTS, CTRLL, VISD, VISY,
 		NUL};
 	int					i;
 
@@ -102,10 +102,10 @@ static int		ft_chrmatch(t_stream *stream)
 int				ft_chrparse(t_stream *stream)
 {
 	int					match;
-	static void			(*ftab[])(t_stream *) = {&ft_sup, &ft_autocomp, &ft_del,
+	static void			(*ftab[])(t_stream *) = {&ft_vispaste, &ft_sup, &ft_autocomp, &ft_del,
 		&ft_left, &ft_right, &ft_up, &ft_down, &ft_ctrlleft, &ft_ctrlright,
 		&ft_ctrlup, &ft_ctrldown, &ft_goend, &ft_gohome, &ft_searchengine,
-		&ft_searchengineend, &ft_syntax_color, &ft_clear, &ft_viscut, &ft_vispaste, &ft_viscopy};
+		&ft_searchengineend, &ft_syntax_color, &ft_clear, &ft_viscut, &ft_viscopy};
 
 	if (COMP_STATE == 2 && ((ssize_t*)(stream->buf))[0] == CLF)
 		ft_end_autocomp(stream);
@@ -122,7 +122,8 @@ int				ft_chrparse(t_stream *stream)
 		}
 		else if (match > 0)
 			(*ftab[match - 1])(stream);
-		if (!match)
+		if (!match || (match == 1 && stream->config->visual_buf
+			&& ft_strchr(stream->config->visual_buf, '\n') && !ft_pastereturn(stream)))
 			return (0);
 	}
 	return (1);

@@ -76,6 +76,7 @@ typedef struct	s_config
 	int			last_exit;
 	bool		syntax_color_off;
 	char		*last_hash;
+	char		*visual_buf;
 }				t_config;
 /*
 **error.c

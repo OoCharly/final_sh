@@ -26,6 +26,7 @@
 # define SFD				stream->fd
 # define PROMPT_LEN			stream->config->prompt_len
 # define LEN_TABMATCH		22
+# define VISUAL_AT_RIGHT (pos >= stream->visual_pos)
 
 typedef struct	s_comp
 {
