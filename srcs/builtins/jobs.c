@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/06 19:09:09 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 11:27:11 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static void		ft_continue(t_config *config, char *description, int mode)
 				CR_ERROR);
 		return ;
 	}
+	p = target;
 	if (mode == JOBS_FG)
-	{
-		p = target;
-		while ((p = p->next))
-			kill(*((pid_t*)p->data), SIGCONT);
-		ft_freegiveone((void**)&config->fg_sentence);
+		tcsetpgrp(0, *((pid_t*)target->next->data));
+	while ((p = p->next))
+		kill(*((pid_t*)p->data), SIGCONT);
+	ft_freegiveone((void**)&config->fg_sentence);
+	if (mode == JOBS_FG)
 		ft_wait_sentence(target, config);
-	}
 }
 
 void			ft_jobs(char **argv, t_config *config)
