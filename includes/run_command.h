@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 16:41:08 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/16 17:41:50 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # define PROS		100
 # define SENT		101
 # define JOB		102
+
+/*
+** JOBS CONTROL DEFINES
+*/
+# define STOP		1
 
 /*
 ** MOST USED DEFFERENTIATION
@@ -116,5 +121,9 @@ int				ft_checkhist(char *str);
 int				ft_is_only_variable(char ***argv, t_config *config);
 int				ft_new_var(char *name, void *value, size_t type,
 				t_config *config);
+/*
+**process_manag.c
+*/
+void			ft_process_manag(t_list **process, t_list *tmp);
 
 #endif

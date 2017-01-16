@@ -67,6 +67,7 @@ run_command/parser.c \
 run_command/parser_multiple_fd.c \
 run_command/parser_sequence.c \
 run_command/pipehandle.c \
+run_command/process_manag.c \
 run_command/quote_replace.c \
 run_command/variable_utils.c \
 run_command/variables.c \

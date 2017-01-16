@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 12:33:01 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/16 17:46:24 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	ft_wait(t_list **process, t_config *config)
 	while (*process)
 	{
 		stat_loc = 0;
-		pid = waitpid(-1, &stat_loc, WNOHANG);
+		pid = waitpid(-(*(pid_t*)((*process)->next->data)), &stat_loc, WNOHANG | WUNTRACED);
 		if (pid < 0 || config->shell_state == SIGINT_COMMAND)
 		{
 			ft_free_all_process(process, 1);
@@ -106,11 +106,11 @@ static int	ft_wait(t_list **process, t_config *config)
 
 void		ft_wait_sentence(t_list *job, t_config *config)
 {
-	t_list	*new;
+	t_list		*new;
 
 	if ((config->fg_sentence)
-			&& (!(new = ft_lstnew((void*)config->fg_sentence, SENT))
-				&& ft_freegiveone((void **)&config->fg_sentence)))
+		&& ((!(new = ft_lstnew((void*)config->fg_sentence, SENT))
+				&& ft_freegiveone((void **)&config->fg_sentence))))
 		ft_error(SHNAME, "parser", "malloc error on process control", CR_ERROR);
 	else if (config->fg_sentence && !(config->fg_sentence = NULL))
 		ft_list_push_front(&job, new);
@@ -124,4 +124,5 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		else
 			ft_list_push_front(&(config->jobs), new);
 	}
+	tcsetpgrp(0, config->shell_pgid);
 }
