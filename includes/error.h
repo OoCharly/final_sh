@@ -38,6 +38,11 @@
 # define SCAN_ERR		"error while scanning command"
 # define HEREDOC_ERR	"heredoc delimiter is eof instead of"
 # define PARSE_ERR		"parse error near"
+# define ANONIMOUS_ERR	"this shell do not handle anonimous functions"
+# define SPA_BEF_B_ERR	"missing space before body in function declaration"
+# define SPA_AFT_B_ERR	"missing space before after in function declaration"
+# define F_NEED_BRA_ERR	"function need bracket to delimiter body"
+# define FN_SPA_ERR		"unautorized space in function name"
 
 /*
 ** quotes errors

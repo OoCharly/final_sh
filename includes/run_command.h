@@ -68,6 +68,7 @@ char			*ft_match_op(char *cmd, size_t *i);
 int				ft_next_op(char *cmd, size_t i);
 void			ft_lexer_sshell_off(char *cmd, size_t i);
 t_list			*ft_lexer_sshell_on(char *cmd, size_t *i, t_list *next);
+char			**ft_strdodgesplit(char *s);
 /*
 **lexer_utils.c
 */

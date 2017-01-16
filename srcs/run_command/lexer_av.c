@@ -12,35 +12,49 @@
 
 #include "minishell.h"
 
+static char	**ft_function_split(char *name, char *p)
+{
+	char	**result;
+	char	c;
+
+	*p = 0;
+	if ((!(result = (char**)ft_memalloc(sizeof(char*)))
+		|| !(result = ft_strtabadd(result, ft_strjoin(name, "()"))))
+		&& ft_error(SHNAME, "lexer", "malloc error", CR_ERROR | EEXIT))
+		return (NULL);
+	*p = '(';
+	p += ft_gonext_par(p, 0);
+	while (*p && *p != '{')
+		++p;
+	name = p;
+	p += ft_gonext_par(p, 0);
+	c = *(++p);
+	*p = 0;
+	if (!(result = ft_strtabadd(result, ft_strdup(name)))
+		&& ft_error(SHNAME, "lexer", "malloc error", CR_ERROR | EEXIT))
+		return (NULL);
+	*p = c;
+	return (*p ? ft_strtabjoin(result, ft_strdodgesplit(p)) : result);
+}
+
 /*
 **Fills t with any words meets in m.
 */
 
-static char	**sft_tabdup(char **t, char *m, int nb)
+static char	**sft_tabdup(char **t, char *m, int nb, int i)
 {
-	int		i;
-	char	*kill;;
-
-	i = 0;
-	while (nb--)
+	while (t && nb--)
 	{
 		if (!(t[i++] = ft_strdup(m)))
 		{
 			ft_strtabfree(t);
 			return (NULL);
 		}
-		else if (nb)
+		if (nb)
 		{
 			m += ft_strlen(m) + 1;
 			while (ft_isspace(*m))
 				m++;
-			if (*m == '(' && ft_test_emptyness(m, 1, ')'))
-			{
-				kill = t[i - 1];
-				t[i - 1] = ft_strjoin(kill, "()");
-				free(kill);
-				nb--;
-			}
 		}
 	}
 	return (t);
@@ -53,7 +67,6 @@ static char	**sft_tabdup(char **t, char *m, int nb)
 
 char		**ft_strdodgesplit(char *s)
 {
-	char	**t;
 	char	*m;
 	int		nb;
 	int		i;
@@ -68,15 +81,16 @@ char		**ft_strdodgesplit(char *s)
 		if (ft_isspace(*s) && *(s - 1) && !ft_isspace(*(s - 1))
 			&& !(*s = 0) && ++s)
 			nb++;
+		else if (*s == '(' && nb && ft_test_emptyness(s, 1, ')')
+			&& ft_error(SHNAME, NULL, FN_SPA_ERR, CR_ERROR | EEXIT))
+			return (NULL);
 		else if (*s == '(' && ft_test_emptyness(s, 1, ')'))
-			s += ft_gonext_par(s, i);
+			return (ft_function_split(m, s));
 		else if ((i = ft_increm_dodge_quotes(s, i)))
 			s += i;
 	}
 	nb += *(s - 1) && !ft_isspace(*(s - 1)) ? 1 : 0;
-	if (!(t = (char **)ft_memalloc(sizeof(char *) * (nb + 1))))
-		return (NULL);
-	return (sft_tabdup(t, m, nb));
+	return (sft_tabdup(ft_memalloc(sizeof(char*) * (nb + 1)), m, nb, 0));
 }
 
 /*

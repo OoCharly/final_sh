@@ -24,21 +24,23 @@ int				ft_next_op(char *cmd, size_t i)
 		i = ft_increm_dodge_quotes(cmd, i);
 	if (cmd[i] == '(' && ft_test_emptyness(cmd, i + 1, ')')
 		&& ft_test_emptyness(cmd, 0, '(')
-		&& ft_error(SHNAME, NULL, "missing name for function", 1 | EEXIT))
+		&& ft_error(SHNAME, NULL, ANONIMOUS_ERR, 1 | EEXIT))
 		return (0);
 	if (cmd[i] == '(' && i && cmd[i - 1] == '=' && (i = ft_gonext_par(cmd, i)))
 		return (ft_next_op(cmd, i));
 	if (cmd[i] == '(' && i && !ft_test_emptyness(cmd, 0, '(') 
 		&& ft_test_emptyness(cmd, i + 1, ')') && (i = ft_gonext_par(cmd, i)))
 	{
+		if (!ft_isspace(cmd[i]) && ft_error(SHNAME, NULL,
+			SPA_BEF_B_ERR, 1 | EEXIT))
+			return (0);
 		while (ft_isspace(cmd[i]))
 			++i;
-		if (cmd[i] == '{')
-			ft_gonext_par(cmd, i);
-		else if (ft_error(SHNAME, NULL,
-			"function need bracket to delimiter body", 1 | EEXIT))
+		if (cmd[i] != '{' && ft_error(SHNAME, NULL, F_NEED_BRA_ERR, 1 | EEXIT))
 			return (0);
-		return (ft_next_op(cmd, i));
+		ft_gonext_par(cmd, i);
+		return (ft_isspace(cmd[i]) || !cmd[i] ? ft_next_op(cmd, i)
+			: 1 ^ ft_error(SHNAME, NULL, SPA_AFT_B_ERR, CR_ERROR | EEXIT));
 	}
 	if (cmd[i] == '#')
 		cmd[i] = 0;
