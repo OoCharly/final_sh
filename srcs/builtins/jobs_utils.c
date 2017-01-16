@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:35:03 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 17:48:57 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 19:22:40 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_cmp_jobs(t_list *s, char *description, int i)
 
 	if (!description)
 		return (1);
-	sentence = ((char*)s->data);
+	sentence = ((t_sentence*)s->data)->sentence;
 	if (*description == '%' && ++description)
 	{
 		if (ft_isdigit(*description) && ft_atoi(description) == i)
@@ -52,8 +52,10 @@ void	ft_print_jobs(t_list *sentence, char *description)
 	{
 		FT_PUTSTRFD("[", ft_st_itoa(i), "]       ", 1);
 		FT_PUTSTRFD(ft_st_itoa(*((int*)sentence->next->data)), "    ",
-				((char*)sentence->data), 1);
-		ft_putchar('\n');
+				((t_sentence*)sentence->data)->state == RUNNING ?
+										"Running" : "Suspended", 1);
+		FT_PUTSTRFD("    ", ((t_sentence*)sentence->data)->sentence, "\n", 1);
+		//printf("In jobs: state: %d\n", ((t_sentence*)sentence->data)->state);
 		found = 1;
 	}
 	i++;

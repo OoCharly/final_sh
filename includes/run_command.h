@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 17:41:50 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 18:59:25 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 /*
 ** JOBS CONTROL DEFINES
 */
-# define STOP		1
+# define SUSPENDED	1
+# define RUNNING	2
 
 /*
 ** MOST USED DEFFERENTIATION
@@ -39,6 +40,12 @@
 # define BNDATA		((char**)begin->next->data)[0]
 # define BOTHER_FD	((t_pipe*)begin->next->data)->others_fd
 # define RDEFAULT	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+
+typedef struct	s_sentence
+{
+	char		*sentence;
+	char		state;
+}				t_sentence;
 
 typedef struct	s_pipe
 {
@@ -109,14 +116,5 @@ int				ft_checkhist(char *str);
 /*
 **process_manag.c
 */
-void			ft_process_manag(t_list **process, t_list *tmp);
-/*
-**supervisor.c
-*/
-pid_t			ft_supervisor(t_list **process, int mod, t_config *config);
-void			ft_exit_supervisor(int signum);
-/*
-**supervisor_signals.c
-*/
-int				ft_set_suphandlers();
+void			ft_process_manag(t_list **process, t_list *tmp, t_config *config);
 #endif

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:18:53 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/11 13:47:34 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 18:24:53 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ static t_list	*ft_cut_lst(t_list *begin, t_config *config)
 		if (begin && begin->data_size
 			&& (!ft_strcmp(";", (char*)(begin->data))
 			|| !ft_strcmp("&&", (char*)(begin->data))
+			|| !ft_strcmp("&", (char*)(begin->data))
 			|| !ft_strcmp("||", (char*)(begin->data))))
 		{
-			config->dot_sequence = ((char*)(begin->data))[0];
+			config->dot_sequence = !ft_strcmp("&", (char*)(begin->data)) ?
+					'b' : ((char*)(begin->data))[0];
 			begin = begin->next;
 			free(memo->next->data);
 			ft_freegiveone((void **)&(memo->next));
@@ -92,4 +94,5 @@ void			ft_parse(t_config *config)
 		|| (test == '|' && config->last_exit)))
 		ft_sentence(config->chimera, config);
 	ft_freelist(&config->chimera);
+	config->dot_sequence = 0;
 }
