@@ -109,7 +109,7 @@ int		ft_check_insert(char ***t, int mode, t_config *config)
 
 	j = 0;
 	i = 0;
-	while (mode == 2 && (test = ft_strchr((*t)[i], '('))
+	while (mode == 2 && (*t)[i] && (test = ft_strchr((*t)[i], '('))
 		&& ft_test_emptyness(test, 1, ')'))
 		i += 2;
 	while ((*t)[i])

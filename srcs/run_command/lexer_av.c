@@ -47,6 +47,7 @@ static char	**sft_tabdup(char **t, char *m, int nb, int i)
 	{
 		if (!(t[i++] = ft_strdup(m)))
 		{
+			ft_error(SHNAME, "lexer", "malloc error", CR_ERROR | EEXIT);
 			ft_strtabfree(t);
 			return (NULL);
 		}
@@ -118,8 +119,7 @@ t_list		*ft_av_handle(char *cmd, size_t i)
 	c[0] = cmd[i];
 	c[1] = 0;
 	cmd[i] = 0;
-	if ((!cmd || !(t = ft_strdodgesplit(cmd)))
-		&& ft_error(SHNAME, PARSE_ERR, c, CR_ERROR))
+	if (!cmd || !(t = ft_strdodgesplit(cmd)))
 		return (NULL);
 	cmd[i] = c[0];
 	if (!(new = (t_list *)ft_memalloc(sizeof(t_list))))
