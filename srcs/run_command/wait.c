@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 19:24:39 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 20:29:25 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,6 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		}
 		else
 			ft_list_push_front(&(config->jobs), new);
-		//printf("In wait (config->job): state: %d\n", ((t_sentence*)config->jobs->data)->state);
-		//printf("In wait (new): state: %d\n", ((t_sentence*)new->data)->state);
 	}
 	tcsetpgrp(0, config->shell_pgid);
 }
