@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 17:40:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/12 18:10:43 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/16 14:01:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_viscut(t_stream *stream)
 		: stream->command + stream->visual_pos);
 	i = (VISUAL_AT_RIGHT ? stream->visual_pos : pos);
 	ft_memmove(stream->command + i, rabbit, ft_strlen(rabbit) + 1);
+	stream->visual = 0;
 	ft_winsize();
 	stream->visual_pos = stream->pos;
 }
@@ -58,6 +59,7 @@ void	ft_viscopy(t_stream *stream)
 	stream->config->visual_buf = ft_strsub(stream->command,
 		VISUAL_AT_RIGHT ? stream->visual_pos : pos,
 		VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
+	stream->visual = 0;
 	ft_winsize();
 	stream->visual_pos = stream->pos;
 }
