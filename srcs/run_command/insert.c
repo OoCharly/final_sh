@@ -101,13 +101,17 @@ static void	ft_insert(char ***t, int *i, int mode)
 ** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-int			ft_check_insert(char ***t, int mode, t_config *config)
+int		ft_check_insert(char ***t, int mode, t_config *config)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	char	*test;
 
 	j = 0;
 	i = 0;
+	while (mode == 2 && (test = ft_strchr((*t)[i], '('))
+		&& ft_test_emptyness(test, 1, ')'))
+		i += 2;
 	while ((*t)[i])
 	{
 		if (mode == 1 && ft_st_checkchars((*t)[i], "~$"))

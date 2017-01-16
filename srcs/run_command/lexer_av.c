@@ -28,7 +28,7 @@ static char	**ft_function_split(char *name, char *p)
 		++p;
 	name = p;
 	p += ft_gonext_par(p, 0);
-	c = *(++p);
+	c = *p;
 	*p = 0;
 	if (!(result = ft_strtabadd(result, ft_strdup(name)))
 		&& ft_error(SHNAME, "lexer", "malloc error", CR_ERROR | EEXIT))

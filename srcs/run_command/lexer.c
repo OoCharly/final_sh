@@ -39,8 +39,8 @@ int				ft_next_op(char *cmd, size_t i)
 		if (cmd[i] != '{' && ft_error(SHNAME, NULL, F_NEED_BRA_ERR, 1 | EEXIT))
 			return (0);
 		ft_gonext_par(cmd, i);
-		return (ft_isspace(cmd[i]) || !cmd[i] ? ft_next_op(cmd, i)
-			: 1 ^ ft_error(SHNAME, NULL, SPA_AFT_B_ERR, CR_ERROR | EEXIT));
+		++i;
+		return (ft_next_op(cmd, i));
 	}
 	if (cmd[i] == '#')
 		cmd[i] = 0;
