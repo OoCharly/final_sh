@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/11 15:49:21 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 17:41:50 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ typedef struct	s_pipe
 	int			fixed_pip[2];
 	char		**others_fd;
 }				t_pipe;
-
-typedef struct	s_sentence
-{
-	char		*sentence;
-	pid_t		supervisor_pid;
-}				t_sentence;
 
 /*
 **exec.c

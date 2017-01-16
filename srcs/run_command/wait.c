@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 11:23:56 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 17:46:24 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,10 @@ static int	ft_wait(t_list **process, t_config *config)
 void		ft_wait_sentence(t_list *job, t_config *config)
 {
 	t_list		*new;
-	t_sentence	*new_sent;
 
 	if ((config->fg_sentence)
-		&& (((!(new_sent = (t_sentence*)ft_memalloc(sizeof(*new_sent))))
-					|| (!(new_sent->sentence = config->fg_sentence)))
-				|| (!(new = ft_lstnew((void*)new_sent, SENT))
-					&& ft_freegiveone((void **)&new_sent)))
-				&& ft_freegiveone((void **)&config->fg_sentence))
+		&& ((!(new = ft_lstnew((void*)config->fg_sentence, SENT))
+				&& ft_freegiveone((void **)&config->fg_sentence))))
 		ft_error(SHNAME, "parser", "malloc error on process control", CR_ERROR);
 	else if (config->fg_sentence && !(config->fg_sentence = NULL))
 		ft_list_push_front(&job, new);
