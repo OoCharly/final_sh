@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/22 15:20:31 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/08 16:18:13 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int			ft_checkhist(char *str)
 		ft_ret_intervalquote(str, &begin, &end, i);
 		if ((ret = ft_strchr(str + i, '!')))
 		{
+			if (ret[1] == 0)
+				return (0);
 			i = ret - str;
 			if ((end == 0 || (i < begin))
 				&& ((ft_strcmp(ret, str + i) && *(ret - 1) != '\\')
@@ -60,19 +62,35 @@ int			ft_history_exclamation(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
-	t_config	*config;
 
-	if (ft_checkhist(stream->command))
+	if (ft_checkchars(stream->command, "!"))
 	{
 		mem = NULL;
-		config = ft_save_config(NULL);
-		ft_incr_history(&config->hindex);
 		tmp = stream->command;
 		while ((tmp = ft_create_strhistidx(tmp))
 			&& ft_freegiveone((void**)&mem))
 			mem = tmp;
 		ft_freegiveone((void**)&(stream->command));
 		stream->command = mem;
+		return (1);
+	}
+	return (0);
+}
+
+int			ft_history_rep(t_stream *stream)
+{
+	char		*tmp;
+	char		*mem;
+
+	if (ft_checkchars(COMP_BEGIN, "!"))
+	{
+		mem = NULL;
+		tmp = COMP_BEGIN;
+		while ((tmp = ft_create_strhistidx(tmp))
+			&& ft_freegiveone((void**)&mem))
+			mem = tmp;
+		ft_freegiveone((void**)&(COMP_BEGIN));
+		COMP_BEGIN = mem;
 		return (1);
 	}
 	return (0);

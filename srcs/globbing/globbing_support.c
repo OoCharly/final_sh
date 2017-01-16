@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:01:07 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/05 14:43:17 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:00:54 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** c[1] = closing char.
 */
 
-int			ft_closechar(char *arg, char *c)
+int				ft_closechar(char *arg, char *c)
 {
 	int		i;
 	char	flag;
@@ -31,7 +31,7 @@ int			ft_closechar(char *arg, char *c)
 	while (arg[i])
 	{
 		if (arg[i] == '\\')
-				i++;
+			i++;
 		else if ((arg[i] == '\'' && flag != '\"')
 		|| (arg[i] == '\"' && flag != '\''))
 			flag = (flag) ? 0 : arg[i];
@@ -85,7 +85,7 @@ int				ft_checkchars(char *tmp, char *chars)
 
 size_t			ft_size_list(t_list *begin)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
 	while (begin)

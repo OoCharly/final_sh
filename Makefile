@@ -62,12 +62,15 @@ run_command/lexer.c \
 run_command/lexer_av.c \
 run_command/lexer_match_op.c \
 run_command/lexer_sshell.c \
+run_command/lexer_utils.c \
 run_command/parser.c \
 run_command/parser_multiple_fd.c \
 run_command/parser_sequence.c \
 run_command/pipehandle.c \
 run_command/process_manag.c \
 run_command/quote_replace.c \
+run_command/variable_utils.c \
+run_command/variables.c \
 run_command/wait.c \
 scan_input/arrowlr.c \
 scan_input/arrowud.c \
@@ -75,16 +78,21 @@ scan_input/checknewline.c \
 scan_input/chrparse.c \
 scan_input/cursor.c \
 scan_input/deletion.c \
+scan_input/paste.c \
 scan_input/prompt.c \
 scan_input/quotecheck.c \
 scan_input/streamscan.c \
 scan_input/syntax_color.c \
+scan_input/term_handle.c \
 scan_input/termcaps.c \
 scan_input/underline_mess.c \
+scan_input/visual.c \
 scan_input/winsize.c \
 
 ifeq ($(OS), Linux)
-	FLAGS += -D LINUX
+	FLAGS += -D SYSTEM=1
+else
+	FLAGS += -D SYSTEM=0
 endif
 
 all: lib $(NAME)

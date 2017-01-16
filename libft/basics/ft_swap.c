@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmp.c                                              :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/22 11:33:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 15:56:57 by tboos            ###   ########.fr       */
+/*   Created: 2017/01/08 16:25:12 by tboos             #+#    #+#             */
+/*   Updated: 2017/01/08 16:25:13 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int			ft_scmp(void *data1, void *data2)
+void	ft_strswap(char **s1, char **s2)
 {
-	return (ft_strcmp((char *)data1, (char *)data2));
-}
+	char	*m;
 
-int			ft_proscmp(void *pid1, void *pid2)
-{
-	return (*((pid_t *)pid1) - *((pid_t *)pid2));
-}
-
-int			ft_ascii_cmp(t_bin *s1, t_bin *s2)
-{
-	return (s1->name[0] - s2->name[0]);
+	m = *s1;
+	*s1 = *s2;
+	*s2 = m;
 }

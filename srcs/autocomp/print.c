@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 12:26:47 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 13:57:45 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 05:12:45 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ void		ft_print_elem(t_list *list, t_stream *stream)
 			ft_putstr_fd(ANSI_COLOR_MAGENTA, SFD);
 	}
 	if ((list->data_size & 1))
-		ft_repeat_termcaps(1, "mr", stream);
+		ft_putstr_fd(ANSI_REVERSEVID, SFD);
 	ft_putstrpad_fd(list->data, COMP_PAD, 'L', SFD);
-	if ((list->data_size & 1))
-		ft_repeat_termcaps(1, "me", stream);
-	if (!stream->config->syntax_color_off)
-		ft_putstr_fd(ANSI_COLOR_RESET, SFD);
+	ft_putstr_fd(ANSI_COLOR_RESET, SFD);
 }
 
 /*
@@ -81,16 +78,13 @@ void		ft_autocomp_print_grid(size_t start, size_t end, t_stream *stream)
 	j = -1;
 	while (++j < start)
 		list = list->next;
-	while (start < end)
+	while (start < end && list)
 	{
 		ft_autocomp_print_line(list, start, stream);
-		stream->tput = "le";
-		j = COMP_COL;
-		while (j--)
-			ft_tputs(stream);
-		stream->tput = "do";
 		if (start != end - 1)
-			ft_tputs(stream);
+			ft_putchar_fd('\n', SFD);
+		else
+			ft_repeat_termcaps(COMP_COL, "le", stream);
 		list = list->next;
 		start++;
 	}

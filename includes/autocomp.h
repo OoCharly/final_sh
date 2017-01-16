@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:47:29 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/13 16:37:22 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:27:22 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_autocomp(t_stream *stream);
 /*
 ** buildlist.c
 */
-//void	build_list(char *str, int mode, t_stream *stream);
 void	build_list(char *str, t_stream *stream);
 /*
 ** support.c

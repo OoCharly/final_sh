@@ -38,7 +38,7 @@ char		*ft_st_itoa(int n)
 	}
 	if (n <= 0)
 		i++;
-	bzero(nbr, 12);
+	ft_bzero(nbr, 12);
 	if (n < 0)
 		nbr[0] = '-';
 	if (n > 0)

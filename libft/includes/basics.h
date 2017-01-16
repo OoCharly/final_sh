@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:28:14 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/15 14:25:36 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/05 18:40:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_char_clean(char *str, char c);
 void	ft_chartab_clean(char **str, char c);
 void	ft_charstr_clean(char *str, char *tok);
 void	ft_tabstr_clean(char **str, char *tok);
+void	ft_strchrsed(char *str, char origin, char target);
 
 /*
 ** COPY && CAT
@@ -80,6 +81,8 @@ char	*ft_strncat(char *dest, const char *src, size_t n);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	**ft_strtabadd(char **dest, char *new);
 char	**ft_strtabadd_free(char **dest, char *new);
+char	**ft_strtabjoin(char **t1, char **t2);
+char	**ft_strtabjoin_free(char **t1, char **t2);
 
 /*
 ** FIND
@@ -123,4 +126,9 @@ void	ft_strclr(char *s);
 void	ft_striter(char *s, void (*f)(char *));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 
+/*
+** SWAP
+*/
+
+void	ft_strswap(char **s1, char **s2);
 #endif

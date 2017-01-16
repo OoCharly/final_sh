@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:07:27 by rbaran            #+#    #+#             */
-/*   Updated: 2017/01/02 18:16:00 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/12 17:37:35 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,17 @@ void		ft_searchengineend(t_stream *stream)
 		if (index != -1)
 			ft_gomatch(stream, (size_t)index);
 	}
+	else
+	{
+		stream->visual ^= 1;
+		stream->visual_pos = stream->pos;
+		ft_winsize();
+	}
 }
 
 void		ft_searchengine(t_stream *stream)
 {
+	ft_gohome(stream);
 	if (!(stream->search))
 	{
 		stream->search = ft_strnew(1);

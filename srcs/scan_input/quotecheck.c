@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:28:55 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 21:41:12 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 18:45:16 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,31 @@ static char	*ft_backslash(char **str)
 	return (NULL);
 }
 
-static char	*ft_gonext(char **str, char c)
+static char	*ft_gonext(char **str)
 {
+	char		c;
 	char		*test;
 
+	c = **str;
 	++(*str);
 	if ((test = ft_matchchr(str)))
 	{
-		if (test[1] == c)
+		if ('(' == c && **str == ')')
 			return (NULL);
-		else
-			return (test);
+		if ('{' == c && **str == '}')
+			return (NULL);
+		if ('`' == c && test[1] == '`')
+			return (NULL);
+		return (test);
 	}
-	else if (c == ')')
+	else if (c == '(')
 		return (PAR_ERR);
-	else if (c == '}')
+	else if (c == '{')
 		return (BRA_ERR);
-	else
-		return (BAQU_ERR);
+	return (BAQU_ERR);
 }
 
-static char	*ft_gonextquote(char **str, char c)
+char		*ft_gonextquote(char **str, char c)
 {
 	++(*str);
 	while (**str && **str != c)
@@ -63,17 +67,18 @@ char		*ft_matchchr(char **str)
 {
 	char		*test;
 
-	while (**str && !(test = NULL))
+	test = NULL;
+	while (**str)
 	{
-//		if (**str == '}')
-//			return (UBRA_ERR);
 		if (**str == ')')
 			return (UPAR_ERR);
-		if (**str == '(' && (test = ft_gonext(str, ')')))
+		if (**str == '}')
+			return (UBRA_ERR);
+		if (**str == '(' && (test = ft_gonext(str)))
 			return (test);
-//		if (**str == '{' && (test = ft_gonext(str, '}')))
-//			return (test);
-		if (**str == '`' && (test = ft_gonext(str, '`')))
+		if (**str == '{' && (test = ft_gonext(str)))
+			return (test);
+		if (**str == '`' && (test = ft_gonext(str)))
 			return (test);
 		if (**str == '#')
 			break ;
@@ -81,10 +86,9 @@ char		*ft_matchchr(char **str)
 			return (test);
 		if (**str == '\"' && (test = ft_gonextquote(str, **str)))
 			return (test);
-		if (ft_backslash(str))
+		if (ft_backslash(str) && *(*str - 1) == '\\')
 			return (BACK_ERR);
 	}
-	**str = 0;
 	return (NULL);
 }
 
@@ -94,15 +98,16 @@ int			ft_quotecheck(t_stream *stream)
 
 	test = stream->command;
 	ft_goend(stream);
+	ft_repeat_termcaps(1, "cd", stream);
 	if (test && ft_history_exclamation(stream))
 	{
 		stream->state = REPROMPT;
 		stream->config->exclamation = ft_strdup(stream->command);
 	}
-	else if ((test = ft_matchchr(&test)))
+	else if (test && (test = ft_pastereturn(stream)))
 	{
+		ft_strcpy(stream->buf, "\n\0");
 		ft_append(stream);
-		ft_repeat_termcaps(1, "cd", stream);
 		return (ft_underline_mess(test + 2, stream));
 	}
 	return (1);

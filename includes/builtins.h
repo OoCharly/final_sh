@@ -6,12 +6,12 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/20 15:18:32 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/08 16:29:21 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_C
-# define BUILTINS_C
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 # include "minishell.h"
 
@@ -28,6 +28,8 @@
 **Echo builtin defines (params)
 */
 # define ECHO_N		0x01
+# define ECHO_MINE	0x02
+# define ECHO_MAJE	0x04
 
 /*
 **jobs builtin defines
@@ -41,7 +43,7 @@
 int				ft_is_no_fork_builtin(char **argv, t_config *config);
 int				ft_default_env(t_config *config);
 int				ft_builtin(char **argv, t_config *config);
-void			ft_update_pwd(t_config *config);
+void			ft_update_prompt(t_config *config);
 void			ft_cd(char **argv, t_config *config);
 void			ft_env(char **argv, t_config *config);
 void			ft_setenv(char *name, char *value, t_config *config);
@@ -58,15 +60,17 @@ void			ft_fgbg(char **argv, t_config *config, int mode);
 /*
 **history.c
 */
-void		ft_history(char **argv, t_config *config);
-char		*ft_return_hloc(char *hloc, int mode);
+int				ft_is_memerizable(char *cmd);
+void			ft_history(char **argv, t_config *config);
+char			*ft_return_hloc(char *hloc, int mode);
 /*
 **history_params.c
 */
-void		ft_manage_param(char **argv, int i, t_config *config);
+void			ft_manage_param(char **argv, int i, t_config *config);
 /*
 **exclamation.c
 */
-int		ft_history_exclamation(t_stream *stream);
+int				ft_history_exclamation(t_stream *stream);
+int				ft_history_rep(t_stream *stream);
 
 #endif

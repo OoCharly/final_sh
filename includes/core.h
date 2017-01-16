@@ -16,6 +16,8 @@
 # define SHNAME			"21sh"
 # define HISTORY_SIZE	1000
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
+# define FREE			ft_freegiveone
+# define BELL			ft_ringbell_fd
 # define DPATH	"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 /*
@@ -34,6 +36,12 @@
 # define SIGNAL_SET		0
 # define SIGNAL_RESET	1
 # define SIGNAL_SCRIPT	2
+/*
+** variables and functions 
+*/
+# define VAR_STD	001
+# define VAR_TAB	002
+# define VAR_FUN	004
 
 typedef struct dirent	t_dirent;
 typedef struct termios	t_termios;
@@ -44,11 +52,17 @@ typedef struct	s_bin
 	char		*name;
 	char		*path_name;
 }				t_bin;
-
+typedef struct	s_var
+{
+	char		*name;
+	void		*value;
+	size_t		type;
+}				t_var;
 typedef struct	s_config
 {
 	int			shell_state;
 	char		**env;
+	t_list		*variables;
 	char		*pwd;
 	char		*pwd_subrep;
 	size_t		prompt_len;
@@ -75,6 +89,7 @@ typedef struct	s_config
 	int			last_exit;
 	bool		syntax_color_off;
 	char		*last_hash;
+	char		*visual_buf;
 }				t_config;
 /*
 **error.c
@@ -89,6 +104,7 @@ void			ft_lexer_error(char *command);
 */
 int				ft_pathtohash(t_config *config);
 int				ft_return_binpath(t_config *config, char *name, char **path);
+int				ft_scmp(void *data1, void *data2);
 int				ft_proscmp(void *pid1, void *pid2);
 int				ft_ascii_cmp(t_bin *s1, t_bin *s2);
 /*
@@ -110,7 +126,6 @@ void			ft_free_all_jobs(t_list **job);
 void			ft_run_command(t_config *config);
 void			ft_minishell(t_config *config);
 void			ft_print_list(t_list *elem);
-int				ft_cleancmd(char *str);
 /*
 **signal.c
 */
@@ -129,6 +144,6 @@ void			ft_scripting(int fd, t_config *config);
 /*
 ** debug.c
 */
-void		ft_printchimera(t_list *chimera);
+void			ft_printchimera(t_list *chimera);
 
 #endif

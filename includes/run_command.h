@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 18:59:25 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/16 19:36:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 ** POLYMORPHIC CHAINLIST
 */
 # define OP			1
-# define PIPE		13
 # define HEREDOC	3
 # define SSHELL		4
+# define VAR		8
+# define PIPE		13
 # define PROS		100
 # define SENT		101
 # define JOB		102
@@ -72,12 +73,20 @@ int				ft_access_exec(char *path, char **argv, t_config *config);
 t_list			*ft_lexer(char *cmd);
 char			*ft_envvarinsert(char *cmd, size_t *i, t_config *config);
 t_list			*ft_built_couple(char *cmd, size_t *i);
+char			**ft_strdodgesplit(char *s);
 t_list			*ft_av_handle(char *cmd, size_t i);
 int				ft_dodge_quote(char *cmd, size_t i);
 char			*ft_match_op(char *cmd, size_t *i);
 int				ft_next_op(char *cmd, size_t i);
 void			ft_lexer_sshell_off(char *cmd, size_t i);
 t_list			*ft_lexer_sshell_on(char *cmd, size_t *i, t_list *next);
+char			**ft_strdodgesplit(char *s);
+/*
+**lexer_utils.c
+*/
+int				ft_test_emptyness(char *cmd, size_t i, char c);
+size_t			ft_gonext_par(char *cmd, size_t i);
+size_t			ft_increm_dodge_quotes(char *cmd, size_t i);
 /*
 **parser.c
 */
@@ -106,13 +115,19 @@ int				ft_herringbone(t_list *begin, t_config *config);
 /*
 **insert.c
 */
-int				ft_insert_loop(t_list *begin, t_config *config);
+int				ft_insert_loop(char ***command, t_config *config);
 int				ft_check_insert(char ***t, int mode, t_config *config);
 /*
 **history_replace.c
 */
 char			*ft_create_strhistidx(char *str);
 int				ft_checkhist(char *str);
+/*
+**variables.c && variables_utils.c
+*/
+int				ft_is_only_variable(char ***argv, t_config *config);
+int				ft_new_var(char *name, void *value, size_t type,
+				t_config *config);
 /*
 **process_manag.c
 */

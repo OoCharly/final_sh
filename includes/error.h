@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:23:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 21:37:13 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/05 17:47:32 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@
 # define SCAN_ERR		"error while scanning command"
 # define HEREDOC_ERR	"heredoc delimiter is eof instead of"
 # define PARSE_ERR		"parse error near"
+# define ANONIMOUS_ERR	"this shell do not handle anonimous functions"
+# define SPA_BEF_B_ERR	"missing space before body in function declaration"
+# define SPA_AFT_B_ERR	"missing space after body in function declaration"
+# define F_NEED_BRA_ERR	"function need bracket to delimiter body"
+# define FN_SPA_ERR		"unautorized space in function name"
 
 /*
 ** quotes errors
@@ -47,9 +52,10 @@
 # define PAR_ERR	"1(missing matching ')' character"
 # define BRA_ERR	"1{missing matching '}' character"
 # define BAQU_ERR	"1`missing matching '`' character"
-# define UBRA_ERR	"0}unexpected '}' character in token"
-# define UPAR_ERR	"0)unexpected ')' character in token"
+# define UBRA_ERR	"0}unexpected '}' character in list"
+# define UPAR_ERR	"0)unexpected ')' character in list"
 # define BACK_ERR	"0\\unexpected EOF after backslack"
+# define UEOF_ERR	"unexpected EOF while searching matching"
 
 /*
 ** signals errors

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:56:48 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/27 13:50:49 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 04:16:35 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	ft_down_search(t_stream *stream)
 
 void		ft_down(t_stream *stream)
 {
-	ft_gohome(stream);
 	if (stream->search)
 		ft_searchengine(stream);
 	if (stream->shindex != stream->config->hindex)
@@ -36,6 +35,7 @@ void		ft_down(t_stream *stream)
 		if (stream->config->history[stream->config->hindex]
 			&& stream->config->history[stream->config->hindex][0])
 			ft_down_search(stream);
+		ft_gohome(stream);
 		ft_freegiveone((void **)&(stream->command));
 		if (stream->config->history[stream->shindex]
 			&& (stream->command = stream->config->history[stream->shindex])
@@ -44,9 +44,10 @@ void		ft_down(t_stream *stream)
 			return ;
 		else
 		{
-			stream->pos = 0;
+			ft_winsize();
 			ft_goend(stream);
 		}
 	}
-	ft_winsize();
+	else
+		ft_ringbell_fd(SFD);
 }

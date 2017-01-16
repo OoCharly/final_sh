@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:17:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/03 12:49:49 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:20:19 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 {
-	char		**kill;
+	char		*hkill;
 	char		*tmp;
 
-	tmp = ft_streamscan(config, ft_save_stream(NULL), 0);
-	while (stream->state != REPROMPT && stream->state != STR_EOF
-		&& (!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0])))
+	tmp = ft_streamscan(config, stream, 0);
+	while (stream->state != REPROMPT && stream->state != STR_EOF)
 	{
-		kill = (char**)begin->next->data;
-		if (!(begin->next->data = ft_strtabadd((char**)begin->next->data,
-			((tmp) ? tmp : ft_strnew(1)))))
+		stream->shindex = stream->config->hindex;
+		ft_decr_history(&stream->shindex);
+		if (((!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0]))
+			&& !(begin->next->data = ft_strtabadd_free(
+				(char**)begin->next->data, ((tmp) ? tmp : ft_strnew(1)))))
+			|| !(hkill = ft_strchrjoin(config->history[stream->shindex], '\n',
+			tmp ? tmp : ft_strnew(1))))
 		{
 			ft_error(SHNAME, "heredoc", "malloc error", CR_ERROR);
 			config->shell_state = REPROMPT;
 			break ;
 		}
-		ft_freegiveone((void**)&kill);
-		tmp = ft_streamscan(config, ft_save_stream(NULL), 0);
+		ft_strswap(&config->history[stream->shindex], &hkill);
+		ft_freegiveone((void**)&hkill);
+		if (tmp && !ft_strcmp(tmp, ((char**)begin->next->data)[0]))
+			break ;
+		tmp = ft_streamscan(config, stream, 0);
 	}
 	ft_freegiveone((void**)&tmp);
 }
@@ -47,7 +53,7 @@ static int	ft_stateprep_herdoc(t_list *begin, t_config *config)
 	config->pwd_subrep = "heredoc> ";
 	config->prompt_len = 9;
 	ft_heredoc(begin, config, stream);
-	ft_update_pwd(config);
+	ft_update_prompt(config);
 	config->heredoc = 0;
 	if (stream->state == REPROMPT)
 		return (1);
@@ -67,7 +73,8 @@ static int	ft_decant(t_list *cmd, t_list *src, int i)
 			ft_error(SHNAME, PARSE_ERR, "newline", CR_ERROR | EEXIT);
 		return (0);
 	}
-	if (!src || !((char**)src->data) || !((char**)src->data)[0] || !((char**)src->data)[0][0])
+	if (!src || !((char**)src->data) || !((char**)src->data)[0]
+			|| !((char**)src->data)[0][0])
 		return (1);
 	while (((char**)src->data)[++i])
 	{

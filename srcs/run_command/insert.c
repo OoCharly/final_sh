@@ -6,11 +6,39 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/04 17:33:07 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/08 16:19:33 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Strip a string from " ' '\' with the correct rules
+*/
+
+static int	ft_cleancmd(char *str)
+{
+	char	tok;
+
+	while (*str)
+	{
+		if (*str == '"' || *str == '\'')
+		{
+			tok = *str;
+			ft_memmove(str, str + 1, ft_strlen(str));
+			while (*str && *str != tok)
+			{
+				if (*str == '\\' && tok == '"' && *(str + 1) == tok)
+					ft_memmove(str, str + 1, ft_strlen(str));
+				str++;
+			}
+			ft_memmove(str, str + 1, ft_strlen(str));
+		}
+		else if (*(str++) == '\\')
+			ft_memmove(str - 1, str, ft_strlen(str) + 1);
+	}
+	return (1);
+}
 
 /*
 ** Changes begin->data for a new char **, in this one an new char * was insert
@@ -32,7 +60,7 @@ static int	ft_st_checkchars(char *tmp, char *chars)
 		{
 			if (arg[i] == '\\')
 				i++;
-			else if (arg[i] == '\'')			
+			else if (arg[i] == '\'')
 				flag = (flag) ? 0 : arg[i];
 			else if (arg[i] == *chars && !flag)
 				return (i + 1);
@@ -41,23 +69,20 @@ static int	ft_st_checkchars(char *tmp, char *chars)
 		chars++;
 	}
 	return (0);
-
 }
 
 static void	ft_insert(char ***t, int *i, int mode)
 {
-	char	*tmp;
 	char	**g_tab;
 	char	**kill;
 
+	g_tab = NULL;
 	if (mode == 2)
-		tmp = ft_launchbraces((*t)[*i]);
+		g_tab = ft_launchbraces((*t)[*i]);
 	else
-		tmp = ft_launch_glob((*t)[*i]);
-	if (tmp)
+		g_tab = ft_launch_glob((*t)[*i]);
+	if (g_tab)
 	{
-		g_tab = ft_strsplit(tmp, -1);
-		ft_freegiveone((void **)&tmp);
 		kill = *t;
 		*t = ft_insertdeletetab(*t, g_tab, *i);
 		*i += ft_strtablen(g_tab);
@@ -76,13 +101,17 @@ static void	ft_insert(char ***t, int *i, int mode)
 ** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-int			ft_check_insert(char ***t, int mode, t_config *config)
+int		ft_check_insert(char ***t, int mode, t_config *config)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	char	*test;
 
 	j = 0;
 	i = 0;
+	while (mode == 2 && (test = ft_strchr((*t)[i], '('))
+		&& ft_test_emptyness(test, 1, ')'))
+		i += 2;
 	while ((*t)[i])
 	{
 		if (mode == 1 && ft_st_checkchars((*t)[i], "~$"))
@@ -108,24 +137,15 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 ** is found launch the corresponding function.
 */
 
-int			ft_insert_loop(t_list *begin, t_config *config)
+int			ft_insert_loop(char ***command, t_config *config)
 {
 	char	**t;
 	int		j;
 
-	while (begin)
-	{
-		if (!begin->data_size && !(j = 0))
-		{
-			t = ((char **)begin->data);
-			while (++j < 4)
-				ft_check_insert(&t, j, config);
-			begin->data = t;
-		}
-		else if (begin->data_size == SSHELL
-			&& !ft_insert_loop(begin->data, config))
-			return (0);
-		begin = begin->next;
-	}
+	j = 0;
+	t = *command;
+	while (++j < 4)
+		ft_check_insert(&t, j, config);
+	*command = t;
 	return (1);
 }

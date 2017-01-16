@@ -14,8 +14,19 @@
 
 static void	ft_pwd(char **argv, t_config *config)
 {
-	if (argv[1])
+	char	buf[_POSIX_PATH_MAX];
+
+	if (argv[1] && (argv[1][0] != '-' || argv[2]))
 		ft_error("pwd", NULL, "too many arguments", CR_ERROR);
+	else if (argv[1] && (argv[1][1] != 'L' && argv[1][1] != 'P'))
+		ft_error("pwd", "unknown flag(s)", argv[1], CR_ERROR);
+	else if (argv[1] && argv[1][1] == 'P')
+	{
+		if (!getcwd(buf, _POSIX_PATH_MAX))
+			ft_error("pwd", NULL, "broken getcwd", CR_ERROR);
+		else
+			ft_putendl(buf);
+	}
 	else
 		ft_putendl(config->pwd);
 }
@@ -32,6 +43,24 @@ static int	ft_node_jobs(char **argv, t_config *config)
 	return (1);
 }
 
+static void	ft_builtin_exit(char **argv, t_config *config)
+{
+	int		status;
+	char	*p;
+
+	p = argv[1];
+	if (p)
+	{
+		status = ft_atoi(p);
+		while (*p)
+			if (!ft_isdigit(*(p++)))
+				status = 255;
+		ft_status(status);
+		config->last_exit = status;
+	}
+	ft_shell_exit(config);
+}
+
 /*
 **Returns 1 if argument is a builtin, in this case launch the appropriate
 **function, otherwise return 0.
@@ -40,15 +69,14 @@ static int	ft_node_jobs(char **argv, t_config *config)
 int			ft_is_no_fork_builtin(char **argv, t_config *config)
 {
 	if (!ft_strcmp(argv[0], "exit"))
-		ft_shell_exit(config);
+		ft_builtin_exit(argv, config);
 	else if (!ft_strcmp(argv[0], "exitfather"))
 		ft_kill_father(config);
 	else if (ft_node_jobs(argv, config))
 		;
-	else if (!ft_strcmp(argv[0], "unsetenv") || !ft_strcmp(argv[0], "unset"))
+	else if (!ft_strcmp(argv[0], "unsetenv"))
 		ft_unsetenv(argv, config);
-	else if (!ft_strcmp(argv[0], "setenv") || !ft_strcmp(argv[0], "set")
-		|| !ft_strcmp(argv[0], "export"))
+	else if (!ft_strcmp(argv[0], "setenv"))
 		ft_readysetenv(argv, config);
 	else if (!ft_strcmp(argv[0], "cd"))
 		ft_cd(argv, config);

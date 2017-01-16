@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 19:23:44 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/12 18:11:58 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void			ft_flushend(t_stream *stream)
 {
 	size_t		size;
 
+	ft_repeat_termcaps(1, "cd", stream);
 	if (stream->search)
 		ft_flushsearch(stream);
 	else if (stream->command && stream->command[0])
@@ -52,7 +53,7 @@ void			ft_append(t_stream *stream)
 	{
 		pos = stream->pos;
 		if (!(stream->command = ft_strnew(ft_strlen(stream->command) + len))
-			&& (stream->state = -2) && ft_freegiveone((void **)&kill))
+				&& (stream->state = -2) && ft_freegiveone((void **)&kill))
 			return ;
 		ft_strncpy(stream->command, kill, pos);
 		ft_strcpy(stream->command + pos, stream->buf);
@@ -68,55 +69,62 @@ void			ft_append(t_stream *stream)
 }
 
 /*
-**               PARSE HEXA FOR KEY MAPPING
-** printf("\nbuf   = %lx\n", ((ssize_t *)(stream->buf))[0]);
-** printf("\nmatch = %lx\n", match[i]);
-*/
+ **               PARSE HEXA FOR KEY MAPPING
+ ** printf("\nbuf   = %lx\n", ((ssize_t *)(stream->buf))[0]);
+ ** printf("\nmatch = %lx\n", match[i]);
+ */
 
 static int		ft_chrmatch(t_stream *stream)
 {
-	static ssize_t		match[] = {CLF, SUP, CHT, DEL,
-		LEF, RIG, UPP, DOW,
-		CLEF, CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, NUL};
+	static ssize_t		match[] = {CLF, 0, SUP, CHT, DEL, LEF, RIG, UPP, DOW, CLEF,
+		CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, 0, 0, 0, NUL};
+	static ssize_t		visualmatch[] = {CLF, VISP, SUP, 0, DEL, LEF, RIG, 0, 0, CLEF,
+		CRIG, CUPP, CDOW, END, HOM, 0, ESC, ALTS, CTRLL, VISD, VISY,
+		NUL};
 	int					i;
 
 	i = 0;
-	while (match[i])
+	while (i < LEN_TABMATCH)
 	{
-		if (((ssize_t *)(stream->buf))[0] == match[i])
+		if (((ssize_t *)(stream->buf))[0] == (stream->visual ? visualmatch[i] : match[i]))
 			return (i);
 		i++;
 	}
-	if (ft_isprint(stream->buf[0]) || ft_isspace(stream->buf[0]))
+	if ((ft_isprint(stream->buf[0]) || ft_isspace(stream->buf[0])) && !stream->visual)
 		return (-1);
 	return (-2);
 }
 
 /*
-** Run the appropriate function for a key touched.
-*/
+ ** Run the appropriate function for a key touched.
+ */
 
 int				ft_chrparse(t_stream *stream)
 {
 	int					match;
-	static void			(*ftab[])(t_stream *) = {&ft_sup, &ft_autocomp,
-			&ft_del, &ft_left, &ft_right, &ft_up, &ft_down,
-			&ft_ctrlleft, &ft_ctrlright, &ft_ctrlup, &ft_ctrldown,
-			&ft_goend, &ft_gohome, &ft_searchengine, &ft_searchengineend,
-			&ft_syntax_color, &ft_clear};
+	static void			(*ftab[])(t_stream *) = {&ft_vispaste, &ft_sup, &ft_autocomp, &ft_del,
+		&ft_left, &ft_right, &ft_up, &ft_down, &ft_ctrlleft, &ft_ctrlright,
+		&ft_ctrlup, &ft_ctrldown, &ft_goend, &ft_gohome, &ft_searchengine,
+		&ft_searchengineend, &ft_syntax_color, &ft_clear, &ft_viscut, &ft_viscopy};
 
 	if (COMP_STATE == 2 && ((ssize_t*)(stream->buf))[0] == CLF)
 		ft_end_autocomp(stream);
 	else if (ft_is_same_autocomp(stream))
 		(*ftab[1])(stream);
-	else
+	else if (stream->buf[0])
 	{
-		if (!(match = ft_chrmatch(stream)))
-			return (0);
-		if (match == -1)
+		if ((match = ft_chrmatch(stream)) == -1)
+		{
+			ft_strchrsed(stream->buf, '\t', ' ');
 			stream->search ? ft_sappend(stream) : ft_append(stream);
+			if (ft_strchr(stream->buf, '\n') && !ft_pastereturn(stream))
+				match = 0;
+		}
 		else if (match > 0)
 			(*ftab[match - 1])(stream);
+		if (!match || (match == 1 && stream->config->visual_buf
+			&& ft_strchr(stream->config->visual_buf, '\n') && !ft_pastereturn(stream)))
+			return (0);
 	}
 	return (1);
 }

@@ -1,6 +1,8 @@
 
 ifeq ($(OS), Linux)
-	FLAGS += -D LINUX
+	FLAGS += -D SYSTEM=1
+else
+	FLAGS += -D SYSTEM=0
 endif
 
 all: lib $(NAME)

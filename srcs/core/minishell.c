@@ -12,63 +12,30 @@
 
 #include "minishell.h"
 
-static void	ft_gotonextline(t_stream *stream)
-{
-	ft_putchar('\n');
-	stream->tput = "le";
-	ft_tputs(stream);
-	ft_tputs(stream);
-}
-
-/*
-** Strip a string from " ' '\' with the correct rules
-*/
-
-int			ft_cleancmd(char *str)
-{
-	char	tok;
-
-	while (*str)
-	{
-		if (*str == '"' || *str == '\'')
-		{
-			tok = *str;
-			ft_memmove(str, str + 1, ft_strlen(str));
-			while (*str && *str != tok)
-			{
-				if (*str == '\\' && tok == '"' && *(str + 1) == tok)
-					ft_memmove(str, str + 1, ft_strlen(str));
-				str++;
-			}
-			ft_memmove(str, str + 1, ft_strlen(str));
-		}
-		else if (*(str++) == '\\')
-			ft_memmove(str - 1, str, ft_strlen(str) + 1);
-	}
-	return (1);
-}
-
 void		ft_print_list(t_list *elem)
 {
-	if (!elem->data_size)
+	if (elem->data_size == VAR)
 	{
-		ft_putstr("\nargv :\n");
+		ft_putstr(((t_var*)elem->data)->name);
+		if (((t_var*)elem->data)->type == VAR_STD)
+			ft_putstr((char*)((t_var*)elem->data)->value);
+		else if (((t_var*)elem->data)->type == VAR_TAB)
+			ft_putstrtab((char**)((t_var*)elem->data)->value, '\n');
+	}
+	else if (!elem->data_size)
+	{
 		if (elem->data)
 			ft_putstrtab((char **)(elem->data), '\n');
 		ft_putchar('\n');
 	}
 	else if (elem->data_size == SSHELL)
-	{
-		ft_putstr("\nSSHELL :\n");
 		ft_lstiter((t_list *)elem->data, ft_print_list);
-	}
 	else if (elem->data_size == OP)
 		FT_PUTSTRFD("\nop :\n", (char*)elem->data, "\n", 1);
 	else if (elem->data_size == JOB)
 		ft_print_jobs(elem->data, NULL);
 	else if (elem->data_size == PIPE)
 	{
-		ft_putstr("\npipe :\n");
 		ft_putnbr(((int*)elem->data)[0]);
 		ft_putnbr(((int*)elem->data)[1]);
 		ft_putchar('\n');
@@ -80,16 +47,12 @@ void		ft_run_command(t_config *config)
 	config->shell_state = RUNNING_COMMAND;
 	if ((config->chimera = ft_lexer(config->command)))
 	{
-		if (!ft_insert_loop(config->chimera, config)
-				|| !ft_herringbone(config->chimera, config))
+		if (!ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
 			ft_parse(config);
 	}
-	if (config && config->exclamation)
-		ft_freegiveone((void**)&config->exclamation);
-	else
-		ft_freegiveone((void**)&config->command);
+	ft_freegiveone((void**)&config->command);
 }
 
 /*
@@ -115,8 +78,6 @@ void		ft_minishell(t_config *config)
 		if ((config->command = ft_streamscan(config, ft_save_stream(NULL), fd)))
 		{
 			ft_run_command(config);
-			if (config->shell_state != RUNNING_COMMAND)
-				ft_gotonextline(ft_save_stream(NULL));
 			config->shell_state = SCANNING_COMMAND;
 		}
 	}

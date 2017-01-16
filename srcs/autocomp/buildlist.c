@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:27:31 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 11:39:39 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 15:53:58 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,9 @@ static void		do_list(t_stream *stream, struct dirent *file, char *dir)
 		&& ft_strcmp(file->d_name, ".")
 		&& ft_strcmp(file->d_name, "..")) || file->d_name[0] != '.')
 	{
-		if (!COMP_BEGIN_LIST)
-			COMP_BEGIN_LIST = ft_lstnew((S_ISDIR(data_size)) ?
-				ft_strjoin(file->d_name, "/") :
-					ft_strdup(file->d_name), data_size);
-		else
-			ft_list_push_back(&(COMP_BEGIN_LIST),
-				ft_lstnew((S_ISDIR(data_size)) ? ft_strjoin(file->d_name, "/") :
-					ft_strdup(file->d_name), data_size));
+		ft_sorted_list_insert(&(COMP_BEGIN_LIST),
+		ft_lstnew((S_ISDIR(data_size)) ? ft_strjoin(file->d_name, "/") :
+		ft_strdup(file->d_name), data_size), &ft_scmp);
 		get_pad(stream, file->d_name);
 	}
 }
@@ -111,9 +106,8 @@ void			build_list(char *str, t_stream *stream)
 	char			**dir;
 	char			*comp;
 
-	if (!(dir = set_dir(str, stream, &comp, &len_comp)) 
-		&& ft_freegiveone((void**)&comp))
-			return;
+	if (!(dir = set_dir(str, stream, &comp, &len_comp)) && FREE((void**)&comp))
+		return ;
 	COMP_KILL = dir;
 	while (*dir)
 	{
@@ -126,10 +120,9 @@ void			build_list(char *str, t_stream *stream)
 					do_list(stream, file, *dir);
 			closedir(directory);
 		}
-		ft_freegiveone((void **)&(*dir));
+		FREE((void **)&(*dir));
 		dir++;
 	}
 	get_size_list(stream);
-	ft_freegiveone((void**)&COMP_KILL);
-	ft_freegiveone((void**)&comp);
+	FREE((void**)&comp);
 }

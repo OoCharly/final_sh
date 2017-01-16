@@ -86,7 +86,7 @@ int			main(int ac, char **av, char **env)
 			|| !ft_pathtohash(&config))
 		if (!ft_default_env(&config) || !ft_pathtohash(&config))
 			return (ft_initerror(&config));
-	ft_update_pwd(&config);
+	ft_update_prompt(&config);
 	if ((i = ft_strtabifindstart(env, "SHLVL")) != -1)
 		ft_setenv("SHLVL", ft_st_itoa(ft_atoi(env[i] + 6) + 1), &config);
 	if (ft_history_loc_init(&config, av[0]))

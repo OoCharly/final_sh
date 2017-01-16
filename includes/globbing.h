@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/01/05 14:39:42 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/08 16:28:37 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # define BRACES_SIZE 3000
 
-typedef		struct	s_brace
+typedef struct	s_brace
 {
 	t_list	*all;
 	t_list	*arg1;
@@ -24,35 +24,27 @@ typedef		struct	s_brace
 	char	sub[BRACES_SIZE];
 	int		size;
 	char	jump;
-}					t_brace;
+}				t_brace;
 
 /*
 ** globbing_support.c
 */
-
-size_t	ft_size_list(t_list *begin);
-int		ft_checkchars(char *arg, char *chars);
-int		ft_closechar(char *arg, char *c);
+size_t			ft_size_list(t_list *begin);
+int				ft_checkchars(char *arg, char *chars);
+int				ft_closechar(char *arg, char *c);
 /*
 ** globbing.c
 */
-
-void	ft_glob(DIR *dir, char *path, char *glob);
-char	*ft_launch_glob(char *str);
-
+void			ft_glob(DIR *dir, char *path, char *glob);
+char			**ft_launch_glob(char *str);
 /*
 ** match.c
 */
-
-int		ft_match(char *glob, char *comp, char jump);
-
-
+int				ft_match(char *glob, char *comp, char jump);
 /*
 ** braces.c
 */
-
-char	*ft_launchbraces(char	*str);
-void	ft_braces2(t_brace *b, char *str);
-t_list	*ft_braces(char	*str, char out);
+char			**ft_launchbraces(char *str);
+t_list			*ft_braces(char	*str, char out);
 
 #endif

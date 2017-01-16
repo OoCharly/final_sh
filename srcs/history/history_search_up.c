@@ -6,7 +6,7 @@
 /*   By: rbaran <rbaran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 20:15:54 by rbaran            #+#    #+#             */
-/*   Updated: 2016/11/27 13:50:45 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/09 04:18:47 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	ft_up_search(t_stream *stream)
 
 void		ft_up(t_stream *stream)
 {
-	ft_gohome(stream);
 	if (stream->search)
 		ft_searchengine(stream);
 	ft_decr_history(&(stream->shindex));
@@ -37,6 +36,7 @@ void		ft_up(t_stream *stream)
 	if (stream->shindex != stream->config->hindex
 		&& stream->config->history[stream->shindex])
 	{
+		ft_gohome(stream);
 		if (stream->config->history[stream->shindex]
 			&& ft_freegiveone((void **)&(stream->command))
 			&& (stream->command = stream->config->history[stream->shindex])
@@ -45,11 +45,10 @@ void		ft_up(t_stream *stream)
 			return ;
 		else
 		{
-			stream->pos = 0;
+			ft_winsize();
 			ft_goend(stream);
 		}
 	}
 	else
 		ft_down(stream);
-	ft_winsize();
 }

@@ -6,13 +6,15 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:51:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/02 19:22:37 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/08 18:14:10 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_LINUX_H
 # define KEYS_LINUX_H
 
+# define MAC 1
+# define LINUX 0
 /*
 ** CLF		\n
 ** SUP		suprr
@@ -32,6 +34,10 @@
 ** NUL		\0
 ** ESC		escape
 ** CTRLD	ctrl + D
+** D		0x64
+** P		0x70
+** V		0x76
+** Y		0x79
 */
 
 # define CLF	0x0A
@@ -55,5 +61,9 @@
 # define CTRLL	0xc
 # define ALTS	0x0013
 # define SHCHT	0x5a5b1b
+# define VISD	0x64
+# define VISP	0x70
+# define VISV	0x76
+# define VISY	0x79
 
 #endif

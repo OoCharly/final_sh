@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:54 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/17 17:31:43 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/05 17:47:27 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ char		*ft_shname_or_file(char *name)
 	if (name)
 		errn = name;
 	return (errn);
-}
-
-/*
-**Returns line if an error occured.
-*/
-
-size_t		ft_script_line(int mode)
-{
-	static size_t	script_line = 0;
-
-	if (mode < 0)
-		script_line = 0;
-	else if (mode)
-		script_line += mode;
-	return (script_line);
 }
 
 static void	ft_last_exit_fail(int mode)

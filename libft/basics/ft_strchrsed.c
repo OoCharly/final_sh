@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   auto_utils.c                                       :+:      :+:    :+:   */
+/*   ft_strchrsed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 13:14:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/09 06:05:00 by tboos            ###   ########.fr       */
+/*   Created: 2017/01/08 16:25:40 by tboos             #+#    #+#             */
+/*   Updated: 2017/01/08 16:25:42 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		ft_is_separator(char c)
+void	ft_strchrsed(char *str, char origin, char target)
 {
-	if (c == ';')
-		return (1);
-	if (c == '&')
-		return (1);
-	if (c == '|')
-		return (1);
-	if (ft_isspace(c))
-		return (1);
-	return (0);
-}
-
-/*
-** Define COMP_BEGIN with strsub. It represent the needle to look for.
-*/
-
-char	*get_begin(int i, char *str, size_t *len)
-{
-	while (i >= 0 && !ft_is_separator(str[i]))
+	while (str && *str)
 	{
-		i -= 1;
-		*len += 1;
+		if (*str == origin)
+			*str = target;
+		++str;
 	}
-	return (str + i + 1);
 }

@@ -57,7 +57,7 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 			ft_glob((dir = opendir(buf)), ft_strcat(buf, "/"), glob);
 		if (dir)
 			closedir(dir);
-		ft_bzero(&buf[end], (255 - end));
+		ft_bzero(&buf[end], _POSIX_PATH_MAX - end);
 	}
 }
 
@@ -69,7 +69,7 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 
 void			ft_glob(DIR *dir, char *path, char *glob)
 {
-	char			buf[256];
+	char			buf[_POSIX_PATH_MAX + 1];
 	struct dirent	*file;
 	int				end;
 	t_list			**begin;
@@ -90,28 +90,27 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 ** result into a string.
 */
 
-char			*ft_launch_glob(char *str)
+char			**ft_launch_glob(char *str)
 {
-	DIR		*stream;
+	DIR		*current_dir;
 	t_list	*begin;
 	t_list	*tmp;
-	char	*tot;
+	char	**result;
 
 	begin = NULL;
-	tot = NULL;
+	result = NULL;
 	ft_save_list(&begin, 0);
-	if (!(stream = (*str == '/') ? opendir("/") : opendir(".")))
+	if (!(current_dir = (*str == '/') ? opendir("/") : opendir(".")))
 		return (NULL);
-	ft_glob(stream, NULL, (char*)str);
-	closedir(stream);
-	if (begin && (tot = ft_strnew(ft_size_list(begin))))
-		while (begin)
-		{
-			tot[ft_strlen(ft_strcat(tot, begin->data))] = -1;
-			tmp = begin;
-			begin = begin->next;
-			ft_lstdelone(&tmp, &ft_list_free_data);
-		}
+	ft_glob(current_dir, NULL, (char*)str);
+	closedir(current_dir);
+	while (begin)
+	{
+		result = ft_strtabadd_free(result, begin->data);
+		tmp = begin;
+		begin = begin->next;
+		ft_lstdelone(&tmp, NULL);
+	}
 	ft_save_list(NULL, 1);
-	return (tot);
+	return (result);
 }

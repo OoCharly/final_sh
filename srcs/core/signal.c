@@ -25,7 +25,10 @@ void		ft_signal_handle(int i)
 			if (stream->config->shell_state == RUNNING_COMMAND)
 				stream->config->shell_state = SIGINT_COMMAND;
 			else
+			{
+				ft_freegiveone((void**)&stream->config->exclamation);
 				stream->state = REPROMPT;
+			}
 		}
 		if (i == SIGTSTP && stream->config->shell_state == RUNNING_COMMAND)
 			stream->config->shell_state = SIGTSTP_COMMAND;
