@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/11 14:54:45 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 08:48:38 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			ft_freebin(void *data, size_t data_size);
 void			ft_free_config(t_config *config);
 t_list			*ft_partial_freelist(t_list *begin, size_t n);
 void			ft_list_free_av(void *data, size_t data_size);
+void			ft_list_free_elem(t_list *elem);
 t_list			*ft_freelist(t_list **begin);
 void			ft_freepros(t_list *kill);
 void			ft_free_one_process(t_list **process, pid_t pid);

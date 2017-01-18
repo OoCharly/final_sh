@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:02:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 12:17:26 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/18 08:56:42 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static char	*ft_varsearch(char *cmd, size_t *i, t_config *config, char *m)
 			++(*i);
 		c = cmd[*i];
 		cmd[*i] = 0;
-		e = ft_getenv(m, config->env);
+		if (!(e = ft_getenv(m, config->env)))
+			e = ft_getvar(m, config);
 		cmd[*i] = c;
 	}
 	return (e);

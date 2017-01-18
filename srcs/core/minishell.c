@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 20:33:34 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 12:06:37 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		ft_run_command(t_config *config)
 			ft_freelist(&config->chimera);
 		else
 		{
-			ft_lstiter(config->chimera, &ft_print_list);
+		//	ft_lstiter(config->chimera, &ft_print_list);
 			ft_parse(config);
 		}
 	}

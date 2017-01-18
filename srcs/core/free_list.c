@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:51:56 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/20 12:54:35 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/18 08:49:02 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void		ft_free_var(t_var *var)
 {
-	dprintf(1, "yang\n");
 	FREE((void**)&var->name);
 	if (var->type == VAR_STD || var->type == VAR_FUN)
 		FREE((void**)&var->value);
@@ -23,7 +22,6 @@ static void		ft_free_var(t_var *var)
 		ft_strtabfree((char**)var->value);
 		var->value = NULL;
 	}
-	dprintf(1, "ying\n");
 }
 
 /*
@@ -48,7 +46,7 @@ void			ft_list_free_av(void *data, size_t data_size)
 	else if (data_size == VAR && data)
 	{
 		ft_free_var(data);
-		FREE((void**)&data);
+		FREE(&data);
 	}
 }
 
@@ -57,6 +55,12 @@ t_list			*ft_freelist(t_list **begin)
 	if (begin && *begin)
 		ft_lstdel(begin, ft_list_free_av);
 	return (NULL);
+}
+
+void			ft_list_free_elem(t_list *elem)
+{
+	ft_list_free_av(elem->data, elem->data_size);
+	free(elem);
 }
 
 /*

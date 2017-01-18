@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 10:29:01 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 13:51:50 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ int				ft_checkhist(char *str);
 int				ft_is_only_variable(char ***argv, t_config *config);
 int				ft_new_var(char *name, void *value, size_t type,
 				t_config *config);
+int				var_name_cmp(void *data_list, void *name);
+char			*ft_getvar(char	*name, t_config *config);
 /*
 **process_manag.c
 */
