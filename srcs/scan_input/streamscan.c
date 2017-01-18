@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/12 11:57:15 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 12:03:31 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 		ft_push_history(stream, config, 0);
 		ft_incr_history(&(config->hindex));
 	}
+	ft_end_autocomp(stream);
 	return (stream->command);
 }

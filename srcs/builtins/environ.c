@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 12:04:17 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/18 08:49:14 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 	char	*memo;
 
 	f = config->env;
-	if (((i = ft_igetenv(n, f)) >= 0
-		&& (memo = f[i])
+	if (((i = ft_igetenv(n, f)) >= 0 && (memo = f[i])
 		&& ((val && !(f[i] = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
 		|| (!val && !(f[i] = ft_strjoin(n, "="))))
 		&& (f[i] = memo)))
@@ -56,6 +55,8 @@ void	ft_setenv(char *n, char *val, t_config *config)
 	if (config->shell_state != RUNNING_SON && n && !ft_strcmp("PATH", n))
 		ft_pathtohash(config);
 	(i >= 0) ? ft_freegiveone((void**)&(memo)) : 1;
+	ft_list_remove_if(&config->variables, (void*)n, &var_name_cmp,
+		&ft_list_free_elem);
 }
 
 void	ft_readysetenv(char **argv, t_config *config)
