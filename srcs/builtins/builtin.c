@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 10:37:01 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/18 15:47:59 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int			ft_is_no_fork_builtin(char **argv, t_config *config)
 	else if (!ft_strcmp(argv[0], "setenv"))
 		ft_readysetenv(argv, config);
 	else if (!ft_strcmp(argv[0], "unset"))
-		ft_readysetenv(argv, config);
+		ft_unset(argv, config);
 	else if (!ft_strcmp(argv[0], "export"))
-		ft_readysetenv(argv, config);
+		ft_export(argv, config);
 	else if (!ft_strcmp(argv[0], "cd"))
 		ft_cd(argv, config);
 	else if (!ft_strcmp(argv[0], "history"))

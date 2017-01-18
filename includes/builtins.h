@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/18 16:03:25 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 16:30:39 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,9 @@ void			ft_manage_param(char **argv, int i, t_config *config);
 */
 int				ft_history_exclamation(t_stream *stream);
 int				ft_history_rep(t_stream *stream);
-
+/*
+**unset_export.c
+*/
+void			ft_export(char **argv, t_config *config);
+void			ft_unset(char **argv, t_config *config);
 #endif

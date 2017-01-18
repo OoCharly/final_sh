@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 15:29:25 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 16:31:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ void		ft_print_list(t_list *elem)
 	if (elem->data_size == VAR)
 	{
 		ft_putstr(((t_var*)elem->data)->name);
-		if (((t_var*)elem->data)->type == VAR_STD)
+		if (((t_var*)elem->data)->type != VAR_FUN)
+			ft_putchar('=');
+		else
+			ft_putstr("()\n");
+		if (((t_var*)elem->data)->type != VAR_TAB)
 			ft_putstr((char*)((t_var*)elem->data)->value);
-		else if (((t_var*)elem->data)->type == VAR_TAB)
+		else
 			ft_putstrtab((char**)((t_var*)elem->data)->value, '\n');
-	}
-	else if (!elem->data_size)
-	{
-		if (elem->data)
-			ft_putstrtab((char **)(elem->data), '\n');
 		ft_putchar('\n');
 	}
+	else if (!elem->data_size && elem->data)
+			ft_putstrtab((char **)(elem->data), '\n');
 	else if (elem->data_size == SSHELL)
 		ft_lstiter((t_list *)elem->data, ft_print_list);
 	else if (elem->data_size == OP)
@@ -38,7 +39,6 @@ void		ft_print_list(t_list *elem)
 	{
 		ft_putnbr(((int*)elem->data)[0]);
 		ft_putnbr(((int*)elem->data)[1]);
-		ft_putchar('\n');
 	}
 }
 
