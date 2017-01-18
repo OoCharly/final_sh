@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 10:39:33 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 16:29:00 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ static void		ft_continue(t_config *config, char *description, int mode)
 void			ft_jobs(char **argv, t_config *config)
 {
 	size_t	i;
+	size_t	params;
 
 	i = 1;
 	ft_print_jobs(NULL, argv[i]);
+	params = 0;
 	if (!config->jobs)
 	{
 		ft_error("jobs", NULL, "no current job", CR_ERROR);

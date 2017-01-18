@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/08 16:29:21 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/18 16:03:25 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 */
 # define JOBS_FG	0
 # define JOBS_BG	1
+# define P_PARAM	1
+# define L_PARAM	2
 
 /*
 **builtin.c && environ.c

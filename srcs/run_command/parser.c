@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:18:53 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 11:53:51 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/18 15:31:23 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ void			ft_parse(t_config *config)
 		config->chimera_tail = ft_cut_lst(config->chimera, config);
 		if ((config->shell_state == RUNNING_COMMAND
 			|| config->shell_state == RUNNING_SSHELL)
-			&& (test == ';' || (test == '&' && !config->last_exit)
-			|| (test == '|' && config->last_exit)))
+			&& (test == ';' || test == 'b'
+				|| (test == '&' && !config->last_exit)
+				|| (test == '|' && config->last_exit)))
 			ft_sentence(config->chimera, config);
 		ft_freelist(&config->chimera);
 		if (!(config->chimera = config->chimera_tail))
