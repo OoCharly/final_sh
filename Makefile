@@ -27,6 +27,7 @@ builtins/history.c \
 builtins/history_params.c \
 builtins/jobs.c \
 builtins/jobs_utils.c \
+builtins/unset_export.c \
 core/cmp.c \
 core/errors.c \
 core/free.c \

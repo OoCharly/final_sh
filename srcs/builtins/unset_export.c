@@ -2,14 +2,14 @@
 
 static void		ft_unset_with_flags(char **argv, t_config *config, int flags, int i)
 {
-	t_list	match;
+	t_list	*match;
 	t_var	*var;
 
 	while (argv[i])
 	{
 		if ((match = ft_list_find(config->variables, (void*)argv[i], &var_name_cmp)))
 		{
-			var = (t_var)match->data;
+			var = (t_var*)match->data;
 			if (!flags || (var->type == VAR_FUN && flags == 2) || (flags == 1 && var->type != VAR_FUN))
 				ft_list_remove_if(&config->variables, (void*)argv[i], &var_name_cmp,
 				&ft_list_free_elem);
@@ -25,10 +25,10 @@ void			ft_unset(char **argv, t_config *config)
 	char	*p;
 
 	i = 0;
-	while (argv[++i] && argv[i][0] == '-')
+	while ((p = argv[++i]) && *p == '-')
 		while (*(++p))
 		{
-			if ((*p == 'v' && flags == 2) || (*p == 'f' && flags == 1)
+			if (((*p == 'v' && flags == 2) || (*p == 'f' && flags == 1))
 			&& ft_error(SHNAME, "unset", "wrong flags combinaison", CR_ERROR))
 				return ;
 			else if (*p == 'v' || *p == 'f')
@@ -46,20 +46,20 @@ void			ft_export(char **argv, t_config *config)
 	char	*p;
 
 	i = 0;
-	while (argv[++i] && argv[i][0] == '-')
+	while ((p = argv[++i]) && *p == '-')
 		while (*(++p))
 		{
-			else if (*p == 'p')
+			if (*p == 'p')
 				flags = 1;
 			else if (ft_error(SHNAME, "export", "unknow flag", CR_ERROR))
 				return ;
 		}
 	while (argv[i])
 	{
-		if (p = ft_strchr(argv[i], '='))
+		if ((p = ft_strchr(argv[i], '=')))
 			ft_prep_var(argv + i, p, config);
 		else
-			ft_new_var(ft_strdup(argv[i], NULL, VAR_STD, config);
+			ft_new_var(ft_strdup(argv[i]), NULL, VAR_STD, config);
 		++i;
 	}
 	if (flags)

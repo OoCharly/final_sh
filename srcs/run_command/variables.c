@@ -27,7 +27,7 @@ static int	ft_prep_tab_var(char **argv, char *def, int size, t_config *config)
 	return (size + i);
 }
 
-static int	ft_prep_var(char **argv, char *def, t_config *config)
+int			ft_prep_var(char **argv, char *def, t_config *config)
 {
 	int		size;
 
