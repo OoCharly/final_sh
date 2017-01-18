@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:52:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 18:40:09 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 13:44:34 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_free_one_process(t_list **process, pid_t pid)
 	if (!(*process) || ((*process)->data_size == SENT && !(*process)->next))
 		if (*process)
 		{
+			free(((t_sentence*)(*process)->data)->sentence);
 			free((*process)->data);
 			free(*process);
 			*process = NULL;

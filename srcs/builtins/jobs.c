@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/16 20:33:38 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/18 10:39:33 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static t_list	*ft_extract_job(t_config *config, char *description)
 		free(p);
 		return (m);
 	}
-	while ((m = p)
-			&& (p = p->next) && ++i)
+	while ((m = p) && (p = p->next) && ++i)
 	{
 		if (ft_cmp_jobs(p->data, description, i))
 		{
@@ -47,26 +46,26 @@ static void		ft_continue(t_config *config, char *description, int mode)
 	t_list	*target;
 
 	target = NULL;
-	if (!(config->jobs))
-	{
-		ft_error(mode == JOBS_FG ? "fg" : "bg", NULL, "no current jobs",
-				CR_ERROR);
+	if (!(config->jobs) && ft_error(mode == JOBS_FG ? "fg" : "bg", NULL,
+				"no current jobs", CR_ERROR))
 		return ;
-	}
-	else if (!(target = ft_extract_job(config, description)))
-	{
-		ft_error(mode == JOBS_FG ? "fg" : "bg", description, "no such job",
-				CR_ERROR);
+	else if (!(target = ft_extract_job(config, description))
+			&& ft_error(mode == JOBS_FG ? "fg" : "bg", description,
+				"no such job", CR_ERROR))
 		return ;
-	}
 	p = target;
 	if (mode == JOBS_FG)
 		tcsetpgrp(0, *((pid_t*)target->next->data));
 	while ((p = p->next))
 		kill(*((pid_t*)p->data), SIGCONT);
-	ft_freegiveone((void**)&config->fg_sentence);
-	if (mode == JOBS_FG)
-		ft_wait_sentence(target, config);
+	if (mode == JOBS_BG)
+		config->dot_sequence = 'b';
+	config->fg_sentence = ft_strdup(((t_sentence*)target->data)->sentence);
+	ft_wait_sentence(target->next, config);
+	free(((t_sentence*)target->data)->sentence);
+	free(target->data);
+	free(target);
+	config->dot_sequence = 0;
 }
 
 void			ft_jobs(char **argv, t_config *config)
