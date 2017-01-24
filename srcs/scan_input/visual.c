@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 17:40:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/16 14:01:27 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/24 11:53:22 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,38 @@ void	ft_viscut(t_stream *stream)
 	size_t	pos;
 	char	*rabbit;
 
-	pos = stream->pos;
-	FREE((void **)&stream->config->visual_buf);
-	stream->config->visual_buf = ft_strsub(stream->command,
-		VISUAL_AT_RIGHT ? stream->visual_pos : pos,
-		VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
-	rabbit = (VISUAL_AT_RIGHT ? stream->command + pos
-		: stream->command + stream->visual_pos);
-	i = (VISUAL_AT_RIGHT ? stream->visual_pos : pos);
-	ft_memmove(stream->command + i, rabbit, ft_strlen(rabbit) + 1);
-	stream->visual = 0;
-	ft_winsize();
-	stream->visual_pos = stream->pos;
+	if (stream->command)
+	{
+		pos = stream->pos;
+		FREE((void **)&stream->config->visual_buf);
+		stream->config->visual_buf = ft_strsub(stream->command,
+			VISUAL_AT_RIGHT ? stream->visual_pos : pos,
+			VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
+		rabbit = (VISUAL_AT_RIGHT ? stream->command + pos
+			: stream->command + stream->visual_pos);
+		i = (VISUAL_AT_RIGHT ? stream->visual_pos : pos);
+		ft_memmove(stream->command + i, rabbit, ft_strlen(rabbit) + 1);
+		stream->visual = 0;
+		ft_winsize();
+		stream->visual_pos = stream->pos;
+	}
 }
 
 void	ft_viscopy(t_stream *stream)
 {
 	size_t pos;
 
-	pos = stream->pos;
-	FREE((void **)&stream->config->visual_buf);
-	stream->config->visual_buf = ft_strsub(stream->command,
-		VISUAL_AT_RIGHT ? stream->visual_pos : pos,
-		VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
-	stream->visual = 0;
-	ft_winsize();
-	stream->visual_pos = stream->pos;
+	if (stream->command)
+	{
+		pos = stream->pos;
+		FREE((void **)&stream->config->visual_buf);
+		stream->config->visual_buf = ft_strsub(stream->command,
+			VISUAL_AT_RIGHT ? stream->visual_pos : pos,
+			VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
+		stream->visual = 0;
+		ft_winsize();
+		stream->visual_pos = stream->pos;
+	}
 }
 
 void	ft_vispaste(t_stream *stream)
@@ -69,7 +75,7 @@ void	ft_vispaste(t_stream *stream)
 	int		len;
 	char	*rabbit;
 
-	if (stream->config->visual_buf)
+	if (stream->command && stream->config->visual_buf)
 	{
 		rabbit = stream->config->visual_buf;
 		while (*rabbit)
