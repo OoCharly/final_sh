@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/08 16:19:33 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/26 13:09:31 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	ft_cleancmd(char *str)
 ** wich contents the result of globbing or of the history index search (!).
 */
 
-static int	ft_st_checkchars(char *tmp, char *chars)
+int			ft_st_checkchars(char *tmp, char *chars)
 {
 	char	*arg;
 	char	flag;

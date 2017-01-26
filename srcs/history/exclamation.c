@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/08 16:18:13 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/26 13:15:19 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,21 @@ int			ft_history_exclamation(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
+	int			i;
 
-	if (ft_checkchars(stream->command, "!"))
+	if ((i = ft_st_checkchars(stream->command, "!")))
 	{
-		mem = NULL;
-		tmp = stream->command;
-		while ((tmp = ft_create_strhistidx(tmp))
-			&& ft_freegiveone((void**)&mem))
-			mem = tmp;
-		ft_freegiveone((void**)&(stream->command));
-		stream->command = mem;
+		if (stream->command[i] && (stream->command[i] == '!'
+			|| ft_isdigit(stream->command[i])))
+		{
+			mem = NULL;
+			tmp = stream->command;
+			while ((tmp = ft_create_strhistidx(tmp))
+				&& ft_freegiveone((void**)&mem))
+				mem = tmp;
+			ft_freegiveone((void**)&(stream->command));
+			stream->command = mem;
+		}
 		return (1);
 	}
 	return (0);
@@ -81,9 +86,13 @@ int			ft_history_rep(t_stream *stream)
 {
 	char		*tmp;
 	char		*mem;
+	int			i;
 
-	if (ft_checkchars(COMP_BEGIN, "!"))
+	if ((i = ft_st_checkchars(COMP_BEGIN, "!")))
 	{
+		if (COMP_BEGIN[i] && (COMP_BEGIN[i] == '!'
+			|| ft_isdigit(COMP_BEGIN[i])))
+		{
 		mem = NULL;
 		tmp = COMP_BEGIN;
 		while ((tmp = ft_create_strhistidx(tmp))
@@ -91,6 +100,7 @@ int			ft_history_rep(t_stream *stream)
 			mem = tmp;
 		ft_freegiveone((void**)&(COMP_BEGIN));
 		COMP_BEGIN = mem;
+		}
 		return (1);
 	}
 	return (0);
