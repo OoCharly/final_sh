@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/12 16:18:52 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/26 16:50:24 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,26 @@ static void	ft_scriptgnal_handle(int i)
 	stream = ft_save_stream(NULL);
 	ft_shell_exit(stream->config);
 }
+/*
+static void	ft_dass(int i)
+{
+	int			status;
+	pid_t		dasschld;
+	t_list		*list;
+	t_config	*conf;
 
+	conf = ft_save_config(NULL);
+	(void)i;
+	list = config->jobs->next;
+	while ((dasschld =  waitpid(-1, &status, 0)))
+	{
+		while (list)
+		{
+			list
+		}
+	}
+}
+*/
 /*
 **If terminal changes its size, caught the signal.
 */
@@ -72,6 +91,8 @@ int			ft_signal(int mode)
 			return (ft_status(1));
 		if (SIG_ERR == signal(SIGTTOU, SIG_IGN))
 			return (ft_status(1));
+//		if (SIG_ERR == signal(SIGCHLD, &ft_dass))
+//			return (ft_status(1));
 		return (0);
 	}
 	if (mode == SIGNAL_RESET)

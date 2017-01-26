@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 15:57:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 15:59:54 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/26 16:09:19 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void		ft_scripting(int fd, t_config *config)
 	char		*l;
 	int			err_line;
 
+	config->script_state = 1;
+	signal(SIGTTOU, SIG_IGN);
 	ft_script_line(-1);
 	command = NULL;
 	err_line = 0;
