@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/12 18:11:58 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/26 12:30:44 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int				ft_chrparse(t_stream *stream)
 	if (COMP_STATE == 2 && ((ssize_t*)(stream->buf))[0] == CLF)
 		ft_end_autocomp(stream);
 	else if (ft_is_same_autocomp(stream))
-		(*ftab[1])(stream);
+		(*ftab[2])(stream);
 	else if (stream->buf[0])
 	{
 		if ((match = ft_chrmatch(stream)) == -1)
