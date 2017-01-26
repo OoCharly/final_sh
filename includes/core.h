@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 14:26:19 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/01/26 16:01:51 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_config
 	bool		syntax_color_off;
 	char		*last_hash;
 	char		*visual_buf;
+	char		script_state;
 }				t_config;
 /*
 **error.c
