@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/06 13:25:50 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/01/26 17:19:04 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int				ft_rep(t_stream *stream, char *b)
 	if (add)
 		add[ft_strlen(add) - 1] = 0;
 	ft_addtoline(stream, add, b);
-	ft_strtabfree(arg);
+	ft_freegiveone((void**)&arg);
+	ft_freegiveone((void**)&arg[0]);
 	return (1);
 }
