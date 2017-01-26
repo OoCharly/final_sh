@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 16:12:17 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/26 12:15:33 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static void	ft_path_follow(char *path, t_config *config)
 	{
 		ft_setenv("PWD", path, config);
 		ft_update_prompt(config);
+		FREE((void**)&path);
 		return ;
 	}
 	else
