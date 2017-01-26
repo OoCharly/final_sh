@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:27:31 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 15:53:58 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/26 17:42:37 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char			**set_dir(char *str, t_stream *stream, char **comp,
 		else
 			tmp = ft_strsub(path, 0, (ft_strlen(path) - *len_comp));
 		dir = ft_strsplit(tmp, ' ');
-		free(tmp);
+		FREE((void**)&tmp);
 	}
 	ft_freegiveone((void**)&path);
 	return (dir);
