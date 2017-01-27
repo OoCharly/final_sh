@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/03 14:36:58 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/27 14:42:22 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static int	ft_safeputstr(int fd, char *str, int mode)
 	if (str && (0 > write(fd, "|", 1) || 0 > write(fd, str, ft_strlen(str))))
 	{
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
-		if (mode)
+		if (mode == 1)
 			ft_freegiveone((void **)&str);
 		return (0);
 	}
-	if (mode)
+	if (mode == 1)
 		ft_freegiveone((void **)&str);
 	return (1);
 }
@@ -44,10 +44,10 @@ void		ft_purge_history(t_config *config, char **hist, int index, int mode)
 
 	file = (config->hlocbis) ? config->hlocbis : config->hloc;
 	if (mode && (fd = open(file, O_CREAT | O_WRONLY
-			| O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
+		| O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
 	else if (!mode && (fd = open(file, O_CREAT | O_WRONLY
-			| O_APPEND, S_IRUSR | S_IWUSR)) < 0)
+		| O_APPEND, S_IRUSR | S_IWUSR)) < 0)
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
 	else
 	{
