@@ -60,10 +60,12 @@ static void		ft_state_zero(t_stream *stream)
 		COMP_MODE = get_mode(len, stream->command, stream);
 		build_list(COMP_BEGIN, stream);
 		FREE((void**)&COMP_KILL);
-		if (COMP_PAD > COMP_ROW)
+		if (COMP_PAD > COMP_ROW || !COMP_BEGIN_LIST)
+		{
+			ft_end_autocomp(stream);
 			return ;
-		if (COMP_BEGIN_LIST)
-			COMP_STATE = 1;
+		}
+		COMP_STATE = 1;
 	}
 }
 

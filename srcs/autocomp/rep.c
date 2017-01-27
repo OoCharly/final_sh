@@ -62,7 +62,7 @@ int				ft_rep(t_stream *stream, char *b)
 	if (add)
 		add[ft_strlen(add) - 1] = 0;
 	ft_addtoline(stream, add, b);
-	ft_freegiveone((void**)&arg);
-	ft_freegiveone((void**)&arg[0]);
+	ft_strtabfree(arg);
+	arg = NULL;
 	return (1);
 }

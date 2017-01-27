@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 12:03:31 by tboos            ###   ########.fr       */
+/*   Updated: 2017/01/27 12:14:16 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ static void	ft_ctrl_d(t_stream *stream)
 	stream->state = REPROMPT;
 }
 
+static int	ft_clean_tabspeed(t_stream *stream)
+{
+	if (ft_isonlychr(stream->buf, '\t'))
+		stream->buf[1] = 0;
+	return (1);
+}
+
 static void	ft_scan(t_stream *stream)
 {
 	stream->shindex = stream->config->hindex;
@@ -41,9 +48,9 @@ static void	ft_scan(t_stream *stream)
 			&& (stream->state = -1))
 			|| (stream->buf[0] == CTRLD
 			&& (!stream->command || !stream->command[0]))
-			|| (!ft_chrparse(stream) && (!stream->command
-			|| stream->config->heredoc || ft_quotecheck(stream)))
-			|| stream->state < 0)
+			|| (ft_clean_tabspeed(stream) && !ft_chrparse(stream)
+			&& (!stream->command || stream->config->heredoc
+			|| ft_quotecheck(stream))) || stream->state < 0)
 			break ;
 	}
 	if (stream->config->term_state)
@@ -87,6 +94,5 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 		ft_push_history(stream, config, 0);
 		ft_incr_history(&(config->hindex));
 	}
-	ft_end_autocomp(stream);
 	return (stream->command);
 }

@@ -73,6 +73,7 @@ run_command/quote_replace.c \
 run_command/variable_utils.c \
 run_command/variables.c \
 run_command/wait.c \
+scan_input/append.c \
 scan_input/arrowlr.c \
 scan_input/arrowud.c \
 scan_input/checknewline.c \

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:28:14 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 18:40:27 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/27 11:36:17 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		ft_isspace(char c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_isonlychr(char *str, char c);
 
 /*
 ** STRING SET
