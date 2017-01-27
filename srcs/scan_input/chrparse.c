@@ -6,66 +6,19 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 12:30:44 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/27 11:33:04 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			ft_flushend(t_stream *stream)
+static int		ft_pack_append(t_stream *stream, int match)
 {
-	size_t		size;
-
-	ft_repeat_termcaps(1, "cd", stream);
-	if (stream->search)
-		ft_flushsearch(stream);
-	else if (stream->command && stream->command[0])
-	{
-		size = ft_strlen(stream->command + stream->pos);
-		ft_putstr_fd(stream->command + stream->pos, SFD);
-		stream->pos += size;
-	}
-	if (stream->pos && stream->command[stream->pos - 1] != '\n'
-			&& ((ssize_t *)(stream->buf))[0] != DEL
-			&& ft_checknewline(stream, stream->pos) == 0)
-		ft_repeat_termcaps(1, "do", stream);
-	ft_erase(stream);
-}
-
-void			ft_flush(t_stream *stream)
-{
-	size_t		pos;
-
-	pos = stream->pos;
-	ft_flushend(stream);
-	while (stream->pos != pos)
-		ft_mvleft(stream);
-}
-
-void			ft_append(t_stream *stream)
-{
-	size_t		pos;
-	size_t		len;
-	char		*kill;
-
-	len = ft_strlen(stream->buf);
-	if ((kill = stream->command))
-	{
-		pos = stream->pos;
-		if (!(stream->command = ft_strnew(ft_strlen(stream->command) + len))
-				&& (stream->state = -2) && ft_freegiveone((void **)&kill))
-			return ;
-		ft_strncpy(stream->command, kill, pos);
-		ft_strcpy(stream->command + pos, stream->buf);
-		ft_strcpy(stream->command + pos + len, kill + pos);
-		ft_freegiveone((void **)&kill);
-	}
-	else if (!(stream->command = ft_strdup(stream->buf)))
-		stream->state = -2;
-	ft_push_history(stream, stream->config, 1);
-	ft_flush(stream);
-	while (len--)
-		ft_mvright(stream);
+	ft_strchrsed(stream->buf, '\t', ' ');
+	stream->search ? ft_sappend(stream) : ft_append(stream);
+	if (ft_strchr(stream->buf, '\n') && !ft_pastereturn(stream))
+		match = 0;
+	return (match);
 }
 
 /*
@@ -76,21 +29,22 @@ void			ft_append(t_stream *stream)
 
 static int		ft_chrmatch(t_stream *stream)
 {
-	static ssize_t		match[] = {CLF, 0, SUP, CHT, DEL, LEF, RIG, UPP, DOW, CLEF,
-		CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, 0, 0, 0, NUL};
-	static ssize_t		visualmatch[] = {CLF, VISP, SUP, 0, DEL, LEF, RIG, 0, 0, CLEF,
-		CRIG, CUPP, CDOW, END, HOM, 0, ESC, ALTS, CTRLL, VISD, VISY,
-		NUL};
+	static ssize_t		match[] = {CLF, 0, SUP, CHT, DEL, LEF, RIG, UPP, DOW,
+		CLEF, CRIG, CUPP, CDOW, END, HOM, CRS, ESC, ALTS, CTRLL, 0, 0, 0, NUL};
+	static ssize_t		visualmatch[] = {CLF, VISP, SUP, 0, DEL, LEF, RIG, 0, 0,
+		CLEF, CRIG, CUPP, CDOW, END, HOM, 0, ESC, ALTS, CTRLL, VISD, VISY, NUL};
 	int					i;
 
 	i = 0;
 	while (i < LEN_TABMATCH)
 	{
-		if (((ssize_t *)(stream->buf))[0] == (stream->visual ? visualmatch[i] : match[i]))
+		if (((ssize_t *)(stream->buf))[0] == (stream->visual ?
+			visualmatch[i] : match[i]))
 			return (i);
 		i++;
 	}
-	if ((ft_isprint(stream->buf[0]) || ft_isspace(stream->buf[0])) && !stream->visual)
+	if ((ft_isprint(stream->buf[0]) || ft_isspace(stream->buf[0]))
+		&& !stream->visual)
 		return (-1);
 	return (-2);
 }
@@ -102,10 +56,11 @@ static int		ft_chrmatch(t_stream *stream)
 int				ft_chrparse(t_stream *stream)
 {
 	int					match;
-	static void			(*ftab[])(t_stream *) = {&ft_vispaste, &ft_sup, &ft_autocomp, &ft_del,
-		&ft_left, &ft_right, &ft_up, &ft_down, &ft_ctrlleft, &ft_ctrlright,
-		&ft_ctrlup, &ft_ctrldown, &ft_goend, &ft_gohome, &ft_searchengine,
-		&ft_searchengineend, &ft_syntax_color, &ft_clear, &ft_viscut, &ft_viscopy};
+	static void			(*ftab[])(t_stream *) = {&ft_vispaste, &ft_sup,
+		&ft_autocomp, &ft_del, &ft_left, &ft_right, &ft_up, &ft_down,
+		&ft_ctrlleft, &ft_ctrlright, &ft_ctrlup, &ft_ctrldown, &ft_goend,
+		&ft_gohome, &ft_searchengine, &ft_searchengineend, &ft_syntax_color,
+		&ft_clear, &ft_viscut, &ft_viscopy};
 
 	if (COMP_STATE == 2 && ((ssize_t*)(stream->buf))[0] == CLF)
 		ft_end_autocomp(stream);
@@ -113,17 +68,14 @@ int				ft_chrparse(t_stream *stream)
 		(*ftab[2])(stream);
 	else if (stream->buf[0])
 	{
-		if ((match = ft_chrmatch(stream)) == -1)
-		{
-			ft_strchrsed(stream->buf, '\t', ' ');
-			stream->search ? ft_sappend(stream) : ft_append(stream);
-			if (ft_strchr(stream->buf, '\n') && !ft_pastereturn(stream))
-				match = 0;
-		}
+		if ((match = ft_chrmatch(stream)) == -1
+				&& !ft_isonlychr(stream->buf, '\t'))
+			match = ft_pack_append(stream, match);
 		else if (match > 0)
 			(*ftab[match - 1])(stream);
 		if (!match || (match == 1 && stream->config->visual_buf
-			&& ft_strchr(stream->config->visual_buf, '\n') && !ft_pastereturn(stream)))
+			&& ft_strchr(stream->config->visual_buf, '\n')
+			&& !ft_pastereturn(stream)))
 			return (0);
 	}
 	return (1);
