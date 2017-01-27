@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/26 17:56:01 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/27 11:28:18 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int			ft_history_exclamation(t_stream *stream)
 				mem = tmp;
 			ft_freegiveone((void**)&(stream->command));
 			stream->command = mem;
+			return (1);
 		}
-		return (1);
 	}
 	return (0);
 }
@@ -100,8 +100,8 @@ int			ft_history_rep(t_stream *stream)
 				mem = tmp;
 			ft_freegiveone((void**)&(COMP_BEGIN));
 			COMP_BEGIN = mem;
+			return (1);
 		}
-		return (1);
 	}
 	return (0);
 }
