@@ -46,6 +46,7 @@ void			ft_export(char **argv, t_config *config)
 	char	*p;
 
 	i = 0;
+	flags = 0;
 	while ((p = argv[++i]) && *p == '-')
 		while (*(++p))
 		{
