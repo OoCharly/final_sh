@@ -87,6 +87,5 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 		ft_push_history(stream, config, 0);
 		ft_incr_history(&(config->hindex));
 	}
-	ft_end_autocomp(stream);
 	return (stream->command);
 }
