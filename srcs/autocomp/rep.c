@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/26 17:38:40 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/01/26 17:59:26 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				ft_rep(t_stream *stream, char *b)
 		ret += ft_check_insert(&arg, j++, stream->config);
 	if (!ret)
 	{
-		FREE((void**)&arg);
+		free(arg);
 		return (0);
 	}
 	add = ft_strtabchrjoin(arg, ' ');
@@ -63,5 +63,6 @@ int				ft_rep(t_stream *stream, char *b)
 		add[ft_strlen(add) - 1] = 0;
 	ft_addtoline(stream, add, b);
 	ft_strtabfree(arg);
+	arg = NULL;
 	return (1);
 }

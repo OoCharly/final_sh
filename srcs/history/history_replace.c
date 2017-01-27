@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/05 18:26:17 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/27 11:52:17 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,18 @@ char		*ft_create_strhistidx(char *str)
 	pre = NULL;
 	su = NULL;
 	idx_hist = ft_loop_hist(str, &pre, &su);
-	if (idx_hist)
-	{
-		i = ft_strlen(pre) + ft_strlen(idx_hist) + ft_strlen(su);
-		ret_hist = ft_strnew(++i);
-		if (pre)
-			ft_strcat(ret_hist, pre);
-		ft_strcat(ret_hist, idx_hist);
-		if (su)
-			ft_strcat(ret_hist, su);
-		ft_freegiveone((void**)&pre);
-		ft_freegiveone((void**)&idx_hist);
-		ret_hist[i] = 0;
-		return (ret_hist);
-	}
-	return (NULL);
+	if (!idx_hist && ft_freegiveone((void**)&pre)
+		&& ft_freegiveone((void**)&idx_hist))
+		return (NULL);
+	i = ft_strlen(pre) + ft_strlen(idx_hist) + ft_strlen(su);
+	ret_hist = ft_strnew(++i);
+	if (pre)
+		ft_strcat(ret_hist, pre);
+	ft_strcat(ret_hist, idx_hist);
+	if (su)
+		ft_strcat(ret_hist, su);
+	ft_freegiveone((void**)&pre);
+	ft_freegiveone((void**)&idx_hist);
+	ret_hist[i] = 0;
+	return (ret_hist);
 }
