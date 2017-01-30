@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/27 11:52:17 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/30 12:24:12 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_ret_idx(char *str, int i, char **su)
 
 	j = 0;
 	idx = ++i;
-	if (str[i] && !ft_isdigit(str[i]))
+	if (str[i] && (!ft_isdigit(str[i]) || str[i] == '0'))
 		return (-1);
 	while (str[i] && ft_isdigit(str[i++]))
 		j++;
