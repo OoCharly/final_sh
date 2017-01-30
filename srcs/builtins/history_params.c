@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/27 17:15:05 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/01/30 13:05:33 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	ft_delete_history_index(t_config *config, int idx)
 	int len;
 
 	len = (HISTORY_SIZE - idx) * sizeof(void *);
+	ft_freegiveone((void **)config->history + idx);
 	ft_memmove(config->history + idx, config->history + idx + 1, len);
 	ft_decr_history(&(config->hindex));
 }
