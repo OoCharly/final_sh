@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 17:40:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/24 11:53:22 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 13:33:06 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ft_viscut(t_stream *stream)
 		FREE((void **)&stream->config->visual_buf);
 		stream->config->visual_buf = ft_strsub(stream->command,
 			VISUAL_AT_RIGHT ? stream->visual_pos : pos,
-			VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
+			VISUAL_AT_RIGHT ? pos - stream->visual_pos
+				: stream->visual_pos - pos);
 		rabbit = (VISUAL_AT_RIGHT ? stream->command + pos
 			: stream->command + stream->visual_pos);
 		i = (VISUAL_AT_RIGHT ? stream->visual_pos : pos);
@@ -63,7 +64,8 @@ void	ft_viscopy(t_stream *stream)
 		FREE((void **)&stream->config->visual_buf);
 		stream->config->visual_buf = ft_strsub(stream->command,
 			VISUAL_AT_RIGHT ? stream->visual_pos : pos,
-			VISUAL_AT_RIGHT ? pos - stream->visual_pos : stream->visual_pos - pos);
+			VISUAL_AT_RIGHT ? pos - stream->visual_pos
+				: stream->visual_pos - pos);
 		stream->visual = 0;
 		ft_winsize();
 		stream->visual_pos = stream->pos;
