@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 11:14:57 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 13:22:39 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ static void	ft_dass(int status)
 			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
 		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED) && WIFSTOPPED(status))
 		{
+			printf("signal %d\n", ((t_sentence*)((t_list*)list->data)->data)->state);
 			((t_sentence*)((t_list*)list->data)->data)->state = SUSPENDED;
 			FT_PUTSTRFD(ft_st_itoa(*((int*)((t_list*)(list->data))->next->data)), "    ",
 				((t_sentence*)((t_list*)(list->data))->data)->state == RUNNING ?
 										"Running" : "Suspended", 1);
 			FT_PUTSTRFD("    ", ((t_sentence*)((t_list*)(list->data))->data)->sentence, "\n", 1);
-
 		}
 		list = list->next;
 	}

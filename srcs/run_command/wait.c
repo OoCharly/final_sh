@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 10:58:19 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 13:49:53 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static bool	ft_abord_signal(int signum, pid_t pid, t_list **proc)
 
 	err = NULL;
 	if ((err = ft_get_signalerr(signum, err)) && (*proc)->data_size == SENT
-		&& (str = ft_strchrjoin(ft_st_itoa(pid), ' ', ((t_sentence*)(*proc)->data)->sentence))
+		&& (str = ft_strchrjoin(ft_st_itoa(pid), ' ',
+				((t_sentence*)(*proc)->data)->sentence))
 		&& ft_error(SHNAME, str, err, CR_ERROR) && ft_freegiveone((void**)&str))
 		return (true);
 	else if (err && ft_error(SHNAME, ft_st_itoa(pid), err, CR_ERROR))
@@ -113,17 +114,17 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 
 	if ((config->fg_sentence)
 		&& (((!(new_sent = (t_sentence*)ft_memalloc(sizeof(*new_sent))))
-				|| (!(new_sent->sentence = config->fg_sentence)))
-			|| (!(new = ft_lstnew((void*)new_sent, SENT))
-				&& ft_freegiveone((void **)&new_sent)))
-			&& ft_freegiveone((void **)&config->fg_sentence))
+		|| (!(new_sent->sentence = config->fg_sentence)))
+		|| (!(new = ft_lstnew((void*)new_sent, SENT))
+		&& ft_freegiveone((void **)&new_sent)))
+		&& ft_freegiveone((void **)&config->fg_sentence))
 		ft_error(SHNAME, "parser", "malloc error on process control", CR_ERROR);
 	else if (config->fg_sentence && !(config->fg_sentence = NULL))
 		ft_list_push_front(&job, new);
 	if (config->dot_sequence == 'b' || ft_wait(&job, config))
 	{
-		if (!(new = ft_lstnew((void*)job, JOB))
-			|| !(((t_sentence*)new->data)->state = config->dot_sequence == 'b' ? RUNNING : SUSPENDED))
+		(((t_sentence*)new->data)->state = (config->dot_sequence == 'b' && !config->dot_sequence) ? RUNNING : SUSPENDED);
+		if (!(new = ft_lstnew((void*)job, JOB)))
 		{
 			ft_error(SHNAME, "parser", "malloc error on job control", CR_ERROR);
 			ft_free_all_process(&job, 1);

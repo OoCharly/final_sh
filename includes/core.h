@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 16:01:51 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/01 13:47:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@
 # define VAR_STD	001
 # define VAR_TAB	002
 # define VAR_FUN	004
+
+/*
+** Config Defines
+*/
+# define DOT		"config->dot_sequence"
 
 typedef struct dirent	t_dirent;
 typedef struct termios	t_termios;
