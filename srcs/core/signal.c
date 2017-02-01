@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 14:54:20 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 15:36:07 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ static void	ft_dass(int status)
 				&& WIFSTOPPED(status))
 		{
 			((t_sentence*)((t_list*)list->data)->data)->state = SUSP;
-			FT_PUTSTRFD(ft_st_itoa(*((int*)((t_list*)(list->data))->next->data)), "    ",
-				((t_sentence*)((t_list*)(list->data))->data)->state == RUN ?
-										"Running" : "Suspended", 1);
-			FT_PUTSTRFD("    ", ((t_sentence*)((t_list*)(list->data))->data)->sentence, "\n", 1);
+			ft_print_jobs(NULL,
+					((t_sentence*)((t_list*)(list->data))->data)->sentence);
+			ft_print_jobs((t_list*)list->data, NULL);
 		}
 		list = list->next;
 	}

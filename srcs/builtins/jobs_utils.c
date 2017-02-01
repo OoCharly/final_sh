@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:35:03 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 14:18:53 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 15:36:00 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	ft_print_jobs(t_list *sentence, char *description)
 		ft_freegiveone((void**)&desc);
 		i = 1;
 		found = 0;
-		if (description)
-			desc = ft_strdup(description);
+		desc = description ? ft_strdup(description) : NULL;
 		return ;
 	}
 	if (ft_cmp_jobs(sentence, desc, i))
