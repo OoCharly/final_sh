@@ -6,11 +6,31 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2016/12/15 16:47:47 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 15:09:14 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			ft_count_line_file(t_config *config)
+{
+	int		i;
+	int		fd;
+	char	*line;
+	char	*file;
+
+	i = 0;
+	file = (config->hlocbis) ? config->hlocbis : config->hloc;
+	if (((fd = open(file, O_RDONLY)) < 0)
+		&& ft_error(SHNAME, NULL, "open error", CR_ERROR))
+		return (-1);
+	while (get_next_line(fd, &line) && ++i)
+		ft_freegiveone((void **)&(line));
+	ft_freegiveone((void **)&(line));
+	close(fd);
+	return (i);
+}
+
 
 static int	ft_printhist(char **history, int n)
 {

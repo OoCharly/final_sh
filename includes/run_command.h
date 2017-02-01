@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 14:03:16 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 15:25:20 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@
 # define BNDATA		((char**)begin->next->data)[0]
 # define BOTHER_FD	((t_pipe*)begin->next->data)->others_fd
 # define RDEFAULT	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+
+# define MALLOC_ERR	SHNAME, "export", "malloc error", CR_ERROR | SERROR
+# define PAR (test = ft_strchr((*t)[i], '(')) && ft_test_emptyness(test, 1, ')')
+# define AS_ENV (memo = f[i])
 
 typedef struct	s_sentence
 {
@@ -135,5 +139,6 @@ int				ft_prep_var(char **argv, char *def, t_config *config);
 /*
 **process_manag.c
 */
-void			ft_process_manag(t_list **process, t_list *tmp, t_config *config);
+void			ft_process_manag(t_list **process, t_list *tmp,
+							t_config *config);
 #endif
