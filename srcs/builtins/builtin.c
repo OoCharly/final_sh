@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 15:47:59 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/01 13:23:11 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,22 @@ static void	ft_builtin_exit(char **argv, t_config *config)
 	int		status;
 	char	*p;
 
-	p = argv[1];
-	if (p)
+	if (!config->jobs)
 	{
-		status = ft_atoi(p);
-		while (*p)
-			if (!ft_isdigit(*(p++)))
-				status = 255;
-		ft_status(status);
-		config->last_exit = status;
+		p = argv[1];
+		if (p)
+		{
+			status = ft_atoi(p);
+			while (*p)
+				if (!ft_isdigit(*(p++)))
+					status = 255;
+			ft_status(status);
+			config->last_exit = status;
+		}
+		ft_shell_exit(config);
 	}
-	ft_shell_exit(config);
+	else
+		ft_putstr_fd("42sh you have suspended jobs.\n", 2);
 }
 
 /*
