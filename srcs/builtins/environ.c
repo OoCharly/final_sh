@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:41:06 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 15:48:23 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 	if (config->shell_state != RUNNING_SON && n && !ft_strcmp("PATH", n))
 		ft_pathtohash(config);
 	(i >= 0) ? ft_freegiveone((void**)&(mem)) : 1;
-	ft_list_remove_if(&config->variables, (void*)n, &var_name_cmp,
-			&ft_list_free_elem);
+	ft_list_remove_if(&config->variables, N, &var_name_cmp, &ft_list_free_elem);
 }
 
 void	ft_readysetenv(char **argv, t_config *config)
