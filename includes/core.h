@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 13:47:04 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:44:56 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void			ft_termcaps_init(t_config *config);
 /*
 ** script.c
 */
-void			ft_scripting(int fd, t_config *config);
+void			ft_scripting(int fd, t_config *config, char *command);
 
 /*
 ** debug.c
