@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/04 19:15:55 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/01 14:40:53 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_manage_files(int ac, char **av, t_config *config)
 				&& ft_error(SHNAME, "can't open input file", av[i], 1 | SERROR))
 			return ;
 		ft_shname_or_file(av[i]);
-		ft_scripting(fd, config);
+		ft_scripting(fd, config, NULL);
 		close(fd);
 		ft_shname_or_file(SHNAME);
 	}
@@ -45,7 +45,7 @@ static void	ft_tricase(int ac, char **av, t_config *config)
 		ft_minishell(config);
 	}
 	else if (ac == 1 && (config->heredoc = 2))
-		ft_scripting(0, config);
+		ft_scripting(0, config, NULL);
 	else if ((config->heredoc = 2))
 		ft_manage_files(ac, av, config);
 	ft_shell_exit(config);

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:05:45 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/17 18:02:35 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 14:36:33 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				ft_next_op(char *cmd, size_t i)
 		return (0);
 	if (cmd[i] == '(' && i && cmd[i - 1] == '=' && (i = ft_gonext_par(cmd, i)))
 		return (ft_next_op(cmd, i));
-	if (cmd[i] == '(' && i && !ft_test_emptyness(cmd, 0, '(') 
+	if (cmd[i] == '(' && i && !ft_test_emptyness(cmd, 0, '(')
 		&& ft_test_emptyness(cmd, i + 1, ')') && (i = ft_gonext_par(cmd, i)))
 	{
 		if (!ft_isspace(cmd[i]) && ft_error(SHNAME, NULL,

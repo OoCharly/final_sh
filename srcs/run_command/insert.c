@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/26 13:09:31 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/01 14:37:05 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 ** every piece of argument. Return 1 if t have been modified, 0 else.
 */
 
-int		ft_check_insert(char ***t, int mode, t_config *config)
+int			ft_check_insert(char ***t, int mode, t_config *config)
 {
 	int		i;
 	int		j;
