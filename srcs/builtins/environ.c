@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:16:15 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 15:41:06 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,28 @@ void	ft_setenv(char *n, char *val, t_config *config)
 {
 	int		i;
 	char	**f;
-	char	*memo;
+	char	*mem;
 
 	f = config->env;
 	if (((i = ft_igetenv(n, f)) >= 0
-		&& AS_ENV && ((val && !(f[i] = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
-		|| (!val && !(f[i] = ft_strjoin(n, "=")))) && (f[i] = memo)))
+		&& (mem = f[i])
+		&& ((val && !(f[i] = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
+		|| (!val && !(f[i] = ft_strjoin(n, "="))))
+		&& (f[i] = mem)))
 		ft_error(SHNAME, "error while setenv for", n, CR_ERROR);
 	else if (i >= 0 && !ft_strcmp(n, "PWD"))
-		ft_setenv("OLDPWD", memo + 4, config);
-	else if (i < 0 &&
-		((val && !(memo = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
-		|| (!val && !(memo = ft_strjoin(n, "=")))))
+		ft_setenv("OLDPWD", mem + 4, config);
+	else if (i < 0 && ((val && !(mem = ft_strfjoin(ft_strjoin(n, "="), val, 1)))
+		|| (!val && !(mem = ft_strjoin(n, "=")))))
 		ft_error(SHNAME, "malloc error during setenv for", n, CR_ERROR);
-	else if (i < 0 && !(config->env = ft_strtabadd(config->env, memo))
-		&& ft_freegiveone((void **)&memo) && (config->env = f))
+	else if (i < 0 && !(config->env = ft_strtabadd(config->env, mem))
+		&& ft_freegiveone((void **)&mem) && (config->env = f))
 		ft_error(SHNAME, "malloc error during setenv for", n, CR_ERROR);
 	else if (f && config->env && f != config->env)
 		free(f);
 	if (config->shell_state != RUNNING_SON && n && !ft_strcmp("PATH", n))
 		ft_pathtohash(config);
-	(i >= 0) ? ft_freegiveone((void**)&(memo)) : 1;
+	(i >= 0) ? ft_freegiveone((void**)&(mem)) : 1;
 	ft_list_remove_if(&config->variables, (void*)n, &var_name_cmp,
 			&ft_list_free_elem);
 }

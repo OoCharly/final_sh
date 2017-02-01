@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 15:09:14 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 15:28:48 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int			ft_count_line_file(t_config *config)
 	close(fd);
 	return (i);
 }
-
 
 static int	ft_printhist(char **history, int n)
 {
