@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 13:11:51 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/01 14:18:10 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define BNDATA		((char**)begin->next->data)[0]
 # define BOTHER_FD	((t_pipe*)begin->next->data)->others_fd
 # define RDEFAULT	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+
+# define MALLOC_ERR	SHNAME, "export", "malloc error", CR_ERROR | SERROR
 
 typedef struct	s_sentence
 {

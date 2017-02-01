@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:42 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/27 11:33:04 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/01 13:49:07 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static int		ft_pack_append(t_stream *stream, int match)
 }
 
 /*
- **               PARSE HEXA FOR KEY MAPPING
- ** printf("\nbuf   = %lx\n", ((ssize_t *)(stream->buf))[0]);
- ** printf("\nmatch = %lx\n", match[i]);
- */
+**               PARSE HEXA FOR KEY MAPPING
+** printf("\nbuf   = %lx\n", ((ssize_t *)(stream->buf))[0]);
+** printf("\nmatch = %lx\n", match[i]);
+*/
 
 static int		ft_chrmatch(t_stream *stream)
 {
@@ -50,8 +50,8 @@ static int		ft_chrmatch(t_stream *stream)
 }
 
 /*
- ** Run the appropriate function for a key touched.
- */
+** Run the appropriate function for a key touched.
+*/
 
 int				ft_chrparse(t_stream *stream)
 {
