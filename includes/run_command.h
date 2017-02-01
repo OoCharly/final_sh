@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:04:43 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 15:16:16 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 
 # define MALLOC_ERR	SHNAME, "export", "malloc error", CR_ERROR | SERROR
 # define PAR (test = ft_strchr((*t)[i], '(')) && ft_test_emptyness(test, 1, ')')
+# define AS_ENV (memo = f[i])
 
 typedef struct	s_sentence
 {
