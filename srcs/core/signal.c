@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 16:50:24 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/01 11:14:57 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,34 @@ static void	ft_scriptgnal_handle(int i)
 	stream = ft_save_stream(NULL);
 	ft_shell_exit(stream->config);
 }
-/*
-static void	ft_dass(int i)
-{
-	int			status;
-	pid_t		dasschld;
-	t_list		*list;
-	t_config	*conf;
 
-	conf = ft_save_config(NULL);
-	(void)i;
-	list = config->jobs->next;
-	while ((dasschld =  waitpid(-1, &status, 0)))
+static void	ft_dass(int status)
+{
+	t_list		*list;
+	t_config	*config;
+	pid_t		pgid;
+
+	config = ft_save_config(NULL);
+	list = config->jobs;
+	while (list)
 	{
-		while (list)
+		status = 0;
+		pgid = 0;
+		if (((t_list*)list->data) && ((t_list*)list->data)->next)
+			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
+		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED) && WIFSTOPPED(status))
 		{
-			list
+			((t_sentence*)((t_list*)list->data)->data)->state = SUSPENDED;
+			FT_PUTSTRFD(ft_st_itoa(*((int*)((t_list*)(list->data))->next->data)), "    ",
+				((t_sentence*)((t_list*)(list->data))->data)->state == RUNNING ?
+										"Running" : "Suspended", 1);
+			FT_PUTSTRFD("    ", ((t_sentence*)((t_list*)(list->data))->data)->sentence, "\n", 1);
+
 		}
+		list = list->next;
 	}
 }
-*/
+
 /*
 **If terminal changes its size, caught the signal.
 */
@@ -91,8 +99,8 @@ int			ft_signal(int mode)
 			return (ft_status(1));
 		if (SIG_ERR == signal(SIGTTOU, SIG_IGN))
 			return (ft_status(1));
-//		if (SIG_ERR == signal(SIGCHLD, &ft_dass))
-//			return (ft_status(1));
+		if (SIG_ERR == signal(SIGCHLD, &ft_dass))
+			return (ft_status(1));
 		return (0);
 	}
 	if (mode == SIGNAL_RESET)
@@ -100,6 +108,10 @@ int			ft_signal(int mode)
 		if (SIG_ERR == signal(SIGINT, SIG_DFL))
 			ft_status(1);
 		if (SIG_ERR == signal(SIGTSTP, SIG_DFL))
+			ft_status(1);
+		if (SIG_ERR == signal(SIGTTOU, SIG_DFL))
+			ft_status(1);
+		if (SIG_ERR == signal(SIGCHLD, SIG_DFL))
 			ft_status(1);
 	}
 	else if (mode == SIGNAL_SCRIPT)
