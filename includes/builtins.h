@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/18 16:30:39 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 15:09:13 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void			ft_fgbg(char **argv, t_config *config, int mode);
 int				ft_is_memerizable(char *cmd);
 void			ft_history(char **argv, t_config *config);
 char			*ft_return_hloc(char *hloc, int mode);
+int				ft_count_line_file(t_config *config);
 /*
 **history_params.c
 */
