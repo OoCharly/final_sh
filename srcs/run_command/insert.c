@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 14:37:05 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 15:04:43 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 
 	j = 0;
 	i = 0;
-	while (mode == 2 && (*t)[i] && (test = ft_strchr((*t)[i], '('))
-		&& ft_test_emptyness(test, 1, ')'))
+	while (mode == 2 && (*t)[i] && PAR)
 		i += 2;
 	while ((*t)[i])
 	{
