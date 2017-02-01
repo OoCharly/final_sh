@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 13:47:04 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:51:34 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 /*
 ** Config Defines
 */
-# define DOT		"config->dot_sequence"
+# define DOT		config->dot_sequence
 
 typedef struct dirent	t_dirent;
 typedef struct termios	t_termios;
@@ -139,6 +139,10 @@ void			ft_print_list(t_list *elem);
 int				ft_signal(int mode);
 void			ft_signal_handle(int i);
 void			ft_sigwinch(int mode);
+/*
+**signal_reset.c
+*/
+void			ft_signal_reset(void);
 /*
 ** terminit.c
 */

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 12:11:19 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:18:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static t_list	*ft_extract_job(t_config *config, char *description)
 		free(p);
 		return (m);
 	}
-	while ((m = p) && (p = p->next) && ++i)
+	while ((m = p)
+			&& (p = p->next) && ++i)
 	{
 		if (ft_cmp_jobs(p->data, description, i))
 		{

@@ -1,18 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset_export.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/01 14:19:49 by rbaran            #+#    #+#             */
+/*   Updated: 2017/02/01 14:42:09 by rbaran           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void		ft_unset_with_flags(char **argv, t_config *config, int flags, int i)
+static void		ft_unset_with_flags(char **argv, t_config *config, int flags,
+		int i)
 {
 	t_list	*match;
 	t_var	*var;
 
 	while (argv[i])
 	{
-		if ((match = ft_list_find(config->variables, (void*)argv[i], &var_name_cmp)))
+		if ((match = ft_list_find(config->variables, (void*)argv[i],
+						&var_name_cmp)))
 		{
 			var = (t_var*)match->data;
-			if (!flags || (var->type == VAR_FUN && flags == 2) || (flags == 1 && var->type != VAR_FUN))
-				ft_list_remove_if(&config->variables, (void*)argv[i], &var_name_cmp,
-				&ft_list_free_elem);
+			if (!flags || (var->type == VAR_FUN && flags == 2)
+					|| (flags == 1 && var->type != VAR_FUN))
+			{
+				ft_list_remove_if(&config->variables, (void*)argv[i],
+						&var_name_cmp, &ft_list_free_elem);
+			}
 		}
 		++i;
 	}

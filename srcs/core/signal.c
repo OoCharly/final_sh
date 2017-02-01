@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 13:22:39 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:54:20 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ static void	ft_dass(int status)
 		pgid = 0;
 		if (((t_list*)list->data) && ((t_list*)list->data)->next)
 			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
-		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED) && WIFSTOPPED(status))
+		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED)
+				&& WIFSTOPPED(status))
 		{
-			printf("signal %d\n", ((t_sentence*)((t_list*)list->data)->data)->state);
-			((t_sentence*)((t_list*)list->data)->data)->state = SUSPENDED;
+			((t_sentence*)((t_list*)list->data)->data)->state = SUSP;
 			FT_PUTSTRFD(ft_st_itoa(*((int*)((t_list*)(list->data))->next->data)), "    ",
-				((t_sentence*)((t_list*)(list->data))->data)->state == RUNNING ?
+				((t_sentence*)((t_list*)(list->data))->data)->state == RUN ?
 										"Running" : "Suspended", 1);
 			FT_PUTSTRFD("    ", ((t_sentence*)((t_list*)(list->data))->data)->sentence, "\n", 1);
 		}
@@ -102,17 +102,6 @@ int			ft_signal(int mode)
 		if (SIG_ERR == signal(SIGCHLD, &ft_dass))
 			return (ft_status(1));
 		return (0);
-	}
-	if (mode == SIGNAL_RESET)
-	{
-		if (SIG_ERR == signal(SIGINT, SIG_DFL))
-			ft_status(1);
-		if (SIG_ERR == signal(SIGTSTP, SIG_DFL))
-			ft_status(1);
-		if (SIG_ERR == signal(SIGTTOU, SIG_DFL))
-			ft_status(1);
-		if (SIG_ERR == signal(SIGCHLD, SIG_DFL))
-			ft_status(1);
 	}
 	else if (mode == SIGNAL_SCRIPT)
 	{

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_manag.c                                    :+:      :+:    :+:   */
+/*   signal_reset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/11 12:19:41 by rbaran            #+#    #+#             */
-/*   Updated: 2017/02/01 13:53:35 by rbaran           ###   ########.fr       */
+/*   Created: 2017/02/01 14:50:11 by rbaran            #+#    #+#             */
+/*   Updated: 2017/02/01 14:54:14 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_process_manag(t_list **process, t_list *tmp, t_config *config)
+void	ft_signal_reset(void)
 {
-	if (!process || !*process)
-	{
-		setpgid(*((pid_t*)tmp->data), *((pid_t*)tmp->data));
-		if (DOT != 'b')
-			tcsetpgrp(0, *((pid_t*)tmp->data));
-		else if (!config->script_state)
-			signal(SIGTTOU, SIG_DFL);
-	}
-	else
-		setpgid(*((pid_t*)tmp->data), *((pid_t*)(*process)->data));
-	ft_list_push_back(process, tmp);
+	if (SIG_ERR == signal(SIGINT, SIG_DFL))
+		ft_status(1);
+	if (SIG_ERR == signal(SIGTSTP, SIG_DFL))
+		ft_status(1);
+	if (SIG_ERR == signal(SIGTTOU, SIG_DFL))
+		ft_status(1);
+	if (SIG_ERR == signal(SIGCHLD, SIG_DFL))
+		ft_status(1);
 }

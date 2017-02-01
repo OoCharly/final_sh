@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 13:49:53 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:10:04 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	ft_wait(t_list **process, t_config *config)
 	pid_t	yolo_pgid;
 
 	config->last_exit = 0;
-	yolo_pgid =-(*(pid_t*)((*process)->next->data));
+	yolo_pgid = -(*(pid_t*)((*process)->next->data));
 	while (*process)
 	{
 		stat_loc = 0;
@@ -121,9 +121,9 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		ft_error(SHNAME, "parser", "malloc error on process control", CR_ERROR);
 	else if (config->fg_sentence && !(config->fg_sentence = NULL))
 		ft_list_push_front(&job, new);
-	if (config->dot_sequence == 'b' || ft_wait(&job, config))
+	if (DOT == 'b' || ft_wait(&job, config))
 	{
-		(((t_sentence*)new->data)->state = (config->dot_sequence == 'b' && !config->dot_sequence) ? RUNNING : SUSPENDED);
+		(((t_sentence*)new->data)->state = (DOT == 'b' && !DOT) ? RUN : SUSP);
 		if (!(new = ft_lstnew((void*)job, JOB)))
 		{
 			ft_error(SHNAME, "parser", "malloc error on job control", CR_ERROR);

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 12:15:33 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/01 14:17:09 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static void	ft_clean_path(char *path)
 		path[i - 1] = '\0';
 	if (*path == '/' && *(path + 1) == '.' && *(path + 2) == '.')
 		*(path + 1) = '\0';
-	if (!*path)
-		*path = '/';
 }
 
 void		ft_update_prompt(t_config *config)
@@ -81,6 +79,8 @@ static void	ft_path_follow(char *path, t_config *config)
 	struct stat	buf;
 
 	ft_clean_path(path);
+	if (!*path)
+		*path = '/';
 	if (path[1] && !ft_access_dir(path))
 		;
 	else if (-1 == access(path, F_OK))

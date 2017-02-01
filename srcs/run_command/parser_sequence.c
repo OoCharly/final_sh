@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:54:52 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 13:32:28 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/01 14:52:29 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe,
 
 	config->shell_state = RUNNING_SON;
 	ft_pipe_process(r_pipe, begin->next);
-	ft_signal(SIGNAL_RESET);
+	ft_signal_reset();
 	if (begin->data_size == SSHELL && (config->shell_state = RUNNING_SSHELL))
 	{
 		if ((config->last_exit = ft_strtabifindstart(config->env,

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 10:58:17 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:44:28 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,13 @@ void		ft_print_list(t_list *elem)
 		ft_putchar('\n');
 	}
 	else if (!elem->data_size && elem->data)
-			ft_putstrtab((char **)(elem->data), '\n');
+		ft_putstrtab((char **)(elem->data), '\n');
 	else if (elem->data_size == SSHELL)
 		ft_lstiter((t_list *)elem->data, ft_print_list);
 	else if (elem->data_size == OP)
 		FT_PUTSTRFD("\nop :\n", (char*)elem->data, "\n", 1);
 	else if (elem->data_size == JOB)
 		ft_print_jobs(elem->data, NULL);
-	else if (elem->data_size == PIPE)
-	{
-		ft_putnbr(((int*)elem->data)[0]);
-		ft_putnbr(((int*)elem->data)[1]);
-	}
 }
 
 void		ft_run_command(t_config *config)
@@ -50,10 +45,7 @@ void		ft_run_command(t_config *config)
 		if (!ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
-		{
-//			ft_lstiter(config->chimera, &ft_print_list);
 			ft_parse(config);
-		}
 	}
 	ft_freegiveone((void**)&config->command);
 }

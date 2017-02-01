@@ -39,6 +39,7 @@ core/minishell.c \
 core/save.c \
 core/script.c \
 core/signal.c \
+core/signal_reset.c \
 core/terminit.c \
 globbing/braces.c \
 globbing/globbing.c \

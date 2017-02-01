@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:35:03 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 10:58:21 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 14:18:53 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ void	ft_print_jobs(t_list *sentence, char *description)
 	{
 		FT_PUTSTRFD("[", ft_st_itoa(i), "]       ", 1);
 		FT_PUTSTRFD(ft_st_itoa(*((int*)sentence->next->data)), "    ",
-				((t_sentence*)sentence)->state == RUNNING ?
+				((t_sentence*)sentence)->state == RUN ?
 										"Running" : "Suspended", 1);
 		FT_PUTSTRFD("    ", ((t_sentence*)sentence->data)->sentence, "\n", 1);
-		//printf("In jobs: state: %d\n", ((t_sentence*)sentence->data)->state);
 		found = 1;
 	}
 	i++;

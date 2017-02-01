@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/26 13:11:51 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/01 14:03:16 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 /*
 ** JOBS CONTROL DEFINES
 */
-# define SUSPENDED	1
-# define RUNNING	2
+# define SUSP		1
+# define RUN		2
 
 /*
 ** MOST USED DEFFERENTIATION
