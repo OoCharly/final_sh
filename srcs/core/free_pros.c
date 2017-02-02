@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:52:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 13:44:34 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 15:48:15 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_freepros(t_list *kill)
 {
-	free(kill->data);
-	free(kill);
+	FREE((void**)&(kill->data));
+	FREE((void**)&kill);
 }
 
 void	ft_free_one_process(t_list **process, pid_t pid)
@@ -40,13 +40,13 @@ void	ft_free_all_process(t_list **process, int mode)
 		tmp = *process;
 		if (tmp->data_size == SENT)
 		{
-			free(((t_sentence*)tmp->data)->sentence);
-			free(tmp->data);
+			FREE((void**)&((t_sentence*)tmp->data)->sentence);
+			FREE((void**) &(tmp->data));
 		}
 		else if (mode)
 			kill(*((pid_t*)(tmp->data)), SIGINT);
 		(*process) = (*process)->next;
-		free(tmp);
+		ft_freepros(tmp);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 14:10:04 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 15:52:49 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	ft_wait(t_list **process, t_config *config)
 	pid_t	yolo_pgid;
 
 	config->last_exit = 0;
-	yolo_pgid = -(*(pid_t*)((*process)->next->data));
+	yolo_pgid = -getpgid((*(pid_t*)((*process)->next->data)));
 	while (*process)
 	{
 		stat_loc = 0;
