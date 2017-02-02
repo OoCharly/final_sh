@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:56:00 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 15:52:49 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/02 15:56:52 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ static bool	ft_abord_signal(int signum, pid_t pid, t_list **proc)
 		&& ft_error(SHNAME, str, err, CR_ERROR) && ft_freegiveone((void**)&str))
 		return (true);
 	else if (err && ft_error(SHNAME, ft_st_itoa(pid), err, CR_ERROR))
+	{
+		if (str)
+			ft_freegiveone((void**)&str);
 		return (true);
+	}
 	return (false);
 }
 

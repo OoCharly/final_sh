@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:18:53 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 13:53:34 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/01 17:33:58 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void		ft_sentence(t_list *begin, t_config *config)
 		return ;
 	if ((job = ft_run_sentence(begin, config, r_pipe)))
 		ft_wait_sentence(job, config);
-	signal(SIGTTOU, SIG_IGN);
 	ft_freegiveone((void**)&r_pipe);
 	ft_freegiveone((void**)&config->fg_sentence);
 }
