@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:52:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 15:57:40 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/02 16:44:11 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_free_all_process(t_list **process, int mode)
 		if (tmp->data_size == SENT)
 		{
 			FREE((void**)&((t_sentence*)tmp->data)->sentence);
-			FREE((void**) &(tmp->data));
+			FREE((void**)&(tmp->data));
 		}
 		else if (mode)
 			kill(*((pid_t*)(tmp->data)), SIGINT);
