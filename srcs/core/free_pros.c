@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:52:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 13:44:34 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 15:20:09 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_freepros(t_list *kill)
 {
 	free(kill->data);
+	kill->data = NULL;
 	free(kill);
 }
 
