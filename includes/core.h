@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 13:02:55 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 13:04:13 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@
 # define SIGNAL_SET		0
 # define SIGNAL_RESET	1
 # define SIGNAL_SCRIPT	2
+
 /*
-** variables and functions 
+** variables and functions
 */
 # define VAR_STD	001
 # define VAR_TAB	002
