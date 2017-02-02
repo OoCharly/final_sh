@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:26:06 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 11:23:59 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CORE_H
 
 # define SHNAME			"21sh"
-# define HISTORY_SIZE	1000
+# define HISTORY_SIZE	10
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
 # define FREE			ft_freegiveone
 # define BELL			ft_ringbell_fd
@@ -77,9 +77,7 @@ typedef struct	s_config
 	t_termios	termios_backup;
 	int			term_state;
 	char		*history[HISTORY_SIZE + 1];
-	char		*hist_newcmd[HISTORY_SIZE + 1];
 	int			hindex;
-	int			ncmd_index;
 	char		*hloc;
 	char		*hlocbis;
 	char		*exclamation;

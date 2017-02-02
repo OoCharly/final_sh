@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/27 12:14:16 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/02 11:20:28 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 	if (ft_is_memerizable(stream->command)
 		&& !config->heredoc && stream->state != REPROMPT)
 	{
-		ft_push_history(stream, config, 0);
+		ft_push_history(stream, config);
 		ft_incr_history(&(config->hindex));
 	}
 	return (stream->command);

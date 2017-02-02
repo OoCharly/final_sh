@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 15:09:22 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/02 12:25:02 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ static void	ft_load_history_during_run(t_config *config)
 		&& ft_freegiveone((void **)&(config->hlocbis)))
 		return ;
 	ft_load_history(config);
-	ft_freegiveone((void **)&(config->hlocbis));
-}
-
-static void	ft_purge_history_during_run(t_config *config)
-{
-	ft_purge_history(config, config->hist_newcmd, config->ncmd_index, 0);
-	ft_strtabfree_content(config->hist_newcmd);
 	ft_freegiveone((void **)&(config->hlocbis));
 }
 
@@ -78,10 +71,6 @@ void		ft_manage_param(char **argv, int i, t_config *config)
 			ft_delete_history_index(config, idx);
 		else if (argv[i][j] == 'r')
 			ft_load_history_during_run(config);
-		else if (argv[i][j] == 'a')
-			ft_purge_history_during_run(config);
-		else if (argv[i][j] == 'w')
-			ft_purge_history(config, config->hist_newcmd, HISTORY_SIZE, 2);
 		else if (argv[i][j] == 's' && argv[i + 1])
 			ft_stock_cmd(config, argv, i);
 		else if (ft_error("fc", "event not found", argv[i], CR_ERROR))

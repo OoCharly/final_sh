@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/27 14:42:22 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/02 12:58:38 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@
 **new command a pipe is wrote ahead.
 */
 
-static int	ft_safeputstr(int fd, char *str, int mode)
+static int	ft_safeputstr(int fd, char *str, int mode, int *i)
 {
 	if (str && (0 > write(fd, "|", 1) || 0 > write(fd, str, ft_strlen(str))))
 	{
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
+		ft_incr_history(i);
 		if (mode == 1)
 			ft_freegiveone((void **)&str);
 		return (0);
 	}
 	if (mode == 1)
 		ft_freegiveone((void **)&str);
+	ft_incr_history(i);
 	return (1);
 }
 
 /*
 **Opens hystory file. Makes a loop wich begin at config->hindex, and for any
-**command calls ft_safeputstir.
+**command calls ft_safeputstr.
 */
 
 void		ft_purge_history(t_config *config, char **hist, int index, int mode)
@@ -54,8 +56,7 @@ void		ft_purge_history(t_config *config, char **hist, int index, int mode)
 		i = index;
 		while (1)
 		{
-			ft_incr_history(&i);
-			if (!ft_safeputstr(fd, hist[i], mode)
+			if (!ft_safeputstr(fd, hist[i], mode, &i)
 				|| i == index)
 				break ;
 			if (hist[i])
@@ -97,15 +98,17 @@ static void	ft_fill_history(t_config *config, char *tmp)
 void		ft_load_history(t_config *config)
 {
 	int		fd;
+	int		i;
 	char	*tmp;
 	char	*file;
 
+	i = -1;
 	file = (config->hlocbis) ? config->hlocbis : config->hloc;
 	if ((fd = open(file, O_RDONLY)) < 0)
 		return ;
 	else
 	{
-		while (get_next_line(fd, &tmp) > 0)
+		while ((++i < HISTORY_SIZE - 1) && (get_next_line(fd, &tmp) > 0))
 			ft_fill_history(config, tmp);
 		ft_incr_history(&(config->hindex));
 		get_next_line(-1, NULL);
