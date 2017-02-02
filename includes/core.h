@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 10:42:56 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 13:02:55 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ typedef struct	s_config
 	t_termios	termios_backup;
 	int			term_state;
 	char		*history[HISTORY_SIZE + 1];
-	char		*hist_newcmd[HISTORY_SIZE + 1];
 	int			hindex;
-	int			ncmd_index;
 	char		*hloc;
 	char		*hlocbis;
 	char		*exclamation;
