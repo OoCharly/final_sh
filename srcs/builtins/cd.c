@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 14:17:09 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 16:30:25 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_clean_path(char *path)
 			ft_strcpy(path + i + 1, ft_strchr(path + i + 1, '/') + 3);
 		}
 		else if (path[i] == '/' && path[i + 1] == '/')
-			ft_memmove(path + i, path + i + 1, strlen(path + i));
+			ft_memmove(path + i, path + i + 1, ft_strlen(path + i));
 		else
 			i++;
 	}
