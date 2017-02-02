@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 15:09:48 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/02 16:23:15 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ int			main(int ac, char **av, char **env)
 		ft_setenv("SHLVL", ft_st_itoa(ft_atoi(env[i] + 6) + 1), &config);
 	if (ft_history_loc_init(&config, av[0]))
 		return (1);
-	printf("t_list %zu\n", sizeof(t_list));
-	printf("size_t %zu\n", sizeof(size_t));
-	printf("void * %zu\n", sizeof(void*));
 	ft_load_history(&config);
 	ft_save_stream(&stream);
 	ft_save_config(&config);
