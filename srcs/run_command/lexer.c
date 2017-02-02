@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:05:45 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 14:36:33 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/01 17:51:00 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_list			*ft_built_couple(char *cmd, size_t *i)
 {
 	t_list	*next;
 
-	if (!(*i = ft_next_op(cmd, *i)))
+	if (!(*i = ft_next_op(cmd, *i)) && !cmd[*i])
 		return (NULL);
 	if (*i && (cmd[*i] == '>' || cmd[*i] == '<'))
 		while (*i && ft_isdigit(cmd[*i - 1]))
