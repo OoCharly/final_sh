@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:17:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/08 16:20:19 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/07 13:14:23 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 			&& !(begin->next->data = ft_strtabadd_free(
 				(char**)begin->next->data, ((tmp) ? tmp : ft_strnew(1)))))
 			|| !(hkill = ft_strchrjoin(config->history[stream->shindex], '\n',
-			tmp ? tmp : ft_strnew(1))))
+			tmp ? tmp : NULL)))
 		{
 			ft_error(SHNAME, "heredoc", "malloc error", CR_ERROR);
 			config->shell_state = REPROMPT;
