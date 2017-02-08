@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:36:07 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/08 11:18:57 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,10 @@ static void	ft_scriptgnal_handle(int i)
 	ft_shell_exit(stream->config);
 }
 
-static void	ft_dass(int status)
+static void	ft_sigchld(int sig)
 {
-	t_list		*list;
-	t_config	*config;
-	pid_t		pgid;
-
-	config = ft_save_config(NULL);
-	list = config->jobs;
-	while (list)
-	{
-		status = 0;
-		pgid = 0;
-		if (((t_list*)list->data) && ((t_list*)list->data)->next)
-			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
-		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED)
-				&& WIFSTOPPED(status))
-		{
-			((t_sentence*)((t_list*)list->data)->data)->state = SUSP;
-			ft_print_jobs(NULL,
-					((t_sentence*)((t_list*)(list->data))->data)->sentence);
-			ft_print_jobs((t_list*)list->data, NULL);
-		}
-		list = list->next;
-	}
+	(void)sig;
+	ft_jobs_manag();
 }
 
 /*
@@ -98,7 +78,7 @@ int			ft_signal(int mode)
 			return (ft_status(1));
 		if (SIG_ERR == signal(SIGTTOU, SIG_IGN))
 			return (ft_status(1));
-		if (SIG_ERR == signal(SIGCHLD, &ft_dass))
+		if (SIG_ERR == signal(SIGCHLD, &ft_sigchld))
 			return (ft_status(1));
 		return (0);
 	}

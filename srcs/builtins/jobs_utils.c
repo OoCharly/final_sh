@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:35:03 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:36:00 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/08 11:46:12 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_print_jobs(t_list *sentence, char *description)
 	if (ft_cmp_jobs(sentence, desc, i))
 	{
 		FT_PUTSTRFD("[", ft_st_itoa(i), "]       ", 1);
-		FT_PUTSTRFD(ft_st_itoa(*((int*)sentence->next->data)), "    ",
+		FT_PUTSTRFD(ft_st_itoa(getpgid(*((int*)sentence->next->data))), "    ",
 				((t_sentence*)sentence)->state == RUN ?
 										"Running" : "Suspended", 1);
 		FT_PUTSTRFD("    ", ((t_sentence*)sentence->data)->sentence, "\n", 1);

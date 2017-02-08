@@ -6,13 +6,13 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:45:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 16:20:58 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/08 11:27:48 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_list	*ft_extract_job(t_config *config, char *description)
+t_list			*ft_extract_job(t_config *config, char *description)
 {
 	int		i;
 	t_list	*p;
@@ -73,11 +73,9 @@ static void		ft_continue(t_config *config, char *description, int mode)
 void			ft_jobs(char **argv, t_config *config)
 {
 	size_t	i;
-	size_t	params;
 
 	i = 1;
 	ft_print_jobs(NULL, argv[i]);
-	params = 0;
 	if (!config->jobs)
 	{
 		ft_error("jobs", NULL, "no current job", CR_ERROR);

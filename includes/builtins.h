@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 15:09:13 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/08 11:47:03 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int				ft_cmp_jobs(t_list *s, char *description, int i);
 void			ft_print_jobs(t_list *sentence, char *description);
 void			ft_jobs(char **argv, t_config *config);
 void			ft_fgbg(char **argv, t_config *config, int mode);
+t_list			*ft_extract_job(t_config *config, char *description);
 /*
 **history.c
 */

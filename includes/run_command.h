@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 15:48:24 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/08 11:46:50 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int				ft_prep_var(char **argv, char *def, t_config *config);
 /*
 **process_manag.c
 */
+void			ft_jobs_manag(void);
 void			ft_process_manag(t_list **process, t_list *tmp,
 							t_config *config);
 #endif
