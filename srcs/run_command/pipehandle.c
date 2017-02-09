@@ -6,7 +6,7 @@
 /*   By: rbaran <rbaran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/27 12:13:28 by rbaran            #+#    #+#             */
-/*   Updated: 2017/02/09 11:21:19 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/09 12:08:38 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,13 @@ static int	ft_agregate(t_list *begin, t_list **rhead, t_config *config,
 		*rhead = ft_partial_freelist(*rhead, 2);
 		return (ft_node_descriptors(begin, rhead, config, r_pipe));
 	}
-	else if (tmp[0] == '>' && !ft_redirectpipe((*rhead)->next ?
-			((char**)(*rhead)->next->data)[0] : NULL, begin->next->data, tmp))
+	else if ((tmp[0] == '>' || tmp[0] == '<') &&
+			!ft_redirectpipe((*rhead)->next ? ((char**)(*rhead)->next->data)[0]
+			: NULL, (tmp[0] == '>') ? begin->next->data : *r_pipe, tmp))
+	{
+		ft_freelist(rhead);
 		return (0);
-	else if (tmp[0] == '<' && !ft_redirectpipe((*rhead)->next ?
-			((char**)(*rhead)->next->data)[0] : NULL, *r_pipe, tmp))
-		return (0);
+	}
 	*rhead = ft_partial_freelist(*rhead, 2);
 	return (ft_node_descriptors(begin, rhead, config, r_pipe));
 }
