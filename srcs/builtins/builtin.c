@@ -36,7 +36,7 @@ static int	ft_node_jobs(char **argv, t_config *config)
 	if (!ft_strcmp(argv[0], "jobs"))
 		ft_jobs(argv, config);
 	else if (argv[0][0] == '%' || !ft_strcmp(argv[0], "fg")
-		|| !ft_strcmp(argv[0], "bg"))
+			|| !ft_strcmp(argv[0], "bg"))
 		ft_fgbg(argv, config, !ft_strcmp(argv[0], "bg") ? JOBS_BG : JOBS_FG);
 	else
 		return (0);
@@ -48,28 +48,23 @@ static void	ft_builtin_exit(char **argv, t_config *config)
 	int		status;
 	char	*p;
 
-	if (!config->jobs)
+	p = argv[1];
+	if (p)
 	{
-		p = argv[1];
-		if (p)
-		{
-			status = ft_atoi(p);
-			while (*p)
-				if (!ft_isdigit(*(p++)))
-					status = 255;
-			ft_status(status);
-			config->last_exit = status;
-		}
-		ft_shell_exit(config);
+		status = ft_atoi(p);
+		while (*p)
+			if (!ft_isdigit(*(p++)))
+				status = 255;
+		ft_status(status);
+		config->last_exit = status;
 	}
-	else
-		ft_putstr_fd("42sh you have suspended jobs.\n", 2);
+	ft_shell_exit(config);
 }
 
 /*
-**Returns 1 if argument is a builtin, in this case launch the appropriate
-**function, otherwise return 0.
-*/
+ **Returns 1 if argument is a builtin, in this case launch the appropriate
+ **function, otherwise return 0.
+ */
 
 int			ft_is_no_fork_builtin(char **argv, t_config *config)
 {

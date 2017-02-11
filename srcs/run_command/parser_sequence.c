@@ -55,7 +55,6 @@ static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe,
 
 	config->shell_state = RUNNING_SON;
 	ft_pipe_process(r_pipe, begin->next);
-	ft_signal_reset();
 	if (begin->data_size == SSHELL && (config->shell_state = RUNNING_SSHELL))
 	{
 		if ((config->last_exit = ft_strtabifindstart(config->env,
@@ -71,7 +70,10 @@ static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe,
 		ft_parse(config);
 	}
 	else
+	{
+		ft_signal_reset();
 		ft_launch_process(path, begin->data, config);
+	}
 	ft_status(config->last_exit);
 	ft_shell_exit(config);
 }

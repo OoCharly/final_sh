@@ -44,7 +44,7 @@ void	ft_free_all_process(t_list **process, int mode)
 			FREE((void**)&(tmp->data));
 		}
 		else if (mode)
-			kill(*((pid_t*)(tmp->data)), SIGINT);
+			kill(-getpgid(*((pid_t*)(tmp->data))), SIGINT);
 		(*process) = (*process)->next;
 		ft_freepros(tmp);
 	}
