@@ -72,10 +72,10 @@ char		**ft_strdodgesplit(char *s)
 	int		nb;
 	int		i;
 
-	m = s;
 	nb = 0;
 	while (*s && ft_isspace(*s))
 		++s;
+	m = s;
 	while (*s)
 	{
 		i = 0;
@@ -90,7 +90,8 @@ char		**ft_strdodgesplit(char *s)
 		else if ((i = ft_increm_dodge_quotes(s, i)))
 			s += i;
 	}
-	nb += *(s - 1) && !ft_isspace(*(s - 1)) ? 1 : 0;
+	if (m != s)
+		nb += *(s - 1) && !ft_isspace(*(s - 1)) ? 1 : 0;
 	return (sft_tabdup(ft_memalloc(sizeof(char*) * (nb + 1)), m, nb, 0));
 }
 
