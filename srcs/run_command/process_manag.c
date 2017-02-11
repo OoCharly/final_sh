@@ -52,7 +52,8 @@ void	ft_jobs_manag(void)
 			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
 		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED))
 			WIFSTOPPED(status) ? ft_job_suspended(list)
-				: ft_job_done(config,((t_sentence*)((t_list*)(list->data))->data)->sentence);
+				: ft_job_done(config,
+					((t_sentence*)((t_list*)(list->data))->data)->sentence);
 		list = list->next;
 	}
 }

@@ -96,7 +96,7 @@ static int	ft_agregate(t_list *begin, t_list **rhead, t_config *config,
 		(*rhead)->data = NULL;
 		if (!ft_strchr(tmp, '&'))
 		{
-			BOTHER_FD = ft_strtabadd(BOTHER_FD,
+			BOTHER_FD = ft_strtabadd_free(BOTHER_FD,
 				((char**)(*rhead)->next->data)[0]);
 			ft_freegiveone((void**)&(*rhead)->next->data);
 		}
