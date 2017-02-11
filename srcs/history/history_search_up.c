@@ -21,7 +21,7 @@ static void	ft_up_search(t_stream *stream)
 	len = ft_strlen(com);
 	while (stream->shindex != stream->config->hindex
 		&& stream->config->history[stream->shindex]
-		&& (ft_strncmp(com, stream->config->history[stream->shindex], len - 1)))
+		&& (ft_strncmp(com, stream->config->history[stream->shindex], len)))
 		ft_decr_history(&(stream->shindex));
 }
 
