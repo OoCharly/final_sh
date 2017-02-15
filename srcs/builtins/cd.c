@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 16:30:25 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:43:37 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		ft_update_prompt(t_config *config)
 			ft_pwd_error(config);
 			return ;
 		}
-		ft_setenv("PWD", ft_strdup(buf), config);
+		ft_setenv("PWD", buf, config);
 	}
 	if (!(pwd = ft_strdup(buf)))
 		ft_pwd_error(config);
