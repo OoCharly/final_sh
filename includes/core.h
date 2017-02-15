@@ -6,14 +6,14 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 13:34:17 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:09:44 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CORE_H
 # define CORE_H
 
-# define SHNAME			"21sh"
+# define SHNAME			"42sh"
 # define HISTORY_SIZE	10
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
 # define FREE			ft_freegiveone
