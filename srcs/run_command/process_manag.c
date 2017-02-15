@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 12:19:41 by rbaran            #+#    #+#             */
-/*   Updated: 2017/02/08 12:08:29 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/15 19:15:55 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_job_suspended(t_list *job)
 	ft_winsize();
 }
 
-void	ft_jobs_manag(void)
+void		ft_jobs_manag(void)
 {
 	t_list		*list;
 	t_config	*config;
@@ -58,7 +58,7 @@ void	ft_jobs_manag(void)
 	}
 }
 
-void	ft_process_manag(t_list **process, t_list *tmp, t_config *config)
+void		ft_process_manag(t_list **process, t_list *tmp, t_config *config)
 {
 	if (!process || !*process)
 	{

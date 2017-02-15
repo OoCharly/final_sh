@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 18:28:31 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:15:00 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_safeputstr(int fd, char *str, int mode, int *i)
 	return (1);
 }
 
-void		ft_purge_hist_opt(t_config *config, char **hist, int index, int mode)
+void		ft_purge_hist_opt(t_config *config, char **hist, int index, int mde)
 {
 	int		i;
 	int		j;
@@ -44,10 +44,10 @@ void		ft_purge_hist_opt(t_config *config, char **hist, int index, int mode)
 
 	j = 0;
 	file = (config->hlocbis) ? config->hlocbis : config->hloc;
-	if (mode && (fd = open(file, O_CREAT | O_WRONLY
+	if (mde && (fd = open(file, O_CREAT | O_WRONLY
 		| O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
-	else if (!mode && (fd = open(file, O_CREAT | O_WRONLY
+	else if (!mde && (fd = open(file, O_CREAT | O_WRONLY
 		| O_APPEND, S_IRUSR | S_IWUSR)) < 0)
 		ft_error(SHNAME, NULL, SAVE_H_ERR, CR_ERROR | SERROR);
 	else
@@ -55,7 +55,7 @@ void		ft_purge_hist_opt(t_config *config, char **hist, int index, int mode)
 		i = index;
 		while (j < config->history_new_size)
 		{
-			if (!ft_safeputstr(fd, hist[i], mode, &i)
+			if (!ft_safeputstr(fd, hist[i], mde, &i)
 				|| i == index)
 				break ;
 			j++;

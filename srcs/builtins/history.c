@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/15 17:55:38 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:13:36 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	ft_get_afterarg(t_config *config, char **argv, int i)
 	char	*file;
 
 	while (argv[i] && argv[i][0] == '-')
-	{	
+	{
 		if (ft_strchr(argv[i], 's'))
 			return (1);
 		i++;

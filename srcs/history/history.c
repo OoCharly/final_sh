@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:16 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 16:48:38 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:14:02 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_decr_history(t_config *config, int *hindex)
 
 void	ft_incr_history(t_config *config, int *hindex)
 {
-
 	if (*hindex < HISTORY_SIZE - 1)
 		(*hindex)++;
 	else
