@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 12:07:27 by rbaran            #+#    #+#             */
-/*   Updated: 2017/01/12 17:37:35 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 10:57:43 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void		ft_searchinhistory(t_stream *stream)
 {
-	ft_decr_history(&(stream->shindex));
+	ft_decr_history(NULL, &(stream->shindex));
 	while (stream->shindex != stream->config->hindex
 		&& stream->config->history[stream->shindex]
 		&& !(ft_strstr(stream->config->history[stream->shindex],
 			stream->search)))
-		ft_decr_history(&(stream->shindex));
+		ft_decr_history(NULL, &(stream->shindex));
 }
 
 void		ft_searchengineend(t_stream *stream)

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/01 13:23:11 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:13:08 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static void	ft_builtin_exit(char **argv, t_config *config)
 }
 
 /*
- **Returns 1 if argument is a builtin, in this case launch the appropriate
- **function, otherwise return 0.
- */
+**Returns 1 if argument is a builtin, in this case launch the appropriate
+**function, otherwise return 0.
+*/
 
 int			ft_is_no_fork_builtin(char **argv, t_config *config)
 {

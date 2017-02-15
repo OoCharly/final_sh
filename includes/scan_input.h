@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:44 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 11:18:38 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 13:44:15 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,13 @@ void			ft_prompt(t_config *config);
 */
 void			ft_up(t_stream *stream);
 void			ft_down(t_stream *stream);
-void			ft_decr_history(int *hindex);
-void			ft_incr_history(int *hindex);
+void			ft_decr_history(t_config *config, int *hindex);
+void			ft_incr_history(t_config *config, int *hindex);
 void			ft_push_history(t_stream *stream, t_config *config);
 void			ft_load_history(t_config *config);
 void			ft_purge_history(t_config *config, char **hist, int index,
+				int mode);
+void			ft_purge_hist_opt(t_config *config, char **hist, int index,
 				int mode);
 void			ft_searchengine(t_stream *stream);
 void			ft_searchengineend(t_stream *stream);

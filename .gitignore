@@ -3,6 +3,7 @@
 *.swp
 tmp*
 21sh
+42sh
 test*
 *.bck
 *.gch
