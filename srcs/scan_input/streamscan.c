@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 11:20:28 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 14:55:56 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char		*ft_streamscan(t_config *config, t_stream *stream, int fd)
 		&& !config->heredoc && stream->state != REPROMPT)
 	{
 		ft_push_history(stream, config);
-		ft_incr_history(&(config->hindex));
+		ft_incr_history(config, &(config->hindex));
 	}
 	return (stream->command);
 }

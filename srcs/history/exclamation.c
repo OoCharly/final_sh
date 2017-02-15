@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/01/27 11:28:18 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:59:21 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ int			ft_history_exclamation(t_stream *stream)
 			tmp = stream->command;
 			while ((tmp = ft_create_strhistidx(tmp))
 				&& ft_freegiveone((void**)&mem))
+			{
 				mem = tmp;
+			}
 			ft_freegiveone((void**)&(stream->command));
 			stream->command = mem;
 			return (1);

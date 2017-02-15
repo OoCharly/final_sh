@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:56:48 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/09 04:16:35 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/15 10:54:12 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_down_search(t_stream *stream)
 	while (stream->shindex != stream->config->hindex
 		&& stream->config->history[stream->shindex]
 		&& ft_strncmp(com, stream->config->history[stream->shindex], len))
-		ft_incr_history(&(stream->shindex));
+		ft_incr_history(NULL, &(stream->shindex));
 }
 
 void		ft_down(t_stream *stream)
@@ -31,7 +31,7 @@ void		ft_down(t_stream *stream)
 		ft_searchengine(stream);
 	if (stream->shindex != stream->config->hindex)
 	{
-		ft_incr_history(&(stream->shindex));
+		ft_incr_history(NULL, &(stream->shindex));
 		if (stream->config->history[stream->config->hindex]
 			&& stream->config->history[stream->config->hindex][0])
 			ft_down_search(stream);

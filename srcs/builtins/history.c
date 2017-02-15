@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:01:50 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 15:28:48 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 17:55:38 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,25 @@ int			ft_count_line_file(t_config *config)
 	return (i);
 }
 
-static int	ft_printhist(char **history, int n)
+static int	ft_printhist(t_config *config, int n)
 {
 	int		i;
+	int		num;
 	char	*len;
 	char	*index;
 
 	i = -1;
+	num = 1;
 	len = ft_itoa(HISTORY_SIZE);
-	if (!history)
-		return (0);
-	while (history[++i] && i < n)
+	if (!config->history[0])
+		i++;
+	while (config->history[++i] && i < n)
 	{
-		index = ft_itoa(i + 1);
+		index = ft_itoa(num);
 		ft_putstrpad(index, ft_strlen(len) + 1, 'L');
-		ft_putendl(history[i]);
+		ft_putendl(config->history[i]);
 		ft_strdel(&index);
+		num++;
 	}
 	ft_strdel(&len);
 	return (1);
@@ -65,7 +68,11 @@ static int	ft_get_afterarg(t_config *config, char **argv, int i)
 	char	*file;
 
 	while (argv[i] && argv[i][0] == '-')
+	{	
+		if (ft_strchr(argv[i], 's'))
+			return (1);
 		i++;
+	}
 	if (argv[i] && !ft_strisdigit(argv[i]))
 	{
 		file = ft_strrchr(config->hloc, '/');
@@ -92,8 +99,9 @@ void		ft_history(char **argv, t_config *config)
 	i = 0;
 	if ((!argv[1] || ft_strisdigit(argv[1]))
 		&& (n = (!argv[1]) ? HISTORY_SIZE : ft_atoi(argv[1])))
-		ft_printhist(config->history, n);
+		ft_printhist(config, n);
 	while (argv[++i] && !ft_strisdigit(argv[i]))
 		if (argv[i][0] == '-' && ft_get_afterarg(config, argv, i))
 			ft_manage_param(argv, i, config);
+	ft_freegiveone((void**)&(config->hlocbis));
 }

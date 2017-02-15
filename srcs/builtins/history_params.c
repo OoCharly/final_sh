@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/02 12:25:02 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 16:26:03 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_delete_history_index(t_config *config, int idx)
 	len = (HISTORY_SIZE - idx) * sizeof(void *);
 	ft_freegiveone((void **)config->history + idx);
 	ft_memmove(config->history + idx, config->history + idx + 1, len);
-	ft_decr_history(&(config->hindex));
+	ft_decr_history(config, &(config->hindex));
 }
 
 static void	ft_load_history_during_run(t_config *config)
@@ -73,6 +73,10 @@ void		ft_manage_param(char **argv, int i, t_config *config)
 			ft_load_history_during_run(config);
 		else if (argv[i][j] == 's' && argv[i + 1])
 			ft_stock_cmd(config, argv, i);
+		else if (argv[i][j] == 'a')
+			ft_purge_hist_opt(config, config->history, config->hindex_first, 0);
+		else if (argv[i][j] == 'w')
+			ft_purge_hist_opt(config, config->history, config->hindex_first, 2);
 		else if (ft_error("fc", "event not found", argv[i], CR_ERROR))
 			return ;
 	}

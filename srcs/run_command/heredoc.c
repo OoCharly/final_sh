@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:17:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/07 13:14:23 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/15 10:58:07 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_heredoc(t_list *begin, t_config *config, t_stream *stream)
 	while (stream->state != REPROMPT && stream->state != STR_EOF)
 	{
 		stream->shindex = stream->config->hindex;
-		ft_decr_history(&stream->shindex);
+		ft_decr_history(NULL, &stream->shindex);
 		if (((!tmp || ft_strcmp(tmp, ((char**)begin->next->data)[0]))
 			&& !(begin->next->data = ft_strtabadd_free(
 				(char**)begin->next->data, ((tmp) ? tmp : ft_strnew(1)))))

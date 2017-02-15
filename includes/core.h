@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 13:04:13 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/15 13:34:17 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct	s_config
 	int			term_state;
 	char		*history[HISTORY_SIZE + 1];
 	int			hindex;
+	int			hindex_first;
+	int			history_new_size;
 	char		*hloc;
 	char		*hlocbis;
 	char		*exclamation;
