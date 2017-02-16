@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 14:19:49 by rbaran            #+#    #+#             */
-/*   Updated: 2017/02/16 15:41:10 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 19:03:46 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,10 @@ void			ft_export(char **argv, t_config *config)
 		flags = 1;
 	while ((p = argv[++i]) && *p == '-')
 		while (*(++p))
-		{
 			if (*p == 'p')
 				flags = 1;
 			else if (ft_error(SHNAME, "export", "unknow flag", CR_ERROR))
 				return ;
-		}
 	while (argv[i])
 	{
 		if ((p = ft_strchr(argv[i], '=')))
