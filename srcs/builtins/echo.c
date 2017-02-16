@@ -6,7 +6,7 @@
 /*   By: rbaran <rbaran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 13:33:52 by rbaran            #+#    #+#             */
-/*   Updated: 2016/11/18 14:13:30 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 12:09:04 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	ft_parseparams(char **argv, int *param)
 			*param |= ECHO_MINE;
 		else if (argv[i][1] == 'E')
 			*param |= ECHO_MAJE;
+		else
+			return (i);
 	}
 	return (i);
 }
