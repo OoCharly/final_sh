@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 18:23:40 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 19:04:25 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		ft_run_command(t_config *config)
 {
 	config->shell_state = RUNNING_COMMAND;
 	ft_status(666);
+	config->lexerlop = 0;
 	if ((config->chimera = ft_lexer(config->command)))
 	{
 		if (!ft_herringbone(config->chimera, config))

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 17:34:33 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/16 19:05:19 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_config
 	pid_t		shell_pgid;
 	char		dot_sequence;
 	int			last_exit;
+	int			lexerlop;
 	bool		syntax_color_off;
 	char		*last_hash;
 	char		*visual_buf;

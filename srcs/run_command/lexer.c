@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:05:45 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/09 11:38:32 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/16 20:37:58 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_list	*ft_op_handle(char *cmd, size_t *i)
 			return (ft_freelist(&next));
 		op = next->next;
 		op->data_size = 1;
-		if (!(op->data = (void*)ft_match_op(cmd, i)))
+		if (!(op->data = (void*)ft_match_op(cmd, i, next)))
 			return (ft_freelist(&next));
 		if (!ft_strcmp(op->data, "<<"))
 			op->data_size = HEREDOC;

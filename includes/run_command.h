@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:12:46 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/08 11:46:50 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/16 19:50:21 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_list			*ft_built_couple(char *cmd, size_t *i);
 char			**ft_strdodgesplit(char *s);
 t_list			*ft_av_handle(char *cmd, size_t i);
 int				ft_dodge_quote(char *cmd, size_t i);
-char			*ft_match_op(char *cmd, size_t *i);
+char			*ft_match_op(char *cmd, size_t *i, t_list *next);
 int				ft_next_op(char *cmd, size_t i);
 void			ft_lexer_sshell_off(char *cmd, size_t i);
 t_list			*ft_lexer_sshell_on(char *cmd, size_t *i, t_list *next);
