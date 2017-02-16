@@ -34,11 +34,8 @@ void		ft_signal_handle(int i)
 		if (i == SIGTSTP && stream->config->shell_state == RUNNING_COMMAND)
 			stream->config->shell_state = SIGTSTP_COMMAND;
 	}
-	else
-	{
+	else if (ft_error(SHNAME, NULL, "error while handling signal", CR_ERROR))
 		stream->config->shell_state = SIGINT_COMMAND;
-		ft_error(SHNAME, NULL, "error while handling signal", CR_ERROR);
-	}
 	ft_signal(SIGNAL_SET);
 }
 
