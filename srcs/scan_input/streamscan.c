@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 16:02:50 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 21:18:56 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 21:26:19 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static void	ft_pack_scan(t_stream *stream, t_config *config)
 		&& ft_error(SHNAME, NULL, SCAN_ERR, CR_ERROR) && stream->state == -1)))
 		ft_ctrl_d(stream);
 	ft_putchar_fd('\n', SFD);
-	ft_end_autocomp(stream);
 	ft_sigwinch(0);
 	ft_termios_handle(config, 0);
 }
