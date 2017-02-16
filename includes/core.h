@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 19:09:44 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 15:31:03 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct	s_config
 	char		*last_hash;
 	char		*visual_buf;
 	char		script_state;
+	char		*free;
 }				t_config;
 /*
 **error.c

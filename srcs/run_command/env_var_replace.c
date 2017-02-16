@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:02:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 08:56:42 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 15:46:42 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*ft_varsearch(char *cmd, size_t *i, t_config *config, char *m)
 			e = ft_getvar(m, config);
 		cmd[*i] = c;
 	}
+	config->free = e;
 	return (e);
 }
 

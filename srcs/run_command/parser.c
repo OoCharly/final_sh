@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:18:53 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/09 11:59:57 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/16 15:49:02 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void			ft_parse(t_config *config)
 {
 	char	test;
 
-	config->last_exit = 0;
 	test = ';';
 	while (42)
 	{

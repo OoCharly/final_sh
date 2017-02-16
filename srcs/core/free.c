@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:02 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/18 07:46:18 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 15:37:21 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_free_config(t_config *config)
 		ft_freelist(&config->variables);
 		ft_freegiveone((void**)&config->command);
 		ft_freegiveone((void**)&config->fg_sentence);
+		ft_freegiveone((void**)&config->free);
 		FREE((void **)&config->visual_buf);
 		get_next_line(-1, NULL);
 	}
