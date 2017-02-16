@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 11:27:14 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/02/16 16:32:19 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 20:30:37 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@ void			ft_flushend(t_stream *stream)
 	size_t		size;
 
 	ft_repeat_termcaps(1, "cd", stream);
-	if (stream->search)
-		ft_flushsearch(stream);
-	else if (stream->command && stream->command[0])
+	if (stream->command[stream->pos])
 	{
-		size = ft_strlen(stream->command + stream->pos);
-		ft_putstr_fd(stream->command + stream->pos, SFD);
-		stream->pos += size;
+		if (stream->search)
+			ft_flushsearch(stream);
+		else if (stream->command && stream->command[0])
+		{
+			size = ft_strlen(stream->command + stream->pos);
+			ft_putstr_fd(stream->command + stream->pos, SFD);
+			stream->pos += size;
+		}
+		if (stream->pos && ft_checknewline(stream, stream->pos) == 0)
+			ft_repeat_termcaps(1, "do", stream);
 	}
-	if (stream->pos && stream->command[stream->pos - 1] != '\n'
-			&& ft_checknewline(stream, stream->pos) == 0)
-		ft_repeat_termcaps(1, "do", stream);
 	ft_erase(stream);
 }
 
