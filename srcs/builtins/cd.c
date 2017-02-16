@@ -6,18 +6,11 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 12:13:13 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/16 16:32:32 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_pwd_error(t_config *config)
-{
-	ft_error(SHNAME, NULL, PATH_MAX_ERR, CR_ERROR | SERROR);
-	config->pwd_subrep = "???";
-	config->prompt_len = 9;
-}
 
 static void	ft_clean_path(char *path)
 {
@@ -40,32 +33,31 @@ static void	ft_clean_path(char *path)
 		else
 			i++;
 	}
-	if (path && i > 2 && path[i - 1] == '.' && path[i - 2] == '/')
+	if (path && ((i > 2 && path[i - 1] == '.' && path[i - 2] == '/')
+			|| (i && path[i - 1] == '/')))
 		path[i - 1] = '\0';
-	if (path && i && path[i - 1] == '/')
-		path[i - 1] = '\0';
-	if (*path == '/' && *(path + 1) == '.' && *(path + 2) == '.')
+	if (*path == '/' && *(path + 1) == '.'
+			&& (*(path + 2) == '.' || !*(path + 2)))
 		*(path + 1) = '\0';
 }
 
 void		ft_update_prompt(t_config *config)
 {
-	char	buf[_POSIX_PATH_MAX];
 	char	*pwd;
 
 	ft_freegiveone((void**)&(config->pwd));
-	if (!((pwd = ft_strtabfindstart(config->env, "PWD="))
-		&& ft_strncpy(buf, pwd + 4, _POSIX_PATH_MAX)))
+	if (!(pwd = ft_strdup(ft_getenv("PWD", config->env))))
 	{
-		if (!getcwd(buf, _POSIX_PATH_MAX))
+		if (!(getcwd(pwd, 0)))
 		{
-			ft_pwd_error(config);
+			ft_error(SHNAME, NULL, PATH_MAX_ERR, CR_ERROR | SERROR);
+			config->pwd_subrep = "???";
+			config->prompt_len = 9;
 			return ;
 		}
-		ft_setenv("PWD", buf, config);
+		else
+			ft_setenv("PWD", pwd, config);
 	}
-	if (!(pwd = ft_strdup(buf)))
-		ft_pwd_error(config);
 	else
 	{
 		config->pwd = pwd;
@@ -74,27 +66,25 @@ void		ft_update_prompt(t_config *config)
 	}
 }
 
-static void	ft_path_follow(char *path, t_config *config)
+static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 {
 	struct stat	buf;
+	char		*err;
 
 	ft_clean_path(path);
-	if (!*path)
-		*path = '/';
-	if (path[1] && !ft_access_dir(path))
+	if (!*path && (*path = '/') && !ft_access_dir(path))
 		;
-	else if (-1 == access(path, F_OK))
-		ft_error(SHNAME, "no directory or file named", path, CR_ERROR);
-	else if (-1 == stat(path, &buf))
-		ft_error(SHNAME, "access denied", path, CR_ERROR);
-	else if (!S_ISDIR(buf.st_mode))
-		ft_error(SHNAME, "not a directory", path, CR_ERROR);
-	else if (-1 == access(path, X_OK))
-		ft_error(SHNAME, "permission denied", path, CR_ERROR);
+	else if (((err = "no directory or file named") && -1 == access(path, F_OK))
+			|| ((err = "access denied") && -1 == stat(path, &buf))
+			|| ((err = "not a directory") && !S_ISDIR(buf.st_mode))
+			|| ((err = "permission denied") && -1 == access(path, X_OK))
+			|| (err = NULL))
+		ft_error(SHNAME, err, path, CR_ERROR);
 	else if (!chdir(path))
 	{
-		ft_setenv("PWD", path, config);
+		ft_setenv("PWD", (nosymlink) ? getcwd(err, 0) : path, config);
 		ft_update_prompt(config);
+		FREE((void**)&err);
 		FREE((void**)&path);
 		return ;
 	}
@@ -103,30 +93,52 @@ static void	ft_path_follow(char *path, t_config *config)
 	FREE((void**)&path);
 }
 
+static int	cd_option(char *arg, char *path, t_config *config)
+{
+	if (!arg[1])
+	{
+		if (!(path = ft_strdup(ft_getenv("OLDPWD", config->env))))
+			ft_error(SHNAME, "cd", "HOME not set", CR_ERROR);
+		else
+			ft_putendl(path);
+			ft_path_follow(path, config, 0);
+		return (-1);
+	}
+	else if (arg[1] == 'P')
+		return (1);
+	else if (arg[1] != 'L')
+	{
+		ft_error("cd", arg, "invalid option", CR_ERROR);
+		ft_putendl_fd("cd: usage: cd [-L|-P] [dir]", 2);
+		return (-1);
+	}
+	return (0);
+}
+
 void		ft_cd(char **argv, t_config *config)
 {
 	char	*path;
 	int		i;
+	int		nosymlink;
 
 	path = NULL;
-	if ((i = (ft_strcmp(argv[0], "cd") ? 0 : 1)) && ft_strtablen(argv) - i > 1
-		&& ft_error(SHNAME, "cd", "too many arguments", CR_ERROR))
-		return ;
-	else if (!argv[i] && (path = ft_getenv("HOME", config->env)))
+	i = (ft_strcmp(argv[0], "cd") ? 0 : 1);
+	nosymlink = 0;
+	while (argv[i] && argv[i][0] == '-')
+	{
+		nosymlink = cd_option(argv[i], path, config);
+		if (nosymlink != -1)
+			i++;
+		else
+			return ;
+	}
+	if (!path && !argv[i] && ((path = ft_getenv("HOME", config->env))
+				|| !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
-	else if (argv[i] && argv[i][0] == '/')
-		path = ft_strdup(argv[i]);
-	else if (argv[i] && argv[i][0] == '~'
-			&& (path = ft_getenv("HOME", config->env)))
-		path = ft_strslashjoin(path,
-				(ft_strlen(argv[i]) > 2 ? argv[i] + 2 : "."));
-	else if (argv[i] && argv[i][0] == '-' && !argv[i][1]
-			&& (path = ft_strdup(ft_getenv("OLDPWD", config->env))))
-		ft_putendl(path);
+	else if (argv[i][0] == '/')
+		ft_strdup(argv[i]);
 	else if (argv[i] && (path = config->pwd))
 		path = ft_strslashjoin(path, argv[i]);
 	if (path)
-		ft_path_follow(path, config);
-	else
-		ft_error(SHNAME, "cd", "something is missing in env", CR_ERROR);
+		ft_path_follow(path, config, nosymlink);
 }

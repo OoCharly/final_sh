@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:27:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/02 11:21:09 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 16:32:20 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ void	ft_clean_field(t_stream *stream)
 
 void	ft_del(t_stream *stream)
 {
-	size_t	pos;
-
 	if (stream->search)
 		ft_sdel(stream);
 	else if (stream->command && stream->pos)
 	{
 		ft_mvleft(stream);
-		pos = stream->pos - 1;
-		while (stream->command[++pos])
-			stream->command[pos] = stream->command[pos + 1];
+		ft_strcpy(stream->command + stream->pos,
+				stream->command + stream->pos + 1);
 		stream->tput = "cd";
 		ft_tputs(stream);
 		ft_flush(stream);
