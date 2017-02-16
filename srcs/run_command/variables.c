@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 14:46:42 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/16 18:31:57 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 18:55:06 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			ft_is_only_variable(char ***argv, t_config *config)
 	int		size;
 
 	while (*argv && **argv && ((match = ft_strchr(**argv, '='))
-		|| (match = ft_strchr((*argv)[0], '(')))
+		|| ((match = ft_strchr(**argv, '(')) && match != **argv))
 		&& (size = ft_prep_var(*argv, match, config)))
 		while (size-- && (*argv = ft_strncmptabdel(*argv, **argv)))
 			;
