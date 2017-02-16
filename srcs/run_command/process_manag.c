@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 12:19:41 by rbaran            #+#    #+#             */
-/*   Updated: 2017/02/15 19:15:55 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 11:35:41 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ void		ft_jobs_manag(void)
 		if (((t_list*)list->data) && ((t_list*)list->data)->next)
 			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
 		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED))
+		{
 			WIFSTOPPED(status) ? ft_job_suspended(list)
 				: ft_job_done(config,
 					((t_sentence*)((t_list*)(list->data))->data)->sentence);
+			return ;
+		}
 		list = list->next;
 	}
 }
