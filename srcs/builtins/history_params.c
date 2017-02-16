@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/15 16:26:03 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 17:26:03 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_stock_cmd(t_config *config, char **argv, int i)
 	int len;
 	int total_len;
 	int j;
+	int idx;
 
 	j = -1;
 	len = 0;
@@ -51,9 +52,10 @@ static void	ft_stock_cmd(t_config *config, char **argv, int i)
 		total_len += ft_strlen(argv[j]);
 	}
 	j = total_len - len;
-	ft_memmove(config->history[config->hindex - 1],
-		config->history[config->hindex - 1] + len + 2, j);
-	config->history[config->hindex - 1][j] = 0;
+	idx = config->hindex;
+	ft_decr_history(NULL, &idx);
+	ft_memmove(config->history[idx], config->history[idx] + len + 2, j);
+	config->history[idx][j] = 0;
 }
 
 void		ft_manage_param(char **argv, int i, t_config *config)
@@ -71,7 +73,7 @@ void		ft_manage_param(char **argv, int i, t_config *config)
 			ft_delete_history_index(config, idx);
 		else if (argv[i][j] == 'r')
 			ft_load_history_during_run(config);
-		else if (argv[i][j] == 's' && argv[i + 1])
+		else if (argv[i][j] == 's' && argv[i + 1] && config->hlocbis)
 			ft_stock_cmd(config, argv, i);
 		else if (argv[i][j] == 'a')
 			ft_purge_hist_opt(config, config->history, config->hindex_first, 0);
