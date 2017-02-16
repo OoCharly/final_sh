@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 17:26:37 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/16 18:12:41 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	ft_builtin_exit(char **argv, t_config *config)
 
 int			ft_is_no_fork_builtin(char **argv, t_config *config)
 {
-	ft_status(666);
 	if (!ft_strcmp(argv[0], "exit"))
 		ft_builtin_exit(argv, config);
 	else if (!ft_strcmp(argv[0], "exitfather"))
