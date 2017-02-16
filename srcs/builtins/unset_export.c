@@ -6,7 +6,7 @@
 /*   By: rbaran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 14:19:49 by rbaran            #+#    #+#             */
-/*   Updated: 2017/02/01 14:42:09 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/16 15:41:10 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void			ft_export(char **argv, t_config *config)
 
 	i = 0;
 	flags = 0;
+	if (!argv[1])
+		flags = 1;
 	while ((p = argv[++i]) && *p == '-')
 		while (*(++p))
 		{
