@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/08 11:18:57 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/16 16:47:10 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		ft_signal_handle(int i)
 			{
 				ft_freegiveone((void**)&stream->config->exclamation);
 				stream->state = REPROMPT;
+				ft_goend(stream);
 			}
 		}
 		if (i == SIGTSTP && stream->config->shell_state == RUNNING_COMMAND)
