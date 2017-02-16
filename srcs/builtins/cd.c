@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 16:43:09 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/16 16:57:11 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,10 @@ static int	cd_option(char *arg, char *path, t_config *config)
 		if (!(path = ft_strdup(ft_getenv("OLDPWD", config->env))))
 			ft_error(SHNAME, "cd", "HOME not set", CR_ERROR);
 		else
+		{
 			ft_putendl(path);
 			ft_path_follow(path, config, 0);
+		}
 		return (-1);
 	}
 	else if (arg[1] == 'P')
