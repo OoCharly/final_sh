@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 19:49:08 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/16 12:13:13 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void		ft_cd(char **argv, t_config *config)
 			&& (path = ft_getenv("HOME", config->env)))
 		path = ft_strslashjoin(path,
 				(ft_strlen(argv[i]) > 2 ? argv[i] + 2 : "."));
-	else if (argv[i] && argv[i][0] == '-'
+	else if (argv[i] && argv[i][0] == '-' && !argv[i][1]
 			&& (path = ft_strdup(ft_getenv("OLDPWD", config->env))))
 		ft_putendl(path);
 	else if (argv[i] && (path = config->pwd))
