@@ -14,6 +14,8 @@
 
 int			ft_test_emptyness(char *cmd, size_t i, char c)
 {
+	if (!cmd)
+		return (0);
 	while (ft_isspace(cmd[i]))
 		++i;
 	if (cmd[i] == c)

@@ -105,11 +105,10 @@ int			ft_check_insert(char ***t, int mode, t_config *config)
 {
 	int		i;
 	int		j;
-	char	*test;
 
 	j = 0;
 	i = 0;
-	while (mode == 2 && (*t)[i] && PAR)
+	while (mode == 2 && (*t)[i] && ft_isfunctionname((*t)[i]))
 		i += 2;
 	while ((*t)[i])
 	{

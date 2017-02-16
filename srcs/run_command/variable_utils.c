@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+int		ft_isfunctionname(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '(' && ft_test_emptyness(cmd, i + 1, ')'))
+			return (1);
+		else
+			i = ft_increm_dodge_quotes(cmd, i);
+	}
+	return (0);
+}
+
 int		var_name_cmp(void *data_list, void *name)
 {
 	return (ft_strcmp(((t_var*)data_list)->name, (char*)name));

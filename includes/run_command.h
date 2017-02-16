@@ -43,7 +43,6 @@
 # define RDEFAULT	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
 # define MALLOC_ERR	SHNAME, "export", "malloc error", CR_ERROR | SERROR
-# define PAR (test = ft_strchr((*t)[i], '(')) && ft_test_emptyness(test, 1, ')')
 # define N (void*)n
 
 typedef struct	s_sentence
@@ -136,6 +135,7 @@ int				ft_new_var(char *name, void *value, size_t type,
 int				var_name_cmp(void *data_list, void *name);
 char			*ft_getvar(char	*name, t_config *config);
 int				ft_prep_var(char **argv, char *def, t_config *config);
+int				ft_isfunctionname(char *cmd);
 /*
 **process_manag.c
 */
