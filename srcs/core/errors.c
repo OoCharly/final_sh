@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:54 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 17:28:46 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/16 19:03:18 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static void	ft_last_exit_fail(int mode)
 {
 	t_stream	*stream;
 
-//	if (mode & SERROR)
-		ft_status(1);
+	ft_status(1);
 	stream = ft_save_stream(NULL);
 	if (ft_script_line(0) && EEXIT & mode)
 		ft_shell_exit(stream->config);
