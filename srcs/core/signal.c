@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:55:20 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 21:26:46 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 21:56:58 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void		ft_signal_handle(int i)
 			{
 				ft_freegiveone((void**)&stream->config->exclamation);
 				stream->state = REPROMPT;
-				ft_end_autocomp(stream);
 				ft_goend(stream);
 			}
 		}
