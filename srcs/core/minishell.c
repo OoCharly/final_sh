@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 14:57:04 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 15:39:17 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		ft_run_command(t_config *config)
 			ft_parse(config);
 	}
 	ft_freegiveone((void**)&config->command);
+	ft_freegiveone((void**)&config->free);
 }
 
 /*
