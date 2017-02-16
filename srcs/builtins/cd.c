@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 17:01:06 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/16 17:18:41 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ static int	cd_option(char *arg, char *path, t_config *config)
 {
 	if (!arg[1])
 	{
-		if (!(path = ft_strdup(ft_getenv("OLDPWD", config->env))))
+		if (!(path = ft_strdup(ft_getenv("OLDPWD", config->env)))
+				|| (!*path && FREE((void**)&path)))
 			ft_error(SHNAME, "cd", "OLDPWD not set", CR_ERROR);
 		else
 		{
