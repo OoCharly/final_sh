@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 19:13:08 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 18:12:41 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int			ft_is_no_fork_builtin(char **argv, t_config *config)
 		ft_history(argv, config);
 	else
 		return (0);
+	config->last_exit = ft_status(0);
 	return (1);
 }
 
@@ -101,5 +102,6 @@ int			ft_builtin(char **argv, t_config *config)
 		ft_env(argv, config);
 	else
 		return (0);
+	config->last_exit = ft_status(0);
 	return (1);
 }

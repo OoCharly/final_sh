@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:42:15 by tboos             #+#    #+#             */
-/*   Updated: 2016/03/18 17:50:31 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 17:25:12 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int		ft_status(int value)
 {
 	static int	status = 0;
 
-	if (value)
+	if (value == 666)
+		status = 0;
+	else if (value)
 	{
 		status = value;
 		return (1);

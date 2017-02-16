@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 14:46:42 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 14:46:44 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 18:31:57 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int			ft_is_only_variable(char ***argv, t_config *config)
 		while (size-- && (*argv = ft_strncmptabdel(*argv, **argv)))
 			;
 	if (!*argv || (!**argv && FREE((void**)*argv)))
+	{
+		config->last_exit = ft_status(0);
 		return (1);
+	}
 	return (0);
 }
