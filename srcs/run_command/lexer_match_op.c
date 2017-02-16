@@ -78,6 +78,8 @@ char			*ft_match_op(char *cmd, size_t *i)
 		else
 			buf[j] = cmd[*i];
 	}
+	if (*i == 1 && !--(*i) && !(cmd[1] = 0))
+		return (ft_reduc(i, 0, NULL, cmd));
 	if (!cmd[*i] && ft_strchr("<>|", buf[0]))
 		return (ft_reduc(i, 1, NULL, cmd));
 	return (ft_strdup(buf));

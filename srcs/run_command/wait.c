@@ -126,7 +126,7 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		ft_error(SHNAME, "parser", "malloc error on process control", CR_ERROR);
 	else if (config->fg_sentence && !(config->fg_sentence = NULL))
 		ft_list_push_front(&job, new);
-	if (DOT == 'b' || ft_wait(&job, config))
+	if ((DOT == 'b' || ft_wait(&job, config)))
 	{
 		(((t_sentence*)new->data)->state = (DOT == 'b' && !DOT) ? RUN : SUSP);
 		if (!(new = ft_lstnew((void*)job, JOB)))

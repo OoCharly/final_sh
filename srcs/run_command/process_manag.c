@@ -16,13 +16,15 @@ static void	ft_job_done(t_config *config, char *description)
 {
 	t_list	*job;
 
-	job = ft_extract_job(config, description);
-	ft_putchar('\n');
-	FT_PUTSTRFD(ft_st_itoa(*((int*)job->next->data)), "    ",
-				"Done", 1);
-	FT_PUTSTRFD("    ", ((t_sentence*)job->data)->sentence, "\n", 1);
-	ft_free_all_process(&job, 1);
-	ft_winsize();
+	if ((job = ft_extract_job(config, description)))
+	{
+		ft_putchar('\n');
+		FT_PUTSTRFD(ft_st_itoa(*((int*)job->next->data)), "    ",
+					"Done", 1);
+		FT_PUTSTRFD("    ", ((t_sentence*)job->data)->sentence, "\n", 1);
+		ft_free_all_process(&job, 1);
+		ft_winsize();
+	}
 }
 
 static void	ft_job_suspended(t_list *job)
@@ -52,8 +54,7 @@ void		ft_jobs_manag(void)
 			pgid = getpgid(*(pid_t*)(((t_list*)list->data)->next->data));
 		if (pgid && waitpid(-pgid, &status, WNOHANG | WUNTRACED))
 		{
-			WIFSTOPPED(status) ? ft_job_suspended(list)
-				: ft_job_done(config,
+			WIFSTOPPED(status) ? ft_job_suspended(list) : ft_job_done(config,
 					((t_sentence*)((t_list*)(list->data))->data)->sentence);
 			return ;
 		}

@@ -45,7 +45,10 @@ void		ft_run_command(t_config *config)
 		if (!ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
+		{
+			ft_lstiter(config->chimera, &ft_print_list);
 			ft_parse(config);
+		}
 	}
 	ft_freegiveone((void**)&config->command);
 	ft_freegiveone((void**)&config->free);

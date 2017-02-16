@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 16:43:09 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/16 17:18:41 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,14 @@ static int	cd_option(char *arg, char *path, t_config *config)
 {
 	if (!arg[1])
 	{
-		if (!(path = ft_strdup(ft_getenv("OLDPWD", config->env))))
-			ft_error(SHNAME, "cd", "HOME not set", CR_ERROR);
+		if (!(path = ft_strdup(ft_getenv("OLDPWD", config->env)))
+				|| (!*path && FREE((void**)&path)))
+			ft_error(SHNAME, "cd", "OLDPWD not set", CR_ERROR);
 		else
+		{
 			ft_putendl(path);
 			ft_path_follow(path, config, 0);
+		}
 		return (-1);
 	}
 	else if (arg[1] == 'P')
@@ -133,7 +136,7 @@ void		ft_cd(char **argv, t_config *config)
 			return ;
 	}
 	if (!path && !argv[i] && ((path = ft_getenv("HOME", config->env))
-				|| !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
+				|| ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
 	else if (argv[i][0] == '/')
 		path = ft_strdup(argv[i]);
