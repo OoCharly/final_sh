@@ -1,6 +1,6 @@
 .PHONY: fclean re
 .SUFFIXES:
-NAME = 42sh
+NAME = 21sh
 FLAGS = -Wall -Wextra -Werror
 FLAGSPOSIX = -ansi -pedantic -D_POSIX_SOURCE=1
 SRCS = $(foreach S, $(SRC), srcs/$(S))
@@ -20,6 +20,7 @@ autocomp/rep.c \
 autocomp/support.c \
 builtins/builtin.c \
 builtins/cd.c \
+builtins/cd_res_symlink.c \
 builtins/echo.c \
 builtins/env.c \
 builtins/environ.c \

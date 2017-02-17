@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/08 11:47:03 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/17 14:01:05 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int				ft_default_env(t_config *config);
 int				ft_builtin(char **argv, t_config *config);
 void			ft_update_prompt(t_config *config);
 void			ft_cd(char **argv, t_config *config);
+char			*ft_resolve_symlink(char *path);
 void			ft_env(char **argv, t_config *config);
 void			ft_setenv(char *name, char *value, t_config *config);
 void			ft_readysetenv(char **argv, t_config *config);

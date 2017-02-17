@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 12:13:01 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/17 14:25:31 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 	struct stat	buf;
 	char		*err;
 
+	if (nosymlink == 1)
+		path = ft_resolve_symlink(path);
 	ft_clean_path(path);
 	if (!*path && (*path = '/') && !ft_access_dir(path))
 		;
@@ -142,7 +144,7 @@ void		ft_cd(char **argv, t_config *config)
 				|| ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
 	else if (argv[i][0] == '/')
-			path = ft_strdup(argv[i]);
+		path = ft_strdup(argv[i]);
 	else if (argv[i] && (path = config->pwd))
 		path = ft_strslashjoin(path, argv[i]);
 	if (path)
