@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 16:38:05 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/15 19:20:14 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/17 13:07:43 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,49 +61,53 @@ int			ft_checkhist(char *str)
 int			ft_history_exclamation(t_stream *stream)
 {
 	char		*tmp;
-	char		*mem;
+	int			flag;
 	int			i;
 
-	if ((i = ft_st_checkchars(stream->command, "!")))
+	flag = 0;
+	i = 0;
+	if ((i = ft_st_checkchars(stream->command + i, "!")))
 	{
 		if (stream->command[i] && (stream->command[i] == '!'
-			|| ft_isdigit(stream->command[i])))
+			|| (ft_isdigit(stream->command[i])
+			&& ft_atoi(stream->command + i) <= HISTORY_SIZE)))
 		{
-			mem = NULL;
-			tmp = stream->command;
-			while ((tmp = ft_create_strhistidx(tmp))
-				&& ft_freegiveone((void**)&mem))
+			if ((tmp = ft_create_strhistidx(stream->command))
+				&& (flag = 1))
 			{
-				mem = tmp;
+				ft_freegiveone((void**)&(stream->command));
+				stream->command = tmp;
 			}
-			ft_freegiveone((void**)&(stream->command));
-			stream->command = mem;
-			return (1);
 		}
 	}
+	if (flag)
+		return (1);
 	return (0);
 }
 
 int			ft_history_rep(t_stream *stream)
 {
 	char		*tmp;
-	char		*mem;
+	int			flag;
 	int			i;
 
-	if ((i = ft_st_checkchars(COMP_BEGIN, "!")))
+	flag = 0;
+	i = 0;
+	if ((i = ft_st_checkchars(COMP_BEGIN + i, "!")))
 	{
 		if (COMP_BEGIN[i] && (COMP_BEGIN[i] == '!'
-			|| ft_isdigit(COMP_BEGIN[i])))
+			|| (ft_isdigit(COMP_BEGIN[i])
+			&& ft_atoi(COMP_BEGIN + i) <= HISTORY_SIZE)))
 		{
-			mem = NULL;
-			tmp = COMP_BEGIN;
-			while ((tmp = ft_create_strhistidx(tmp))
-				&& ft_freegiveone((void**)&mem))
-				mem = tmp;
-			ft_freegiveone((void**)&(COMP_BEGIN));
-			COMP_BEGIN = mem;
-			return (1);
+			if ((tmp = ft_create_strhistidx(COMP_BEGIN))
+				&& (flag = 1))
+			{
+				ft_freegiveone((void**)&(COMP_BEGIN));
+				COMP_BEGIN = tmp;
+			}
 		}
 	}
+	if (flag)
+		return (1);
 	return (0);
 }

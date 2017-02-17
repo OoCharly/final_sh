@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 16:06:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/15 19:20:13 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/17 13:07:08 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_ret_idx(char *str, int i, char **su)
 	while (str[i] && ft_isdigit(str[i++]))
 		j++;
 	if (!(idx_str = ft_strnew(j))
-		&& ft_error(SHNAME, NULL, "malloc error", CR_ERROR))
+			&& ft_error(SHNAME, NULL, "malloc error", CR_ERROR))
 		return (-1);
 	j = -1;
 	while (str[idx] && ft_isdigit(str[idx]))
@@ -54,7 +54,7 @@ static char	*ft_loop_hist(char *str, char **pre, char **su)
 		if (str[i] == '!' && (i == 0 || str[i - 1] != '\\'))
 		{
 			if (!(*pre = ft_strnew(i + 2))
-				&& ft_error(SHNAME, NULL, "malloc error", CR_ERROR))
+					&& ft_error(SHNAME, NULL, "malloc error", CR_ERROR))
 				return (NULL);
 			if (ft_strncpy(*pre, str, i) && str[i + 1] && str[i + 1] == '!')
 			{
@@ -64,7 +64,10 @@ static char	*ft_loop_hist(char *str, char **pre, char **su)
 				return ((j > 0) ? ft_strdup(config->history[j - 1]) : NULL);
 			}
 			if (str[i + 1] && ((j = ft_ret_idx(str, i, su)) >= 0))
-				return (ft_strdup(config->history[j - 1]));
+			{
+				ft_decr_history(NULL, &j);
+				return (ft_strdup(config->history[j]));
+			}
 		}
 	return (NULL);
 }
@@ -79,9 +82,10 @@ char		*ft_create_strhistidx(char *str)
 
 	pre = NULL;
 	su = NULL;
+	ret_hist = NULL;
 	idx_hist = ft_loop_hist(str, &pre, &su);
 	if (!idx_hist && ft_freegiveone((void**)&pre)
-		&& ft_freegiveone((void**)&idx_hist))
+			&& ft_freegiveone((void**)&idx_hist))
 		return (NULL);
 	i = ft_strlen(pre) + ft_strlen(idx_hist) + ft_strlen(su);
 	ret_hist = ft_strnew(++i);
