@@ -6,11 +6,22 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2016/12/15 18:13:40 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/17 17:53:16 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static size_t	ft_count_loop(int i) 
+{
+	static size_t save = 0;
+
+	if (i < 0)
+		save = 0;
+	else if (i > 0)
+		save += i;
+	return (save);
+}
 
 /*
 ** Save once and  return list with valid files pathnames.
@@ -76,13 +87,17 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 
 	begin = ft_save_list(NULL, 0);
 	end = ft_strlen(ft_strcpy(buf, path));
-	if (!*glob)
+	if (!*glob && ft_count_loop(1))
 		ft_list_push_back(begin, ft_lstnew(ft_strdup(buf), 0));
 	if (dir && *glob == '/')
 		ft_glob(dir, ft_strcat(buf, "/"), ++glob);
 	else if (dir)
-		while ((file = readdir(dir)))
+		while ((file = readdir(dir))) 
+		{
+			if (ft_count_loop(0) > GLOB_LIST_LIMIT)
+				break;
 			ft_check_file(file->d_name, glob, buf, end);
+		}
 }
 
 /*
@@ -103,6 +118,7 @@ char			**ft_launch_glob(char *str)
 	if (!(current_dir = (*str == '/') ? opendir("/") : opendir(".")))
 		return (NULL);
 	ft_glob(current_dir, NULL, (char*)str);
+	ft_count_loop(-1);
 	closedir(current_dir);
 	while (begin)
 	{

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:54:52 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 18:30:35 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/17 17:06:21 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void		ft_pipe_process(int *r_pipe, t_list *pipe)
 	}
 }
 
-static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe,
-				char *path)
+static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe)
 {
 	t_list	*sshell;
+	char	*path;
 
 	config->shell_state = RUNNING_SON;
 	ft_pipe_process(r_pipe, begin->next);
@@ -69,13 +69,13 @@ static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe,
 		config->chimera = sshell;
 		ft_parse(config);
 	}
-	else
+	else if (ft_is_no_fork_builtin(begin->data, config))
+		;
+	else if ((path = ft_path_handle(begin->data, config)))
 	{
 		ft_signal_reset();
 		ft_launch_process(path, begin->data, config);
 	}
-	ft_status(config->last_exit);
-	ft_shell_exit(config);
 }
 
 static t_list	*ft_fork_process(t_list *begin, t_config *config, int *r_pipe)
@@ -83,19 +83,22 @@ static t_list	*ft_fork_process(t_list *begin, t_config *config, int *r_pipe)
 	t_list	*new;
 	pid_t	pid;
 	pid_t	*mem;
-	char	*path;
 
 	new = NULL;
 	if (!begin->data_size && ((!begin->data || !((char**)begin->data)[0])
 		|| ft_is_only_variable((char***)&begin->data, config)
-		|| ft_is_no_fork_builtin(begin->data, config)
-		|| !(path = ft_path_handle(begin->data, config))))
+		|| ((!r_pipe && !begin->next)
+			&& ft_is_no_fork_builtin(begin->data, config))))
 		return (NULL);
 	else if ((pid = fork()) == -1
 		&& ft_error(SHNAME, "parser", "fork error", CR_ERROR))
 		return (NULL);
 	else if (!pid)
-		ft_pack_process(begin, config, r_pipe, path);
+	{
+		ft_pack_process(begin, config, r_pipe);
+		ft_status(config->last_exit);
+		ft_shell_exit(config);
+	}
 	else if (!(mem = (pid_t*)ft_memalloc(sizeof(pid_t)))
 		|| !(*mem = pid)
 		|| !(new = ft_lstnew((void *)mem, PROS)))
