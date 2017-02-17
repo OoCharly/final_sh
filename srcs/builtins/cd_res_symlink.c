@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 14:01:37 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/02/17 14:25:30 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/17 14:33:59 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ char			*ft_resolve_symlink(char *path)
 		{
 			ft_bzero(&cp, _POSIX_PATH_MAX + 1);
 			*slash2 = 0;
-			if (readlink(result, cp, _POSIX_PATH_MAX) < 0
-					&& (slash1 = slash2) && (*slash2 = '/'))
+			if (readlink(result, cp, _POSIX_PATH_MAX) < 0 && (slash1 = slash2)
+					&& (*slash2 = '/'))
 				continue ;
-			i = (cp[0] == '/') ? ft_absolute_link(slash2, cp, &result) 
+			i = (cp[0] == '/') ? ft_absolute_link(slash2, cp, &result)
 				: ft_relative_link(slash1, slash2, cp, &result);
 			slash1 = result + i + 1;
 		}
 	if (!(slash1[1] && readlink(result, cp, _POSIX_PATH_MAX) >= 0))
 		return (result);
 	if (cp[0] == '/' && ft_freegiveone((void**)&result))
-		return (ft_strdup(cp));	
+		return (ft_strdup(cp));
 	ft_relative_link(slash1, NULL, cp, &result);
 	return (result);
 }
