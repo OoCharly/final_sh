@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 14:30:56 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/17 15:13:11 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,13 @@ void		ft_cd(char **argv, t_config *config)
 		else
 			return ;
 	}
-	if (!path && !argv[i] && ((path = ft_getenv("HOME", config->env))
-				|| ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
+	if (!path && !argv[i] && (((path = ft_getenv("HOME", config->env))
+			&& *path) || !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
-	else if (argv[i][0] == '/')
+	else if (argv[i] && argv[i][0] == '/')
 		path = ft_strdup(argv[i]);
 	else if (argv[i] && (path = config->pwd))
 		path = ft_strslashjoin(path, argv[i]);
-	if (path)
+	if (path && *path)
 		ft_path_follow(path, config, nosymlink);
 }

@@ -1,6 +1,6 @@
 .PHONY: fclean re
 .SUFFIXES:
-NAME = 21sh
+NAME = 42sh
 FLAGS = -Wall -Wextra -Werror
 FLAGSPOSIX = -ansi -pedantic -D_POSIX_SOURCE=1
 SRCS = $(foreach S, $(SRC), srcs/$(S))
