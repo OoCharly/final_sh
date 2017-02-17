@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/01/08 16:28:37 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/17 17:33:12 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "minishell.h"
 
 # define BRACES_SIZE 3000
+# define GLOB_LIST_LIMIT 4096
 
 typedef struct	s_brace
 {
