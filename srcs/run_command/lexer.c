@@ -80,7 +80,8 @@ t_list			*ft_built_couple(char *cmd, size_t *i)
 {
 	t_list	*next;
 
-	if (!(*i = ft_next_op(cmd, *i)) && !cmd[*i])
+	if (!(*i = ft_next_op(cmd, *i)) && (!cmd[*i] ||
+			(cmd[*i] == '(' && ft_test_emptyness(cmd, *i + 1, ')'))))
 		return (NULL);
 	if (*i && (cmd[*i] == '>' || cmd[*i] == '<'))
 		while (*i && ft_isdigit(cmd[*i - 1]))
