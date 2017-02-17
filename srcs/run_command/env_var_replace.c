@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:02:24 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 15:13:04 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/17 15:56:48 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char		*ft_envvarinsert(char *cmd, size_t *i, t_config *config)
 	else
 		e = ft_varsearch(cmd, i, config, m);
 	ft_memmove((void *)(m - 1), (void *)(cmd + *i), ft_strlen(cmd + *i) + 1);
-	*i = *i + ft_strlen(e);
+	*i += ft_strlen(e) - ((cmd + *i) - (m - 1) + 1);
 	if (!e)
 		return (cmd);
 	if (e && (e = ft_strinsert(cmd, e, m - 1)) && ft_freegiveone((void**)&cmd))
