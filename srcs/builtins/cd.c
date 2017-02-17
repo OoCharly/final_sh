@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 15:13:11 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/17 15:36:58 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 			|| ((err = "not a directory") && !S_ISDIR(buf.st_mode))
 			|| ((err = "permission denied") && -1 == access(path, X_OK))
 			|| (err = NULL))
-		ft_error(SHNAME, err, path, CR_ERROR);
+		ft_error("cd", err, path, CR_ERROR);
 	else if (!chdir(path))
 	{
 		ft_setenv("PWD", (nosymlink) ? (err = getcwd(NULL, 0)) : path, config);
