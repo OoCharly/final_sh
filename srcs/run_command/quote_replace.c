@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:21:44 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/19 18:14:54 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/17 15:59:51 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_quotehandle(char **str, t_config *config)
 	j = 0;
 	while ((*str)[j])
 	{
-		if (((*str)[j] == '~' || (*str)[j] == '$')
+		if ((((*str)[j] == '~' || (*str)[j] == '$') && ((*str)[j + 1]))
 				&& !(*str = ft_envvarinsert(*str, &j, config)))
 			return (NULL);
 		else if ((*str)[j] == '\'')

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 14:58:35 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/17 15:36:58 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 			|| ((err = "not a directory") && !S_ISDIR(buf.st_mode))
 			|| ((err = "permission denied") && -1 == access(path, X_OK))
 			|| (err = NULL))
-		ft_error(SHNAME, err, path, CR_ERROR);
+		ft_error("cd", err, path, CR_ERROR);
 	else if (!chdir(path))
 	{
 		ft_setenv("PWD", (nosymlink) ? (err = getcwd(NULL, 0)) : path, config);
@@ -92,6 +92,7 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 	}
 	else
 		ft_error(SHNAME, "failed moving to directory", path, CR_ERROR);
+	FREE((void**)&path);
 }
 
 static int	cd_option(char *arg, char *path, t_config *config)
@@ -140,13 +141,12 @@ void		ft_cd(char **argv, t_config *config)
 			return ;
 	}
 	if (!path && !argv[i] && (((path = ft_getenv("HOME", config->env))
-			&& *path) || ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
+			&& *path) || !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
-	else if (argv[i][0] == '/')
+	else if (argv[i] && argv[i][0] == '/')
 		path = ft_strdup(argv[i]);
 	else if (argv[i] && (path = config->pwd))
 		path = ft_strslashjoin(path, argv[i]);
 	if (path && *path)
 		ft_path_follow(path, config, nosymlink);
-	FREE((void**)&path);
 }
