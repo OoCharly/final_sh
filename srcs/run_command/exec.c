@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:20:26 by tboos             #+#    #+#             */
-/*   Updated: 2016/12/14 18:11:14 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/17 17:12:22 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ void		ft_execve(char *path, char **argv, char **env)
 
 	if ((-1 == execve(path, argv, env)) && (rearg[1] = path) &&
 			(-1 == execve(SHNAME, rearg, env)))
-		ft_error(SHNAME, "exec", "execve error", CR_ERROR);
+	{
+		if (ft_strtablen(argv) + ft_strtablen(env) > _POSIX_ARG_MAX)
+			ft_error(SHNAME, "argument list too long", argv[0], CR_ERROR);
+		else
+			ft_error(SHNAME, "exec", "execve error", CR_ERROR);
+	}
 }
 
 void		ft_launch_process(char *path, char **argv, t_config *config)
