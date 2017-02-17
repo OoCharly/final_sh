@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:21:07 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 20:41:25 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/17 13:26:51 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,16 @@ char			*ft_match_op(char *cmd, size_t *i, t_list *next)
 	if (!(j = 0) && (ft_isdigit(buf[0]) || buf[0] == '<' || buf[0] == '>')
 		&& (config->lexerlop = 1))
 		return (ft_agregation((char*)buf, i, cmd, &j));
-	while (cmd[++*i] && !ft_strchr("()", cmd[*i])
-			&& ft_isop(cmd[*i]) && ++j)
-	{
+	while (cmd[++*i] && !ft_strchr("()", cmd[*i]) && ft_isop(cmd[*i]) && ++j)
 		if ((cmd[*i] != buf[j - 1] || buf[0] == ';') && !(cmd[*i + 1] = 0))
 			return (ft_reduc(i, j, NULL, cmd));
 		else if ((j >= 2) && !(cmd[*i] = 0))
 			return (ft_reduc(i, j, NULL, cmd));
 		else
 			buf[j] = cmd[*i];
-	}
-	if (!config->lexerlop && (!next->data || !((char**)next->data)[0]) && !(cmd[1] = 0) && !(*i = 0))
+	if (!config->lexerlop && (!next->data || !((char**)next->data)[0])
+		&& !(*i = 0)
+		&& !(cmd[1] = 0))
 		return (ft_reduc(i, 0, NULL, cmd));
 	if (!cmd[*i] && ft_strchr("<>|", buf[0]))
 		return (ft_reduc(i, 1, NULL, cmd));
