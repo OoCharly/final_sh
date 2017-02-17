@@ -129,7 +129,7 @@ t_list			*ft_freelist(t_list **begin);
 void			ft_freepros(t_list *kill);
 void			ft_free_one_process(t_list **process, pid_t pid);
 void			ft_free_all_process(t_list **process, int mode);
-void			ft_free_all_jobs(t_list **job);
+void			ft_free_all_jobs(t_list **job, t_config *config);
 /*
 **main.c && minishell.c
 */
