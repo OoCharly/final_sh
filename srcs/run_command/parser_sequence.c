@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 12:54:52 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 17:06:21 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/17 19:14:48 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void		ft_pack_process(t_list *begin, t_config *config, int *r_pipe)
 	t_list	*sshell;
 	char	*path;
 
-	config->shell_state = RUNNING_SON;
 	ft_pipe_process(r_pipe, begin->next);
 	if (begin->data_size == SSHELL && (config->shell_state = RUNNING_SSHELL))
 	{
@@ -95,6 +94,7 @@ static t_list	*ft_fork_process(t_list *begin, t_config *config, int *r_pipe)
 		return (NULL);
 	else if (!pid)
 	{
+		config->shell_state = RUNNING_SON;
 		ft_pack_process(begin, config, r_pipe);
 		ft_status(config->last_exit);
 		ft_shell_exit(config);
