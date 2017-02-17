@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/01 15:04:43 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/16 22:01:43 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	ft_insert(char ***t, int *i, int mode)
 		*t = ft_insertdeletetab(*t, g_tab, *i);
 		*i += ft_strtablen(g_tab);
 		ft_free(g_tab);
-		ft_free(kill);
+		ft_freegiveone((void**)&kill);
 	}
 	else
 	{

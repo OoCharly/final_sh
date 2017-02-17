@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:05:45 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 20:37:58 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/16 21:09:50 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_list			*ft_built_couple(char *cmd, size_t *i)
 {
 	t_list	*next;
 
-	if (!(*i = ft_next_op(cmd, *i)) && !cmd[*i])
+	if (!(*i = ft_next_op(cmd, *i)) && (!cmd[*i] ||
+			(cmd[*i] == '(' && ft_test_emptyness(cmd, *i + 1, ')'))))
 		return (NULL);
 	if (*i && (cmd[*i] == '>' || cmd[*i] == '<'))
 		while (*i && ft_isdigit(cmd[*i - 1]))
@@ -105,6 +106,8 @@ t_list			*ft_lexer(char *cmd)
 	{
 		while (ft_isspace(*cmd))
 			++cmd;
+		if (!*cmd)
+			break ;
 		if (!(next = ft_built_couple(cmd, &i)))
 			return (ft_freelist(&begin));
 		ft_list_push_back(&begin, next);

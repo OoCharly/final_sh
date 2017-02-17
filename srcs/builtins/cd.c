@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 17:18:41 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/17 12:13:01 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,11 @@ static int	cd_option(char *arg, char *path, t_config *config)
 		}
 		return (-1);
 	}
-	else if (arg[1] == 'P')
+	else if (arg[1] == 'P' && FREE((void**)&(config->pwd)))
+	{
+		config->pwd = getcwd(NULL, 0);
 		return (1);
+	}
 	else if (arg[1] != 'L')
 	{
 		ft_error("cd", arg, "invalid option", CR_ERROR);
@@ -139,7 +142,7 @@ void		ft_cd(char **argv, t_config *config)
 				|| ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
 	else if (argv[i][0] == '/')
-		path = ft_strdup(argv[i]);
+			path = ft_strdup(argv[i]);
 	else if (argv[i] && (path = config->pwd))
 		path = ft_strslashjoin(path, argv[i]);
 	if (path)
