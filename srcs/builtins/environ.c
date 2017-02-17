@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 19:07:08 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/17 18:45:07 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 		&& ft_freegiveone((void **)&mem) && (config->env = f))
 		ft_error(SHNAME, "malloc error during setenv for", n, CR_ERROR);
 	else if (f && config->env && f != config->env)
-		free(f);
+		FREE((void**)f);
 	if (config->shell_state != RUNNING_SON && n && !ft_strcmp("PATH", n))
 		ft_pathtohash(config);
 	(i >= 0) ? ft_freegiveone((void**)&(mem)) : 1;
@@ -88,7 +88,7 @@ void	ft_unsetenv(char **argv, t_config *config)
 	{
 		if ((n = ft_igetenv(argv[i], cp)) >= 0)
 		{
-			free(cp[n]);
+			FREE((void**)&cp[n]);
 			cp[n] = cp[n + 1];
 			while (cp[++n])
 				cp[n] = cp[n + 1];
