@@ -50,14 +50,15 @@ void	ft_free_all_process(t_list **process, int mode)
 	}
 }
 
-void	ft_free_all_jobs(t_list **job)
+void	ft_free_all_jobs(t_list **job, t_config *config)
 {
 	t_list *tmp;
 
 	while (*job)
 	{
 		tmp = *job;
-		ft_free_all_process(((t_list **)&(tmp->data)), 1);
+		ft_free_all_process(((t_list **)&(tmp->data)),
+						config->script_state ? 0 : 1);
 		(*job) = (*job)->next;
 		free(tmp);
 	}

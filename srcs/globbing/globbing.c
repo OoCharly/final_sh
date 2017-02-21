@@ -6,13 +6,13 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/02/17 17:53:16 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/17 19:13:44 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	ft_count_loop(int i) 
+static size_t	ft_count_loop(int i)
 {
 	static size_t save = 0;
 
@@ -92,10 +92,10 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 	if (dir && *glob == '/')
 		ft_glob(dir, ft_strcat(buf, "/"), ++glob);
 	else if (dir)
-		while ((file = readdir(dir))) 
+		while ((file = readdir(dir)))
 		{
 			if (ft_count_loop(0) > GLOB_LIST_LIMIT)
-				break;
+				break ;
 			ft_check_file(file->d_name, glob, buf, end);
 		}
 }

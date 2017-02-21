@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 15:57:39 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/02/17 13:49:41 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/17 19:12:52 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int				ft_rep(t_stream *stream, char *b)
 	int		ret;
 	char	*add;
 
+	signal(SIGINT, SIG_IGN);
 	b = (void*)b;
 	j = 0;
 	ret = 0;
@@ -57,11 +58,11 @@ int				ft_rep(t_stream *stream, char *b)
 		return (0);
 	else
 		COMP_BEGIN = NULL;
-	add = ft_strtabchrjoin(arg, ' ');
-	if (add)
+	if ((add = ft_strtabchrjoin(arg, ' ')))
 		add[ft_strlen(add) - 1] = 0;
 	ft_addtoline(stream, add, b);
 	ft_strtabfree(arg);
 	arg = NULL;
+	signal(SIGINT, &ft_signal_handle);
 	return (1);
 }

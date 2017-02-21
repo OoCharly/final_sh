@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 19:05:19 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/17 19:28:42 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CORE_H
 
 # define SHNAME			"42sh"
-# define HISTORY_SIZE	10
+# define HISTORY_SIZE	200
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
 # define FREE			ft_freegiveone
 # define BELL			ft_ringbell_fd
@@ -129,7 +129,7 @@ t_list			*ft_freelist(t_list **begin);
 void			ft_freepros(t_list *kill);
 void			ft_free_one_process(t_list **process, pid_t pid);
 void			ft_free_all_process(t_list **process, int mode);
-void			ft_free_all_jobs(t_list **job);
+void			ft_free_all_jobs(t_list **job, t_config *config);
 /*
 **main.c && minishell.c
 */

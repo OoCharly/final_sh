@@ -32,7 +32,7 @@ void	ft_free_config(t_config *config)
 {
 	if (config)
 	{
-		ft_free_all_jobs(&(config->jobs));
+		ft_free_all_jobs(&(config->jobs), config);
 		ft_freegiveone((void **)&(config->pwd));
 		ft_freegiveone((void **)&(config->exclamation));
 		if (config->env)
