@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:29:29 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/09 05:12:47 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/21 12:50:29 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int		get_mode(int len, char *str, t_stream *stream)
 
 	co = 0;
 	i = (stream->pos) - len - 1;
+	if (str[i + 1] && (str[i + 1] == '.' || str[i + 1] == '/'))
+		return (2);
 	while (i > 0 && str[i] != '|' && str[i] != ';')
 	{
 		if (str[i] != ' ')
