@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 19:09:18 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/21 14:09:25 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,21 @@ static void	ft_tricase(int ac, char **av, t_config *config)
 
 static int	ft_history_loc_init(t_config *config, char *av)
 {
-	char		*c;
 	char		*home;
+	(void)av;
 
-	if ((!(home = ft_getenv("HOME", config->env)))
-		|| !(c = ft_strslashjoin(home, av)))
-		return (ft_initerror(config));
-	if (!(config->hloc = ft_strrchr(c, '/')) && ft_freegiveone((void**)&c))
-		return (ft_initerror(config));
-	config->hloc[0] = '\0';
-	if (!(config->hloc = ft_strjoin(c, "history.bck"))
-			&& ft_freegiveone((void**)&c))
-		return (ft_initerror(config));
-	ft_freegiveone((void**)&c);
-	return (0);
+	if (!(home = ft_getenv("HOME", config->env)) || home[0] == 0)
+	{
+		ft_error(SHNAME, "failed to load history", "HOME not set", CR_ERROR);
+		if (!(home = getcwd(NULL, 0)))
+			return (ft_initerror(config));
+		home = ft_strfjoin(home, "/", 1);
+	}
+	else
+		home = ft_strjoin(home, "/");
+	if (home && (config->hloc = ft_strfjoin(home, ".history.bck", 1)))
+		return (0);
+	return (ft_initerror(config));
 }
 
 /*
@@ -82,10 +83,9 @@ int			main(int ac, char **av, char **env)
 	int			i;
 
 	ft_bzero(&config, sizeof(t_config));
-	if (!env || !env[0] || !(config.env = ft_strtabdup(env))
-			|| !ft_pathtohash(&config))
-		if (!ft_default_env(&config) || !ft_pathtohash(&config))
-			return (ft_initerror(&config));
+	config.env = ft_strtabdup(env);
+	if (!ft_default_env(&config) || !ft_pathtohash(&config))
+		return (ft_initerror(&config));
 	ft_update_prompt(&config);
 	if ((i = ft_strtabifindstart(env, "SHLVL")) != -1)
 		ft_setenv("SHLVL", ft_st_itoa(ft_atoi(env[i] + 6) + 1), &config);

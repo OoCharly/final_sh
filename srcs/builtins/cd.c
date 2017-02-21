@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 15:36:58 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/21 12:24:23 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_clean_path(char *path)
 		if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '/')
 			ft_strcpy(path + i, path + i + 2);
 		else if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '.'
-			&& i - 2 > 0 && path[i - 1] != '.' && path[i - 2] != '.')
+				&& i - 2 > 0 && path[i - 1] != '.' && path[i - 2] != '.')
 		{
 			while (--i != 0 && path[i] != '/')
 				;
@@ -34,7 +34,7 @@ static void	ft_clean_path(char *path)
 			i++;
 	}
 	if (path && ((i > 2 && path[i - 1] == '.' && path[i - 2] == '/')
-			|| (i && path[i - 1] == '/')))
+				|| (i && path[i - 1] == '/')))
 		path[i - 1] = '\0';
 	if (*path == '/' && *(path + 1) == '.'
 			&& (*(path + 2) == '.' || !*(path + 2)))
@@ -46,9 +46,10 @@ void		ft_update_prompt(t_config *config)
 	char	*pwd;
 
 	ft_freegiveone((void**)&(config->pwd));
-	if (!(pwd = ft_strdup(ft_getenv("PWD", config->env))))
+	if (!(pwd = ft_strdup(ft_getenv("PWD", config->env)))
+			|| ((pwd[0] == 0) && ft_freegiveone((void**)&pwd)))
 	{
-		if (!(getcwd(pwd, 0)))
+		if (!(pwd = getcwd(NULL, 0)))
 		{
 			ft_error(SHNAME, NULL, PATH_MAX_ERR, CR_ERROR | SERROR);
 			config->pwd_subrep = "???";
@@ -58,12 +59,9 @@ void		ft_update_prompt(t_config *config)
 		else
 			ft_setenv("PWD", pwd, config);
 	}
-	else
-	{
-		config->pwd = pwd;
-		config->pwd_subrep = (!pwd[1] ? pwd : ft_strrchr(pwd, '/') + 1);
-		config->prompt_len = ft_strlen(config->pwd_subrep) + 6;
-	}
+	config->pwd = pwd;
+	config->pwd_subrep = (!pwd[1] ? pwd : ft_strrchr(pwd, '/') + 1);
+	config->prompt_len = ft_strlen(config->pwd_subrep) + 6;
 }
 
 static void	ft_path_follow(char *path, t_config *config, int nosymlink)
@@ -141,7 +139,7 @@ void		ft_cd(char **argv, t_config *config)
 			return ;
 	}
 	if (!path && !argv[i] && (((path = ft_getenv("HOME", config->env))
-			&& *path) || !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
+					&& *path) || !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
 	else if (argv[i] && argv[i][0] == '/')
 		path = ft_strdup(argv[i]);

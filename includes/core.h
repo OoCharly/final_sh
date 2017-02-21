@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 14:14:05 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 19:28:42 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/21 14:44:45 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define FT_PUTSTRFD	ft_putstr_str_str_fd
 # define FREE			ft_freegiveone
 # define BELL			ft_ringbell_fd
-# define DPATH	"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+# define DLSCOLORS		"Gxfxcxdxbxegedabagacad"
 
 /*
 ** SHELL STATES
