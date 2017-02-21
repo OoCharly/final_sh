@@ -6,39 +6,37 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/21 12:24:23 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/21 17:26:15 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_clean_path(char *path)
+static void	ft_clean_path(char *str)
 {
 	int		i;
 
 	i = 0;
-	while (path && path[i])
+	while (str && str[i])
 	{
-		if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '/')
-			ft_strcpy(path + i, path + i + 2);
-		else if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '.'
-				&& i - 2 > 0 && path[i - 1] != '.' && path[i - 2] != '.')
+		if (str[i] == '/' && ((str[i + 1] == '.' && (str[i + 2] == '/'
+				|| !str[i + 2])) || (str[i + 1] == '/')))
+			ft_strcpy(str + i, str + i + ((str[i + 1] == '/') ? 1 : 2));
+		else if (str[i] == '/' && str[i + 1] == '.' && str[i + 2] == '.'
+				&& i - 2 > 0 && str[i - 1] != '.' && str[i - 2] != '.')
 		{
-			while (--i != 0 && path[i] != '/')
+			while (--i != 0 && str[i] != '/')
 				;
-			ft_strcpy(path + i + 1, ft_strchr(path + i + 1, '/') + 3);
+			ft_strcpy(str + i + 1, ft_strchr(str + i + 1, '/') + 3);
 		}
-		else if (path[i] == '/' && path[i + 1] == '/')
-			ft_memmove(path + i, path + i + 1, ft_strlen(path + i));
 		else
 			i++;
 	}
-	if (path && ((i > 2 && path[i - 1] == '.' && path[i - 2] == '/')
-				|| (i && path[i - 1] == '/')))
-		path[i - 1] = '\0';
-	if (*path == '/' && *(path + 1) == '.'
-			&& (*(path + 2) == '.' || !*(path + 2)))
-		*(path + 1) = '\0';
+	if (*str == '/' && *(str + 1) == '.'
+			&& (*(str + 2) == '.' || (*(str + 2) == 0)))
+		ft_memmove(str + 1, str + ((*str + 2) ? 3 : 2), ft_strlen(str + 2) + 1);
+	if (*str == '/' && *(str + 1) == '/')
+		ft_strcpy(str, str + 1);
 }
 
 void		ft_update_prompt(t_config *config)
@@ -139,7 +137,7 @@ void		ft_cd(char **argv, t_config *config)
 			return ;
 	}
 	if (!path && !argv[i] && (((path = ft_getenv("HOME", config->env))
-					&& *path) || !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
+				&& *path) || !ft_error(SHNAME, "cd", "HOME not set", CR_ERROR)))
 		path = ft_strdup(path);
 	else if (argv[i] && argv[i][0] == '/')
 		path = ft_strdup(argv[i]);
