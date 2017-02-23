@@ -6,15 +6,15 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 14:28:55 by tboos             #+#    #+#             */
-/*   Updated: 2017/01/05 18:45:16 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/23 16:10:16 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_backslash(char **str)
+static char	*ft_backslash(char **str, char c)
 {
-	if (**str == '\\')
+	if (**str == '\\' && c != '\'')
 		++(*str);
 	if (**str)
 		++(*str);
@@ -51,7 +51,7 @@ char		*ft_gonextquote(char **str, char c)
 {
 	++(*str);
 	while (**str && **str != c)
-		if (ft_backslash(str))
+		if (ft_backslash(str, c))
 			return (BACK_ERR);
 	if (**str != c)
 	{
@@ -86,7 +86,7 @@ char		*ft_matchchr(char **str)
 			return (test);
 		if (**str == '\"' && (test = ft_gonextquote(str, **str)))
 			return (test);
-		if (ft_backslash(str) && *(*str - 1) == '\\')
+		if (ft_backslash(str, 0) && *(*str - 1) == '\\')
 			return (BACK_ERR);
 	}
 	return (NULL);
