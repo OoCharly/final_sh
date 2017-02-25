@@ -61,6 +61,10 @@ t_list			*ft_lexer_sshell_on(char *cmd, size_t *i, t_list *next)
 
 void			ft_lexer_sshell_off(char *cmd, size_t i)
 {
+	t_config	*config;
+
+	config = ft_save_config(NULL);
+	config->lexerlop = 1;
 	(void)i;
 	ft_save_cmd(cmd + 1);
 }
