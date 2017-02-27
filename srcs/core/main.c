@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:44:08 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/21 14:09:25 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:32:26 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	ft_tricase(int ac, char **av, t_config *config)
 static int	ft_history_loc_init(t_config *config, char *av)
 {
 	char		*home;
-	(void)av;
 
+	(void)av;
 	if (!(home = ft_getenv("HOME", config->env)) || home[0] == 0)
 	{
 		ft_error(SHNAME, "failed to load history", "HOME not set", CR_ERROR);

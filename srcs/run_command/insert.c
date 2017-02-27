@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/23 15:45:41 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:33:35 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int	ft_cleancmd(char *str)
 {
 	char	tok;
 	char	bol;
-	
+
 	while (*str && !(bol = 0))
 	{
-		if ((*str == '"' || *str == '\'') && (tok = *str) 
+		if ((*str == '"' || *str == '\'') && (tok = *str)
 				&& ft_memmove(str, str + 1, ft_strlen(str)))
 		{
 			while (*str && *str != tok && !(bol = 0))

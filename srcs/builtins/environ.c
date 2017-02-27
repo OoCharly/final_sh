@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/21 15:05:24 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:29:25 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		ft_default_env(t_config *config)
 	t_passwd	*passwd;
 	char		*tmp;
 
-	if (!(passwd = getpwuid(getuid())) || !(tmp = getcwd(NULL, 0))
+	if (!(passwd = getpwuid(getuid()))
+	|| !(tmp = getcwd(NULL, 0))
 	|| (!config->env && !(config->env = (char**)ft_memalloc(sizeof(char*)))))
 		return (false);
 	ft_setenv("PWD", tmp, config);
