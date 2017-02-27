@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:56:22 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/17 14:01:05 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 18:19:31 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			ft_setenv(char *name, char *value, t_config *config);
 void			ft_readysetenv(char **argv, t_config *config);
 void			ft_unsetenv(char **argv, t_config *config);
 void			ft_echo(char **argv);
+int				ft_cslink(char *path);
 /*
 **jobs.c && jobs_utils.c
 */
