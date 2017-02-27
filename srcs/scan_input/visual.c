@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 17:40:06 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/27 17:02:25 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/27 17:06:52 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_viscut(t_stream *stream)
 
 	if (stream->command)
 	{
-		printf("___%zu__", stream->visual_pos);
 		pos = stream->pos;
 		FREE((void **)&stream->config->visual_buf);
 		stream->config->visual_buf = ft_strsub(stream->command,
