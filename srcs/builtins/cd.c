@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/21 17:26:15 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 14:20:30 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static void	ft_clean_path(char *str)
 		else
 			i++;
 	}
-	if (*str == '/' && *(str + 1) == '.'
+	while (*str == '/' && *(str + 1) == '.'
 			&& (*(str + 2) == '.' || (*(str + 2) == 0)))
-		ft_memmove(str + 1, str + ((*str + 2) ? 3 : 2), ft_strlen(str + 2) + 1);
-	if (*str == '/' && *(str + 1) == '/')
+		ft_memmove(str + 1, str + (*(str + 2) ? 4 : 2), ft_strlen(str + 2) + 2);
+	while (*str == '/' && *(str + 1) == '/')
 		ft_strcpy(str, str + 1);
 }
 
