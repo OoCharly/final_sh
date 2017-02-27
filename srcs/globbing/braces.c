@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:39:35 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/08 16:16:33 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/21 18:17:00 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ t_list			*ft_braces(char *str, char out)
 			str = ft_catlist(&(b.arg1), str, b.jump, &b);
 		else if (*str == ',' && !out)
 		{
+			if (!*(str + 1))
+				ft_list_merge(&(b.all), ft_lstnew(ft_strnew(BRACES_SIZE), 1));
 			ft_list_merge(&(b.all), b.arg1);
 			b.arg1 = NULL;
 		}

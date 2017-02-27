@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/16 22:01:43 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/23 15:45:41 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,25 @@
 static int	ft_cleancmd(char *str)
 {
 	char	tok;
-
-	while (*str)
+	char	bol;
+	
+	while (*str && !(bol = 0))
 	{
-		if (*str == '"' || *str == '\'')
+		if ((*str == '"' || *str == '\'') && (tok = *str) 
+				&& ft_memmove(str, str + 1, ft_strlen(str)))
 		{
-			tok = *str;
-			ft_memmove(str, str + 1, ft_strlen(str));
-			while (*str && *str != tok)
+			while (*str && *str != tok && !(bol = 0))
 			{
-				if (*str == '\\' && tok == '"' && *(str + 1) == tok)
-					ft_memmove(str, str + 1, ft_strlen(str));
-				str++;
+				if (*str == '\\' && tok == '"' && (*(str + 1) == tok
+					|| *(str + 1) == '\\' || (*(str + 1) == '\n' && (bol = 1))))
+					ft_memmove(str, str + 1 + bol, ft_strlen(str));
+				str += (bol) ? 0 : 1;
 			}
 			ft_memmove(str, str + 1, ft_strlen(str));
 		}
 		else if (*(str++) == '\\')
-			ft_memmove(str - 1, str, ft_strlen(str) + 1);
+			ft_memmove(str - 1, str + ((*(str) == '\n') ? 1 : 0),
+					ft_strlen(str) + 1);
 	}
 	return (1);
 }

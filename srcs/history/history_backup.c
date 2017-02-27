@@ -99,6 +99,7 @@ static void	ft_fill_history(t_config *config, char *tmp)
 {
 	char	*kill;
 
+	ft_strchrsed(tmp, '\t', ' ');
 	if (tmp[0] == '|')
 	{
 		if (config->history[config->hindex]

@@ -9,3 +9,6 @@ test*
 *.gch
 a.out
 *.dSYM
+test
+*test
+test*

@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:21:35 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/17 18:45:07 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/21 15:05:24 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 int		ft_default_env(t_config *config)
 {
 	t_passwd	*passwd;
+	char		*tmp;
 
-	ft_free_config(config);
-	if (!(config->env = (char **)ft_memalloc(sizeof(char*))))
+	if (!(passwd = getpwuid(getuid())) || !(tmp = getcwd(NULL, 0))
+	|| (!config->env && !(config->env = (char**)ft_memalloc(sizeof(char*)))))
 		return (false);
-	ft_setenv("PATH", DPATH, config);
-	if ((passwd = getpwuid(getuid())))
-	{
-		ft_setenv("USER", passwd->pw_name, config);
+	ft_setenv("PWD", tmp, config);
+	ft_freegiveone((void**)&tmp);
+	if (!ft_getenv("HOME", config->env))
 		ft_setenv("HOME", passwd->pw_dir, config);
-	}
-	ft_setenv("SHLVL", "1", config);
+	if (!ft_getenv("USER", config->env))
+		ft_setenv("USER", passwd->pw_name, config);
+	if (!ft_getenv("LSCOLORS", config->env))
+		ft_setenv("LSCOLORS", DLSCOLORS, config);
 	return (true);
 }
 
@@ -51,7 +53,7 @@ void	ft_setenv(char *n, char *val, t_config *config)
 		&& ft_freegiveone((void **)&mem) && (config->env = f))
 		ft_error(SHNAME, "malloc error during setenv for", n, CR_ERROR);
 	else if (f && config->env && f != config->env)
-		FREE((void**)f);
+		FREE((void**)&f);
 	if (config->shell_state != RUNNING_SON && n && !ft_strcmp("PATH", n))
 		ft_pathtohash(config);
 	(i >= 0) ? ft_freegiveone((void**)&(mem)) : 1;
