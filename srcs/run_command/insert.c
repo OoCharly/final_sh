@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:58:11 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/27 13:33:35 by rbaran           ###   ########.fr       */
+/*   Updated: 2017/02/27 15:14:18 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	ft_cleancmd(char *str)
 			while (*str && *str != tok && !(bol = 0))
 			{
 				if (*str == '\\' && tok == '"' && (*(str + 1) == tok
-					|| *(str + 1) == '\\' || (*(str + 1) == '\n' && (bol = 1))))
+					|| *(str + 1) == '\\' || (*(str + 1) == '\n' && (bol = 1)) 
+					|| *(str + 1) == '$'))
 					ft_memmove(str, str + 1 + bol, ft_strlen(str));
 				str += (bol) ? 0 : 1;
 			}
