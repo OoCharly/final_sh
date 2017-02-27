@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 17:43:47 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 19:04:25 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/27 19:02:44 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,30 @@ void		ft_print_list(t_list *elem)
 		ft_print_jobs(elem->data, NULL);
 }
 
+static int	ft_parse_keeper(t_list *chimera)
+{
+	int		op;
+
+	op = 1;
+	while (chimera)
+	{
+		if (!chimera->data_size || (chimera->data_size == 1
+			&& (ft_strchr((char*)chimera->data, '<')
+				|| (ft_strchr((char*)chimera->data, '>')))))
+			op = 0;
+		else if (chimera->data_size == SSHELL && (op == 0
+			|| !ft_parse_keeper(chimera->data)) && ft_error(SHNAME,
+			"parse error near", "(", CR_ERROR))
+			return (0);
+		else if (chimera->data_size == SSHELL)
+			op = 0;
+		else
+			op = 1;
+		chimera = chimera->next;
+	}
+	return (1);
+}
+
 void		ft_run_command(t_config *config)
 {
 	config->shell_state = RUNNING_COMMAND;
@@ -44,7 +68,9 @@ void		ft_run_command(t_config *config)
 	config->lexerlop = 0;
 	if ((config->chimera = ft_lexer(config->command)))
 	{
-		if (!ft_herringbone(config->chimera, config))
+		if (!ft_parse_keeper(config->chimera))
+			ft_freelist(&config->chimera);
+		else if (!ft_herringbone(config->chimera, config))
 			ft_freelist(&config->chimera);
 		else
 			ft_parse(config);

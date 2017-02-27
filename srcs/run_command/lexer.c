@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:05:45 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 21:09:50 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/27 18:47:19 by tboos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				ft_next_op(char *cmd, size_t i)
 		++i;
 		return (ft_next_op(cmd, i));
 	}
-	if (cmd[i] == '#')
+	if (cmd[i] == '#' && (!i || ft_isspace(cmd[i - 1])))
 		cmd[i] = 0;
 	return (i);
 }
@@ -55,7 +55,8 @@ static t_list	*ft_op_handle(char *cmd, size_t *i)
 	if (!(next = ft_av_handle(cmd, *i)))
 		return (NULL);
 	else if (cmd[*i] == '(' && ft_test_emptyness(cmd, *i + 1, ')')
-		&& ft_error(SHNAME, "parse error", "empty sshell", CR_ERROR))
+			&& ft_error(SHNAME, "parse error", "empty sshell", CR_ERROR)
+			&& !ft_freelist(&next))
 		return (NULL);
 	else if (cmd[*i] == '(' && ++(*i))
 		return (ft_lexer_sshell_on(cmd, i, next));
