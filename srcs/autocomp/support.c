@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:44:31 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/16 22:02:02 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/27 15:55:03 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_end_autocomp(t_stream *stream)
 	stream->tput = "cd";
 	ft_tputs(stream);
 	ft_gomatch(stream, pos_buf);
+	signal(SIGINT, &ft_signal_handle);
 }
 
 /*

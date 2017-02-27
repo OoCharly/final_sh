@@ -6,11 +6,23 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 17:01:07 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/01/08 16:00:54 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/27 18:35:29 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Like opendir but return NULL if the file is a symlink.
+*/
+
+DIR				*ft_opendir(const char *filename)
+{
+	if (!ft_cslink((char*)filename))
+		return (opendir(filename));
+	else
+		return (NULL);
+}
 
 /*
 ** Search the position of the closing char from the first opening char (must be

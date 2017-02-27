@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   globbing.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/27 17:12:41 by jmunoz            #+#    #+#             */
+/*   Updated: 2017/02/27 19:07:15 by jmunoz           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   globbing.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 13:17:18 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/02/17 17:33:12 by jmunoz           ###   ########.fr       */
+/*   Updated: 2017/02/27 16:56:41 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +27,7 @@
 # include "minishell.h"
 
 # define BRACES_SIZE 3000
-# define GLOB_LIST_LIMIT 4096
+# define GLOB_OCCUR_LIMIT 25000
 
 typedef struct	s_brace
 {
@@ -33,6 +45,7 @@ typedef struct	s_brace
 size_t			ft_size_list(t_list *begin);
 int				ft_checkchars(char *arg, char *chars);
 int				ft_closechar(char *arg, char *c);
+DIR				*ft_opendir(const char *filename);
 /*
 ** globbing.c
 */

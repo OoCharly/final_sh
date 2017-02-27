@@ -6,7 +6,7 @@
 /*   By: jmunoz <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 21:09:33 by jmunoz            #+#    #+#             */
-/*   Updated: 2017/02/17 19:13:44 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 19:33:20 by jmunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static size_t	ft_count_loop(int i)
 {
-	static size_t save = 0;
+	static size_t occurence = 0;
 
 	if (i < 0)
-		save = 0;
+		occurence = 0;
 	else if (i > 0)
-		save += i;
-	return (save);
+		occurence += i;
+	return (occurence);
 }
 
 /*
@@ -51,10 +51,10 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 	if (!ft_strcmp(file, ".") && !ft_strncmp(glob, "**/", 3))
 	{
 		if (glob[3])
-			ft_glob((dir = opendir((!*buf) ? "." : buf)), buf,
+			ft_glob((dir = ft_opendir((!*buf) ? "." : buf)), buf,
 					(glob + ft_strlenc(glob, '/') + 1));
 		else
-			ft_glob((dir = opendir((!*buf) ? "." : buf)), buf, (glob + 1));
+			ft_glob((dir = ft_opendir((!*buf) ? "." : buf)), buf, (glob + 1));
 		closedir(dir);
 	}
 	if (ft_match(glob, file, 0) && ((ft_strcmp(file, ".")
@@ -63,9 +63,10 @@ static void		ft_check_file(char *file, char *glob, char *buf, int end)
 	|| (ft_match("..", glob, 0) && !ft_strcmp(file, ".."))))
 	{
 		if (ft_strcat(buf, file) && ft_strncmp(glob, "**/", 3))
-			ft_glob((dir = opendir(buf)), buf, (glob + ft_strlenc(glob, '/')));
+			ft_glob((dir = ft_opendir(buf)), buf,
+				(glob + ft_strlenc(glob, '/')));
 		else
-			ft_glob((dir = opendir(buf)), ft_strcat(buf, "/"), glob);
+			ft_glob((dir = ft_opendir(buf)), ft_strcat(buf, "/"), glob);
 		if (dir)
 			closedir(dir);
 		ft_bzero(&buf[end], _POSIX_PATH_MAX - end);
@@ -87,17 +88,13 @@ void			ft_glob(DIR *dir, char *path, char *glob)
 
 	begin = ft_save_list(NULL, 0);
 	end = ft_strlen(ft_strcpy(buf, path));
-	if (!*glob && ft_count_loop(1))
+	if (!*glob)
 		ft_list_push_back(begin, ft_lstnew(ft_strdup(buf), 0));
 	if (dir && *glob == '/')
 		ft_glob(dir, ft_strcat(buf, "/"), ++glob);
-	else if (dir)
+	else if (dir && ft_count_loop(1) && ft_count_loop(0) < GLOB_OCCUR_LIMIT)
 		while ((file = readdir(dir)))
-		{
-			if (ft_count_loop(0) > GLOB_LIST_LIMIT)
-				break ;
 			ft_check_file(file->d_name, glob, buf, end);
-		}
 }
 
 /*
@@ -118,6 +115,8 @@ char			**ft_launch_glob(char *str)
 	if (!(current_dir = (*str == '/') ? opendir("/") : opendir(".")))
 		return (NULL);
 	ft_glob(current_dir, NULL, (char*)str);
+	if (ft_count_loop(0) > GLOB_OCCUR_LIMIT)
+		ft_lstdel(&begin, &ft_list_free_data);
 	ft_count_loop(-1);
 	closedir(current_dir);
 	while (begin)
