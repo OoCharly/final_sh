@@ -6,7 +6,7 @@
 /*   By: cdesvern <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 14:01:37 by cdesvern          #+#    #+#             */
-/*   Updated: 2017/02/17 14:33:59 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 18:19:51 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,11 @@ char			*ft_resolve_symlink(char *path)
 		return (ft_strdup(cp));
 	ft_relative_link(slash1, NULL, cp, &result);
 	return (result);
+}
+
+int				ft_cslink(char *path)
+{
+	char	tmp[_POSIX_PATH_MAX + 1];
+
+	return ((readlink(path, tmp, _POSIX_PATH_MAX) < 0) ? 0 : 1);
 }
