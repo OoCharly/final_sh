@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/27 14:42:09 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/27 16:08:33 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 	if (nosymlink == 1)
 		path = ft_resolve_symlink(path);
 	ft_clean_path(path);
-	if (!*path && (*path = '/') && !ft_access_dir(path))
-		;
-	else if (((err = "no directory or file named") && -1 == access(path, F_OK))
+	if ((err = &path[ft_strlen(path) - 1]) && (*err == '/') && (err != path))
+		*err = 0;
+	if (((err = "no directory or file named") && -1 == access(path, F_OK))
 			|| ((err = "access denied") && -1 == stat(path, &buf))
 			|| ((err = "not a directory") && !S_ISDIR(buf.st_mode))
 			|| ((err = "permission denied") && -1 == access(path, X_OK))
