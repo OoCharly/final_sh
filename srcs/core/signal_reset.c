@@ -20,6 +20,8 @@ void	ft_signal_reset(void)
 		ft_status(1);
 	if (SIG_ERR == signal(SIGTTOU, SIG_DFL))
 		ft_status(1);
+	if (SIG_ERR == signal(SIGTTIN, SIG_DFL))
+		ft_status(1);
 	if (SIG_ERR == signal(SIGCHLD, SIG_DFL))
 		ft_status(1);
 }

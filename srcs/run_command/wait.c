@@ -12,35 +12,6 @@
 
 #include "minishell.h"
 
-static char	*ft_get_signalerr(int signum, char *err)
-{
-	if (signum == SIGSEGV)
-		err = ERR_SEGV;
-	else if (signum == SIGQUIT)
-		err = ERR_QUIT;
-	else if (signum == SIGILL)
-		err = ERR_ILL;
-	else if (signum == SIGTRAP)
-		err = ERR_TRAP;
-	else if (signum == SIGABRT)
-		err = ERR_ABRT;
-	else if (signum == SIGBUS)
-		err = ERR_BUS;
-	else if (signum == SIGFPE)
-		err = ERR_FPE;
-	else if (signum == SIGKILL)
-		err = ERR_KILL;
-	else if (signum == SIGTERM)
-		err = ERR_TERM;
-	else if (signum == SIGSTKFLT)
-		err = ERR_STKFLT;
-	else if (signum == SIGXCPU)
-		err = ERR_XCPU;
-	else if (signum == SIGXFSZ)
-		err = ERR_XFSZ;
-	return (err);
-}
-
 static bool	ft_abord_signal(int signum, pid_t pid, t_list **proc)
 {
 	char		*err;
@@ -128,7 +99,7 @@ void		ft_wait_sentence(t_list *job, t_config *config)
 		ft_list_push_front(&job, new);
 	if ((DOT == 'b' || ft_wait(&job, config)))
 	{
-		(((t_sentence*)new->data)->state = (DOT == 'b' && !DOT) ? RUN : SUSP);
+		(((t_sentence*)new->data)->state = (DOT == 'b') ? RUN : SUSP);
 		if (!(new = ft_lstnew((void*)job, JOB)))
 		{
 			ft_error(SHNAME, "parser", "malloc error on job control", CR_ERROR);

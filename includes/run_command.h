@@ -139,7 +139,10 @@ int				ft_isfunctionname(char *cmd);
 /*
 **process_manag.c
 */
-void			ft_jobs_manag(void);
 void			ft_process_manag(t_list **process, t_list *tmp,
 							t_config *config);
+/*
+**jobs_manag.c
+*/
+void			ft_jobs_manag(t_config *config);
 #endif

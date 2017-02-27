@@ -50,8 +50,8 @@ void	ft_print_jobs(t_list *sentence, char *description)
 	if (ft_cmp_jobs(sentence, desc, i))
 	{
 		FT_PUTSTRFD("[", ft_st_itoa(i), "]       ", 1);
-		FT_PUTSTRFD(ft_st_itoa(getpgid(*((int*)sentence->next->data))), "    ",
-				((t_sentence*)sentence)->state == RUN ?
+		FT_PUTSTRFD(ft_st_itoa(*((int*)sentence->next->data)), "    ",
+				((t_sentence*)sentence->data)->state == RUN ?
 										"Running" : "Suspended", 1);
 		FT_PUTSTRFD("    ", ((t_sentence*)sentence->data)->sentence, "\n", 1);
 		found = 1;

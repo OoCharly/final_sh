@@ -50,8 +50,11 @@ static void	ft_scriptgnal_handle(int i)
 
 static void	ft_sigchld(int sig)
 {
+	t_config	*config;
+
 	(void)sig;
-	ft_jobs_manag();
+	config = ft_save_config(NULL);
+	ft_jobs_manag(config);
 }
 
 /*

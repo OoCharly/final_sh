@@ -143,6 +143,11 @@ int				ft_signal(int mode);
 void			ft_signal_handle(int i);
 void			ft_sigwinch(int mode);
 /*
+**signal_err.c
+*/
+char			*ft_get_signalerr(int signum, char *err);
+char			*ft_get_signalsusp(int signum, char *err);
+/*
 **signal_reset.c
 */
 void			ft_signal_reset(void);

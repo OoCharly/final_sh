@@ -57,8 +57,8 @@ static void		ft_continue(t_config *config, char *description, int mode)
 	p = target;
 	if (mode == JOBS_FG)
 		tcsetpgrp(0, getpgid(*((pid_t*)target->next->data)));
-	while ((p = p->next))
-		kill(-getpgid(*((pid_t*)target->next->data)), SIGCONT);
+	if (p && p->next)
+		kill(-(*((pid_t*)target->next->data)), SIGCONT);
 	if (mode == JOBS_BG)
 		config->dot_sequence = 'b';
 	ft_freegiveone((void**)&config->fg_sentence);

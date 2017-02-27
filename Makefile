@@ -40,6 +40,7 @@ core/minishell.c \
 core/save.c \
 core/script.c \
 core/signal.c \
+core/signal_err.c \
 core/signal_reset.c \
 core/terminit.c \
 globbing/braces.c \
@@ -71,6 +72,7 @@ run_command/parser_multiple_fd.c \
 run_command/parser_sequence.c \
 run_command/pipehandle.c \
 run_command/process_manag.c \
+run_command/jobs_manag.c \
 run_command/quote_replace.c \
 run_command/variable_utils.c \
 run_command/variables.c \

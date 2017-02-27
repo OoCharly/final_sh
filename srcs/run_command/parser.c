@@ -34,8 +34,6 @@ static t_list	*ft_cut_lst(t_list *begin, t_config *config)
 			break ;
 		}
 	}
-	if (!begin)
-		DOT = ';';
 	return (begin);
 }
 
