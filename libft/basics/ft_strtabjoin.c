@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:27:02 by tboos             #+#    #+#             */
-/*   Updated: 2016/11/18 14:27:17 by tboos            ###   ########.fr       */
+/*   Updated: 2017/02/27 13:58:52 by rbaran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strtabtotallen(char **tab)
 	size_t len;
 
 	len = 0;
-	while (*tab)
+	while (tab && *tab)
 	{
 		len += ft_strlen(*tab);
 		++tab;
