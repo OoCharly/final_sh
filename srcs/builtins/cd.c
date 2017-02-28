@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/28 14:22:55 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/28 15:02:44 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_clean_path(char *str)
 			|| str[i + 2] == '/')) || (str[i + 1] == '/')))
 			ft_strcpy(str + i, str + i + ((str[i + 1] == '/') ? 1 : 2));
 		else if (str[i] == '/' && str[i + 1] == '.' && str[i + 2] == '.'
-				&& (str[i + 3] == 0 || str[i + 3] == '/')
+				&& (str[i + 3] == '/' || str[i + 3] == 0)
 				&& i - 2 > 0 && str[i - 1] != '.' && str[i - 2] != '.')
 		{
 			while (--i != 0 && str[i] != '/')
@@ -33,7 +33,7 @@ static void	ft_clean_path(char *str)
 		else
 			i++;
 	}
-	while (!(i = 0) && *str == '/' && *(str + 1) == '.'	&& ((*(str + 2) == '.'
+	while (!(i = 0) && *str == '/' && *(str + 1) == '.' && ((*(str + 2) == '.'
 			&& ((*(str + 3) == '/' && (i = 1)) || *(str + 3) == 0))
 			|| (*(str + 2) == 0)))
 		ft_strcpy(str + 1, str + i + (*(str + 2) ? 3 : 2));
@@ -71,23 +71,23 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 
 	if (nosymlink == 1)
 		path = ft_resolve_symlink(path);
-	ft_clean_path(path);
-	if ((err = &path[ft_strlen(path) - 1]) && (*err == '/') && (err != path))
-		*err = 0;
-	if (((err = "no directory or file named") && -1 == access(path, F_OK))
-			|| ((err = "access denied") && -1 == stat(path, &buf))
-			|| ((err = "not a directory") && !S_ISDIR(buf.st_mode))
-			|| ((err = "permission denied") && -1 == access(path, X_OK))
-			|| (err = NULL))
-		ft_error("cd", err, path, CR_ERROR);
-	else if (!chdir(path))
+	if (!chdir(path))
 	{
+		ft_clean_path(path);
+		if ((err = &path[ft_strlen(path) - 1]) && *err == '/' && (err != path))
+			*err = 0;
+		err = NULL;
 		ft_setenv("PWD", (nosymlink) ? (err = getcwd(NULL, 0)) : path, config);
 		ft_update_prompt(config);
 		FREE((void**)&err);
 		FREE((void**)&path);
 		return ;
 	}
+	else if (((err = "no directory or file named") && -1 == access(path, F_OK))
+			|| ((err = "access denied") && -1 == stat(path, &buf))
+			|| ((err = "not a directory") && !S_ISDIR(buf.st_mode))
+			|| ((err = "permission denied") && -1 == access(path, X_OK)))
+		ft_error("cd", err, path, CR_ERROR);
 	else
 		ft_error(SHNAME, "failed moving to directory", path, CR_ERROR);
 	FREE((void**)&path);
@@ -144,7 +144,8 @@ void		ft_cd(char **argv, t_config *config)
 	else if (argv[i] && argv[i][0] == '/')
 		path = ft_strdup(argv[i]);
 	else if (argv[i] && (path = config->pwd))
-		path = ft_strslashjoin(path, argv[i]);
+		path = (*(path + 1) ? ft_strslashjoin(path, argv[i]) :
+				ft_strjoin(path, argv[i]));
 	if (path && *path)
 		ft_path_follow(path, config, nosymlink);
 }
