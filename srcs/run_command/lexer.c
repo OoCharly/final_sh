@@ -55,8 +55,7 @@ static t_list	*ft_op_handle(char *cmd, size_t *i)
 	if (!(next = ft_av_handle(cmd, *i)))
 		return (NULL);
 	else if (cmd[*i] == '(' && ft_test_emptyness(cmd, *i + 1, ')')
-			&& ft_error(SHNAME, "parse error", "empty sshell", CR_ERROR)
-			&& !ft_freelist(&next))
+			&& ft_error(SSHELL_ERR) && !ft_freelist(&next))
 		return (NULL);
 	else if (cmd[*i] == '(' && ++(*i))
 		return (ft_lexer_sshell_on(cmd, i, next));

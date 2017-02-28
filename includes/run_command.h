@@ -42,7 +42,8 @@
 # define BOTHER_FD	((t_pipe*)begin->next->data)->others_fd
 # define RDEFAULT	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
-# define MALLOC_ERR	SHNAME, "export", "malloc error", CR_ERROR | SERROR
+# define MALLOC_ERR		SHNAME, "export", "malloc error", CR_ERROR | SERROR
+# define SSHELL_ERR		SHNAME, "parse error", "empty sshell", CR_ERROR
 # define N (void*)n
 
 typedef struct	s_sentence
