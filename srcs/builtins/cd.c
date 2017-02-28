@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/27 16:57:23 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/28 12:34:11 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	ft_clean_path(char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		if (str[i] == '/' && ((str[i + 1] == '.' && (str[i + 2] == '/'
-				|| !str[i + 2])) || (str[i + 1] == '/')))
+		if (str[i] == '/' && ((str[i + 1] == '.' && str[i + 2] == '/')
+						|| (str[i + 1] == '/')))
 			ft_strcpy(str + i, str + i + ((str[i + 1] == '/') ? 1 : 2));
 		else if (str[i] == '/' && str[i + 1] == '.' && str[i + 2] == '.'
 				&& (str[i + 3] == 0 || str[i + 3] == '/')
