@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/28 12:34:11 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/28 14:22:55 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	ft_clean_path(char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		if (str[i] == '/' && ((str[i + 1] == '.' && str[i + 2] == '/')
-						|| (str[i + 1] == '/')))
+		if (str[i] == '/' && ((str[i + 1] == '.' && ((str[i + 2] == 0 && i != 0)
+			|| str[i + 2] == '/')) || (str[i + 1] == '/')))
 			ft_strcpy(str + i, str + i + ((str[i + 1] == '/') ? 1 : 2));
 		else if (str[i] == '/' && str[i + 1] == '.' && str[i + 2] == '.'
 				&& (str[i + 3] == 0 || str[i + 3] == '/')
@@ -33,10 +33,10 @@ static void	ft_clean_path(char *str)
 		else
 			i++;
 	}
-	while (*str == '/' && *(str + 1) == '.'
-			&& ((*(str + 2) == '.' && (*(str + 3) == '/' || *(str + 3) == 0))
+	while (!(i = 0) && *str == '/' && *(str + 1) == '.'	&& ((*(str + 2) == '.'
+			&& ((*(str + 3) == '/' && (i = 1)) || *(str + 3) == 0))
 			|| (*(str + 2) == 0)))
-		ft_memmove(str + 1, str + (*(str + 2) ? 4 : 2), ft_strlen(str + 2) + 2);
+		ft_strcpy(str + 1, str + i + (*(str + 2) ? 3 : 2));
 	while (*str == '/' && *(str + 1) == '/')
 		ft_strcpy(str, str + 1);
 }
