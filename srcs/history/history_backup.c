@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:59:12 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/15 19:15:00 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/28 13:04:33 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void		ft_purge_hist_opt(t_config *config, char **hist, int index, int mde)
 		i = index;
 		while (j < config->history_new_size)
 		{
+			j++;
 			if (!ft_safeputstr(fd, hist[i], mde, &i)
 				|| i == index)
 				break ;
-			j++;
 		}
 		close(fd);
 	}
