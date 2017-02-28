@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 08:37:57 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/28 15:02:44 by cdesvern         ###   ########.fr       */
+/*   Updated: 2017/02/28 15:06:55 by cdesvern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static void	ft_path_follow(char *path, t_config *config, int nosymlink)
 	struct stat	buf;
 	char		*err;
 
-	if (nosymlink == 1)
-		path = ft_resolve_symlink(path);
 	if (!chdir(path))
 	{
 		ft_clean_path(path);
 		if ((err = &path[ft_strlen(path) - 1]) && *err == '/' && (err != path))
 			*err = 0;
+		if (nosymlink == 1)
+			path = ft_resolve_symlink(path);
 		err = NULL;
 		ft_setenv("PWD", (nosymlink) ? (err = getcwd(NULL, 0)) : path, config);
 		ft_update_prompt(config);
