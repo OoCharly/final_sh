@@ -6,7 +6,7 @@
 /*   By: tboos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 16:16:34 by tboos             #+#    #+#             */
-/*   Updated: 2017/02/22 11:43:21 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/28 12:03:18 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ static void	ft_builtin_exit(char **argv, t_config *config)
 		config->last_exit = status;
 	}
 	ft_status(config->last_exit);
+	if (config->hloc)
+		ft_purge_history(config, config->history, config->hindex, 1);
+	else if (config->history[0])
+		ft_strtabfree(config->history);
 	ft_shell_exit(config);
 }
 

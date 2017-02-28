@@ -6,7 +6,7 @@
 /*   By: maxpetit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 18:20:47 by maxpetit          #+#    #+#             */
-/*   Updated: 2017/02/16 17:26:03 by maxpetit         ###   ########.fr       */
+/*   Updated: 2017/02/28 13:06:27 by maxpetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ void		ft_manage_param(char **argv, int i, t_config *config)
 	j = 0;
 	while (argv[i][++j] && !ft_strisdigit(argv[i]))
 	{
-		if (argv[i][j] == 'c' && config->history[0] && !(config->hindex = 0))
+		if (argv[i][j] == 'c' && config->history[0] && !(config->hindex = 0)
+			&& !(config->history_new_size = 0)
+			&& !(config->hindex_first = 0))
 			ft_strtabfree_content(config->history);
 		else if (argv[i][j] == 'd' && argv[i + 1] && ft_strisdigit(argv[i + 1])
 			&& ((idx = ft_atoi(argv[i + 1]) - 1) >= 0) && idx < HISTORY_SIZE)
